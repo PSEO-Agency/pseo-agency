@@ -1,8 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
+import { useState } from "react";
+import { AuditModal } from "./AuditModal";
 
 export const Hero = () => {
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+
   return (
     <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-20 relative overflow-hidden">
       {/* Background decorative elements */}
@@ -23,7 +27,11 @@ export const Hero = () => {
               We create thousands of high-converting pages that rank and drive qualified leads to your business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4">
+              <Button 
+                size="lg" 
+                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4"
+                onClick={() => setIsAuditModalOpen(true)}
+              >
                 Get My SEO Strategy
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -60,6 +68,11 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+
+      <AuditModal 
+        isOpen={isAuditModalOpen} 
+        onClose={() => setIsAuditModalOpen(false)} 
+      />
     </section>
   );
 };
