@@ -11,14 +11,37 @@ import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
+interface TeamMember {
+  id: string;
+  name: string;
+  position: string | null;
+  bio: string | null;
+  image_url: string | null;
+  linkedin_url: string | null;
+  is_visible: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface FormData {
+  name: string;
+  position: string;
+  bio: string;
+  image_url: string;
+  linkedin_url: string;
+  is_visible: boolean;
+  sort_order: number;
+}
+
 export const TeamManager = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [teamMembers, setTeamMembers] = useState([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingMember, setEditingMember] = useState(null);
-  const [formData, setFormData] = useState({
+  const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     position: '',
     bio: '',
@@ -37,23 +60,24 @@ export const TeamManager = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchTeamMembers = async () => {
-    const { data, error } = await supabase
-      .from('team_members')
-      .select('*')
-      .order('sort_order', { ascending: true });
-    
-    if (error) {
+    try {
+      const { data, error } = await supabase
+        .from('team_members')
+        .select('*')
+        .order('sort_order', { ascending: true });
+      
+      if (error) throw error;
+      setTeamMembers(data || []);
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to fetch team members",
+        description: "Failed to fetch team members: " + error.message,
         variant: "destructive"
       });
-    } else {
-      setTeamMembers(data || []);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
@@ -89,7 +113,7 @@ export const TeamManager = () => {
         sort_order: 0
       });
       fetchTeamMembers();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
@@ -98,7 +122,7 @@ export const TeamManager = () => {
     }
   };
 
-  const handleEdit = (member) => {
+  const handleEdit = (member: TeamMember) => {
     setEditingMember(member);
     setFormData({
       name: member.name,
@@ -112,7 +136,7 @@ export const TeamManager = () => {
     setIsEditing(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this team member?')) return;
     
     try {
@@ -124,7 +148,7 @@ export const TeamManager = () => {
       if (error) throw error;
       toast({ title: "Success", description: "Team member deleted successfully" });
       fetchTeamMembers();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
@@ -218,7 +242,7 @@ export const TeamManager = () => {
                     <Input
                       type="number"
                       value={formData.sort_order}
-                      onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) })}
+                      onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
                     />
                   </div>
                 </div>

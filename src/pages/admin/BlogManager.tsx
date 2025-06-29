@@ -7,92 +7,112 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
 import { Plus, Edit, Eye, Trash2, ArrowLeft } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from '@/contexts/AuthContext';
 
 interface BlogPost {
   id: string;
   title: string;
-  excerpt: string;
-  category: string;
-  read_time: string;
+  excerpt: string | null;
+  category: string | null;
+  read_time: string | null;
   is_published: boolean;
   created_at: string;
   updated_at: string;
 }
 
 export const BlogManager = () => {
+  const { user, isAdmin } = useAuth();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
+    if (!user || !isAdmin) {
+      navigate('/admin/login');
+      return;
+    }
     fetchPosts();
-  }, []);
+  }, [user, isAdmin, navigate]);
 
   const fetchPosts = async () => {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) {
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to fetch blog posts",
+        description: "Failed to fetch blog posts: " + error.message,
         variant: "destructive",
       });
-    } else {
-      setPosts(data || []);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this blog post?')) return;
 
-    const { error } = await supabase
-      .from('blog_posts')
-      .delete()
-      .eq('id', id);
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .delete()
+        .eq('id', id);
 
-    if (error) {
-      toast({
-        title: "Error",
-        description: "Failed to delete blog post",
-        variant: "destructive",
-      });
-    } else {
+      if (error) throw error;
+      
       toast({
         title: "Success",
         description: "Blog post deleted successfully",
       });
       fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to delete blog post: " + error.message,
+        variant: "destructive",
+      });
     }
   };
 
   const togglePublish = async (id: string, currentStatus: boolean) => {
-    const { error } = await supabase
-      .from('blog_posts')
-      .update({ is_published: !currentStatus })
-      .eq('id', id);
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .update({ is_published: !currentStatus })
+        .eq('id', id);
 
-    if (error) {
-      toast({
-        title: "Error",
-        description: "Failed to update blog post",
-        variant: "destructive",
-      });
-    } else {
+      if (error) throw error;
+      
       toast({
         title: "Success",
         description: `Blog post ${!currentStatus ? 'published' : 'unpublished'} successfully`,
       });
       fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to update blog post: " + error.message,
+        variant: "destructive",
+      });
     }
   };
 
+  if (!user || !isAdmin) {
+    return null;
+  }
+
   if (loading) {
-    return <div className="p-6">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
   }
 
   return (
@@ -106,7 +126,12 @@ export const BlogManager = () => {
             </Button>
             <h1 className="text-3xl font-bold text-gray-900">Blog Manager</h1>
           </div>
-          <Button onClick={() => navigate('/admin/blog/new')}>
+          <Button onClick={() => {
+            toast({
+              title: "Coming Soon",
+              description: "Blog post creation will be available soon",
+            });
+          }}>
             <Plus className="h-4 w-4 mr-2" />
             New Post
           </Button>
@@ -117,7 +142,12 @@ export const BlogManager = () => {
             <Card>
               <CardContent className="text-center py-12">
                 <p className="text-gray-500 mb-4">No blog posts found</p>
-                <Button onClick={() => navigate('/admin/blog/new')}>
+                <Button onClick={() => {
+                  toast({
+                    title: "Coming Soon",
+                    description: "Blog post creation will be available soon",
+                  });
+                }}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create Your First Post
                 </Button>
@@ -150,7 +180,12 @@ export const BlogManager = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => navigate(`/admin/blog/edit/${post.id}`)}
+                        onClick={() => {
+                          toast({
+                            title: "Coming Soon",
+                            description: "Blog post editing will be available soon",
+                          });
+                        }}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>

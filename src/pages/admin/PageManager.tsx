@@ -7,19 +7,37 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+interface Page {
+  id: string;
+  title: string;
+  slug: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+interface FormData {
+  title: string;
+  slug: string;
+  meta_title: string;
+  meta_description: string;
+  is_published: boolean;
+}
 
 export const PageManager = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [pages, setPages] = useState([]);
+  const [pages, setPages] = useState<Page[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingPage, setEditingPage] = useState(null);
-  const [formData, setFormData] = useState({
+  const [editingPage, setEditingPage] = useState<Page | null>(null);
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     slug: '',
     meta_title: '',
@@ -36,23 +54,24 @@ export const PageManager = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchPages = async () => {
-    const { data, error } = await supabase
-      .from('pages')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (error) {
+    try {
+      const { data, error } = await supabase
+        .from('pages')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setPages(data || []);
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to fetch pages",
+        description: "Failed to fetch pages: " + error.message,
         variant: "destructive"
       });
-    } else {
-      setPages(data || []);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
@@ -94,7 +113,7 @@ export const PageManager = () => {
         is_published: true
       });
       fetchPages();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
@@ -103,7 +122,7 @@ export const PageManager = () => {
     }
   };
 
-  const handleEdit = (page) => {
+  const handleEdit = (page: Page) => {
     setEditingPage(page);
     setFormData({
       title: page.title,
@@ -115,7 +134,7 @@ export const PageManager = () => {
     setIsEditing(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this page?')) return;
     
     try {
@@ -131,7 +150,7 @@ export const PageManager = () => {
         description: "Page deleted successfully"
       });
       fetchPages();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,

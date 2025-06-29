@@ -11,14 +11,35 @@ import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
+interface Service {
+  id: string;
+  title: string;
+  description: string | null;
+  icon: string | null;
+  features: any[] | null;
+  is_featured: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface FormData {
+  title: string;
+  description: string;
+  icon: string;
+  features: any[];
+  is_featured: boolean;
+  sort_order: number;
+}
+
 export const ServicesManager = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingService, setEditingService] = useState(null);
-  const [formData, setFormData] = useState({
+  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     description: '',
     icon: '',
@@ -36,23 +57,24 @@ export const ServicesManager = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchServices = async () => {
-    const { data, error } = await supabase
-      .from('services')
-      .select('*')
-      .order('sort_order', { ascending: true });
-    
-    if (error) {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .order('sort_order', { ascending: true });
+      
+      if (error) throw error;
+      setServices(data || []);
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to fetch services",
+        description: "Failed to fetch services: " + error.message,
         variant: "destructive"
       });
-    } else {
-      setServices(data || []);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
@@ -87,7 +109,7 @@ export const ServicesManager = () => {
         sort_order: 0
       });
       fetchServices();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
@@ -96,7 +118,7 @@ export const ServicesManager = () => {
     }
   };
 
-  const handleEdit = (service) => {
+  const handleEdit = (service: Service) => {
     setEditingService(service);
     setFormData({
       title: service.title,
@@ -109,7 +131,7 @@ export const ServicesManager = () => {
     setIsEditing(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this service?')) return;
     
     try {
@@ -121,7 +143,7 @@ export const ServicesManager = () => {
       if (error) throw error;
       toast({ title: "Success", description: "Service deleted successfully" });
       fetchServices();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
@@ -199,7 +221,7 @@ export const ServicesManager = () => {
                     <Input
                       type="number"
                       value={formData.sort_order}
-                      onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) })}
+                      onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
                     />
                   </div>
                 </div>
