@@ -35,48 +35,142 @@ export type Database = {
       }
       blog_posts: {
         Row: {
+          author_id: string | null
           category: string | null
           content: string | null
           created_at: string | null
           excerpt: string | null
+          featured_image_alt: string | null
           id: string
           image_url: string | null
           is_published: boolean | null
           published_at: string | null
+          read_count: number | null
           read_time: string | null
           slug: string
+          tags: Json | null
           title: string
           updated_at: string | null
         }
         Insert: {
+          author_id?: string | null
           category?: string | null
           content?: string | null
           created_at?: string | null
           excerpt?: string | null
+          featured_image_alt?: string | null
           id?: string
           image_url?: string | null
           is_published?: boolean | null
           published_at?: string | null
+          read_count?: number | null
           read_time?: string | null
           slug: string
+          tags?: Json | null
           title: string
           updated_at?: string | null
         }
         Update: {
+          author_id?: string | null
           category?: string | null
           content?: string | null
           created_at?: string | null
           excerpt?: string | null
+          featured_image_alt?: string | null
           id?: string
           image_url?: string | null
           is_published?: boolean | null
           published_at?: string | null
+          read_count?: number | null
           read_time?: string | null
           slug?: string
+          tags?: Json | null
           title?: string
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "team_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_studies: {
+        Row: {
+          challenge: string | null
+          client_name: string
+          created_at: string | null
+          gallery_images: Json | null
+          id: string
+          image_url: string | null
+          industry: string | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          metrics: Json | null
+          results: string | null
+          service_ids: Json | null
+          slug: string
+          solution: string | null
+          sort_order: number | null
+          tags: Json | null
+          testimonial_id: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          challenge?: string | null
+          client_name: string
+          created_at?: string | null
+          gallery_images?: Json | null
+          id?: string
+          image_url?: string | null
+          industry?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          metrics?: Json | null
+          results?: string | null
+          service_ids?: Json | null
+          slug: string
+          solution?: string | null
+          sort_order?: number | null
+          tags?: Json | null
+          testimonial_id?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          challenge?: string | null
+          client_name?: string
+          created_at?: string | null
+          gallery_images?: Json | null
+          id?: string
+          image_url?: string | null
+          industry?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          metrics?: Json | null
+          results?: string | null
+          service_ids?: Json | null
+          slug?: string
+          solution?: string | null
+          sort_order?: number | null
+          tags?: Json | null
+          testimonial_id?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_case_studies_testimonial"
+            columns: ["testimonial_id"]
+            isOneToOne: false
+            referencedRelation: "testimonials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       content_fields: {
         Row: {
@@ -115,6 +209,102 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      faqs: {
+        Row: {
+          answer: string
+          category: string | null
+          created_at: string | null
+          id: string
+          is_visible: boolean | null
+          question: string
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          answer: string
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          is_visible?: boolean | null
+          question: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          answer?: string
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          is_visible?: boolean | null
+          question?: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      industries: {
+        Row: {
+          case_study_ids: Json | null
+          created_at: string | null
+          description: string | null
+          hero_image_url: string | null
+          icon: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          meta_description: string | null
+          meta_title: string | null
+          name: string
+          pain_points: Json | null
+          slug: string
+          solutions: Json | null
+          sort_order: number | null
+          stats: Json | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          case_study_ids?: Json | null
+          created_at?: string | null
+          description?: string | null
+          hero_image_url?: string | null
+          icon?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name: string
+          pain_points?: Json | null
+          slug: string
+          solutions?: Json | null
+          sort_order?: number | null
+          stats?: Json | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          case_study_ids?: Json | null
+          created_at?: string | null
+          description?: string | null
+          hero_image_url?: string | null
+          icon?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name?: string
+          pain_points?: Json | null
+          slug?: string
+          solutions?: Json | null
+          sort_order?: number | null
+          stats?: Json | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       navigation_items: {
         Row: {
@@ -190,6 +380,72 @@ export type Database = {
         }
         Relationships: []
       }
+      resources: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          description: string | null
+          difficulty_level: string | null
+          download_count: number | null
+          download_url: string | null
+          duration: string | null
+          file_size: string | null
+          id: string
+          is_featured: boolean | null
+          is_gated: boolean | null
+          is_published: boolean | null
+          slug: string
+          sort_order: number | null
+          tags: Json | null
+          thumbnail_url: string | null
+          title: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          download_count?: number | null
+          download_url?: string | null
+          duration?: string | null
+          file_size?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_gated?: boolean | null
+          is_published?: boolean | null
+          slug: string
+          sort_order?: number | null
+          tags?: Json | null
+          thumbnail_url?: string | null
+          title: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          download_count?: number | null
+          download_url?: string | null
+          duration?: string | null
+          file_size?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_gated?: boolean | null
+          is_published?: boolean | null
+          slug?: string
+          sort_order?: number | null
+          tags?: Json | null
+          thumbnail_url?: string | null
+          title?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       sections: {
         Row: {
           created_at: string | null
@@ -236,74 +492,146 @@ export type Database = {
       }
       services: {
         Row: {
+          case_study_ids: Json | null
           created_at: string | null
           description: string | null
+          faq_ids: Json | null
           features: Json | null
+          hero_image_url: string | null
           icon: string | null
           id: string
           is_featured: boolean | null
+          pricing_tiers: Json | null
+          process_steps: Json | null
+          slug: string | null
           sort_order: number | null
           title: string
           updated_at: string | null
         }
         Insert: {
+          case_study_ids?: Json | null
           created_at?: string | null
           description?: string | null
+          faq_ids?: Json | null
           features?: Json | null
+          hero_image_url?: string | null
           icon?: string | null
           id?: string
           is_featured?: boolean | null
+          pricing_tiers?: Json | null
+          process_steps?: Json | null
+          slug?: string | null
           sort_order?: number | null
           title: string
           updated_at?: string | null
         }
         Update: {
+          case_study_ids?: Json | null
           created_at?: string | null
           description?: string | null
+          faq_ids?: Json | null
           features?: Json | null
+          hero_image_url?: string | null
           icon?: string | null
           id?: string
           is_featured?: boolean | null
+          pricing_tiers?: Json | null
+          process_steps?: Json | null
+          slug?: string | null
           sort_order?: number | null
           title?: string
           updated_at?: string | null
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_public: boolean | null
+          key: string
+          type: string | null
+          updated_at: string | null
+          value: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          key: string
+          type?: string | null
+          updated_at?: string | null
+          value?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          key?: string
+          type?: string | null
+          updated_at?: string | null
+          value?: string | null
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
+          achievements: Json | null
           bio: string | null
           created_at: string | null
+          email: string | null
+          expertise: Json | null
           id: string
           image_url: string | null
           is_visible: boolean | null
           linkedin_url: string | null
           name: string
+          phone: string | null
           position: string | null
+          slug: string | null
+          social_links: Json | null
           sort_order: number | null
           updated_at: string | null
         }
         Insert: {
+          achievements?: Json | null
           bio?: string | null
           created_at?: string | null
+          email?: string | null
+          expertise?: Json | null
           id?: string
           image_url?: string | null
           is_visible?: boolean | null
           linkedin_url?: string | null
           name: string
+          phone?: string | null
           position?: string | null
+          slug?: string | null
+          social_links?: Json | null
           sort_order?: number | null
           updated_at?: string | null
         }
         Update: {
+          achievements?: Json | null
           bio?: string | null
           created_at?: string | null
+          email?: string | null
+          expertise?: Json | null
           id?: string
           image_url?: string | null
           is_visible?: boolean | null
           linkedin_url?: string | null
           name?: string
+          phone?: string | null
           position?: string | null
+          slug?: string | null
+          social_links?: Json | null
           sort_order?: number | null
           updated_at?: string | null
         }
@@ -311,6 +639,7 @@ export type Database = {
       }
       testimonials: {
         Row: {
+          category: string | null
           client_name: string
           company: string | null
           content: string
@@ -318,11 +647,14 @@ export type Database = {
           id: string
           image_url: string | null
           is_featured: boolean | null
+          location: string | null
           rating: number | null
           sort_order: number | null
           updated_at: string | null
+          video_url: string | null
         }
         Insert: {
+          category?: string | null
           client_name: string
           company?: string | null
           content: string
@@ -330,11 +662,14 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          location?: string | null
           rating?: number | null
           sort_order?: number | null
           updated_at?: string | null
+          video_url?: string | null
         }
         Update: {
+          category?: string | null
           client_name?: string
           company?: string | null
           content?: string
@@ -342,9 +677,11 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          location?: string | null
           rating?: number | null
           sort_order?: number | null
           updated_at?: string | null
+          video_url?: string | null
         }
         Relationships: []
       }
