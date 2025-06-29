@@ -1,53 +1,33 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
+import { Plus, Edit, Trash2, ArrowLeft, Briefcase } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import type { Json } from '@/integrations/supabase/types';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Service {
   id: string;
   title: string;
   description: string | null;
   icon: string | null;
-  features: Json | null;
+  features: any;
   is_featured: boolean;
   sort_order: number;
+  slug: string | null;
   created_at: string;
   updated_at: string;
 }
 
-interface FormData {
-  title: string;
-  description: string;
-  icon: string;
-  features: Json;
-  is_featured: boolean;
-  sort_order: number;
-}
-
 export const ServicesManager = () => {
   const { user, isAdmin } = useAuth();
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [services, setServices] = useState<Service[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
-  const [formData, setFormData] = useState<FormData>({
-    title: '',
-    description: '',
-    icon: '',
-    features: [],
-    is_featured: false,
-    sort_order: 0
-  });
 
   useEffect(() => {
     if (!user || !isAdmin) {
@@ -58,97 +38,74 @@ export const ServicesManager = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchServices = async () => {
+    console.log('Fetching services...');
     try {
       const { data, error } = await supabase
         .from('services')
         .select('*')
         .order('sort_order', { ascending: true });
-      
+
+      console.log('Services data:', data);
+      console.log('Services error:', error);
+
       if (error) throw error;
       setServices(data || []);
     } catch (error: any) {
+      console.error('Error fetching services:', error);
       toast({
         title: "Error",
         description: "Failed to fetch services: " + error.message,
-        variant: "destructive"
+        variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      if (editingService) {
-        const { error } = await supabase
-          .from('services')
-          .update({
-            ...formData,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', editingService.id);
-        
-        if (error) throw error;
-        toast({ title: "Success", description: "Service updated successfully" });
-      } else {
-        const { error } = await supabase
-          .from('services')
-          .insert([formData]);
-        
-        if (error) throw error;
-        toast({ title: "Success", description: "Service created successfully" });
-      }
-      
-      setIsEditing(false);
-      setEditingService(null);
-      setFormData({
-        title: '',
-        description: '',
-        icon: '',
-        features: [],
-        is_featured: false,
-        sort_order: 0
-      });
-      fetchServices();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleEdit = (service: Service) => {
-    setEditingService(service);
-    setFormData({
-      title: service.title,
-      description: service.description || '',
-      icon: service.icon || '',
-      features: service.features || [],
-      is_featured: service.is_featured,
-      sort_order: service.sort_order
-    });
-    setIsEditing(true);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this service?')) return;
-    
+
     try {
       const { error } = await supabase
         .from('services')
         .delete()
         .eq('id', id);
-      
+
       if (error) throw error;
-      toast({ title: "Success", description: "Service deleted successfully" });
+      
+      toast({
+        title: "Success",
+        description: "Service deleted successfully",
+      });
       fetchServices();
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.message,
-        variant: "destructive"
+        description: "Failed to delete service: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const toggleFeatured = async (id: string, currentStatus: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('services')
+        .update({ is_featured: !currentStatus })
+        .eq('id', id);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: `Service ${!currentStatus ? 'featured' : 'unfeatured'} successfully`,
+      });
+      fetchServices();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to update service: " + error.message,
+        variant: "destructive",
       });
     }
   };
@@ -157,132 +114,128 @@ export const ServicesManager = () => {
     return null;
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" onClick={() => navigate('/admin')}>
+            <Button variant="outline" onClick={() => navigate('/admin')}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Dashboard
             </Button>
-            <h1 className="text-3xl font-bold text-gray-900">Services Manager</h1>
+            <div className="flex items-center space-x-2">
+              <Briefcase className="h-6 w-6 text-green-600" />
+              <h1 className="text-3xl font-bold text-gray-900">Services Manager</h1>
+            </div>
           </div>
-          <Button onClick={() => setIsEditing(true)}>
+          <Button onClick={() => {
+            toast({
+              title: "Coming Soon",
+              description: "Service creation will be available soon",
+            });
+          }}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Service
+            New Service
           </Button>
         </div>
 
-        {isEditing && (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>{editingService ? 'Edit Service' : 'Create New Service'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Title</label>
-                    <Input
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Icon</label>
-                    <Input
-                      value={formData.icon}
-                      onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                      placeholder="e.g., search, chart, settings"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-2">Description</label>
-                  <Textarea
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    rows={3}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Switch
-                      checked={formData.is_featured}
-                      onCheckedChange={(checked) => setFormData({ ...formData, is_featured: checked })}
-                    />
-                    <label className="text-sm font-medium">Featured Service</label>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Sort Order</label>
-                    <Input
-                      type="number"
-                      value={formData.sort_order}
-                      onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
-                </div>
-                
-                <div className="flex space-x-2">
-                  <Button type="submit">
-                    <Save className="h-4 w-4 mr-2" />
-                    {editingService ? 'Update' : 'Create'} Service
-                  </Button>
-                  <Button type="button" variant="outline" onClick={() => {
-                    setIsEditing(false);
-                    setEditingService(null);
-                    setFormData({
-                      title: '',
-                      description: '',
-                      icon: '',
-                      features: [],
-                      is_featured: false,
-                      sort_order: 0
-                    });
-                  }}>
-                    Cancel
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        )}
-
         <div className="grid gap-6">
-          {services.map((service) => (
-            <Card key={service.id}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold">{service.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{service.description}</p>
-                    <div className="flex items-center mt-2 space-x-2">
-                      {service.is_featured && (
-                        <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
-                          Featured
-                        </span>
-                      )}
-                      <span className="text-xs text-gray-500">
-                        Sort: {service.sort_order}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" onClick={() => handleEdit(service)}>
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={() => handleDelete(service.id)}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
+          {services.length === 0 ? (
+            <Card>
+              <CardContent className="text-center py-12">
+                <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-500 mb-4">No services found</p>
+                <Button onClick={() => {
+                  toast({
+                    title: "Coming Soon",
+                    description: "Service creation will be available soon",
+                  });
+                }}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Your First Service
+                </Button>
               </CardContent>
             </Card>
-          ))}
+          ) : (
+            services.map((service) => (
+              <Card key={service.id}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-xl flex items-center space-x-2">
+                        {service.icon && <span className="text-2xl">{service.icon}</span>}
+                        <span>{service.title}</span>
+                      </CardTitle>
+                      <div className="flex items-center space-x-4 mt-2">
+                        <Badge variant={service.is_featured ? "default" : "secondary"}>
+                          {service.is_featured ? "Featured" : "Standard"}
+                        </Badge>
+                        <span className="text-sm text-gray-500">Order: {service.sort_order}</span>
+                        {service.slug && <Badge variant="outline">{service.slug}</Badge>}
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => toggleFeatured(service.id, service.is_featured)}
+                      >
+                        {service.is_featured ? "Unfeature" : "Feature"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          toast({
+                            title: "Coming Soon",
+                            description: "Service editing will be available soon",
+                          });
+                        }}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDelete(service.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                {service.description && (
+                  <CardContent>
+                    <p className="text-gray-600 mb-4">{service.description}</p>
+                    {service.features && Array.isArray(service.features) && service.features.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold mb-2">Features:</h4>
+                        <ul className="list-disc list-inside space-y-1">
+                          {service.features.map((feature: string, index: number) => (
+                            <li key={index} className="text-sm text-gray-600">{feature}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <div className="mt-4 text-sm text-gray-500">
+                      Created: {new Date(service.created_at).toLocaleDateString()}
+                      {service.updated_at !== service.created_at && (
+                        <span> • Updated: {new Date(service.updated_at).toLocaleDateString()}</span>
+                      )}
+                    </div>
+                  </CardContent>
+                )}
+              </Card>
+            ))
+          )}
         </div>
       </div>
     </div>

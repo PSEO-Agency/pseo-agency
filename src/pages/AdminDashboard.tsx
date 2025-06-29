@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -17,6 +18,7 @@ import {
   Download,
   Wrench
 } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 interface Stats {
   pages: number;
@@ -32,6 +34,7 @@ interface Stats {
 export const AdminDashboard = () => {
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [stats, setStats] = useState<Stats>({
     pages: 0,
     services: 0,
@@ -42,6 +45,7 @@ export const AdminDashboard = () => {
     resources: 0,
     faqs: 0
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user || !isAdmin) {
@@ -52,10 +56,11 @@ export const AdminDashboard = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchStats = async () => {
-    const newStats: any = {};
-
+    console.log('Fetching stats...');
+    setLoading(true);
+    
     try {
-      // Fetch each table count individually to avoid TypeScript issues
+      // Fetch counts for each table
       const [
         pagesResult,
         servicesResult,
@@ -66,47 +71,69 @@ export const AdminDashboard = () => {
         resourcesResult,
         faqsResult
       ] = await Promise.all([
-        supabase.from('pages').select('*', { count: 'exact', head: true }),
-        supabase.from('services').select('*', { count: 'exact', head: true }),
-        supabase.from('team_members').select('*', { count: 'exact', head: true }),
-        supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
-        supabase.from('industries').select('*', { count: 'exact', head: true }),
-        supabase.from('case_studies').select('*', { count: 'exact', head: true }),
-        supabase.from('resources').select('*', { count: 'exact', head: true }),
-        supabase.from('faqs').select('*', { count: 'exact', head: true })
+        supabase.from('pages').select('id', { count: 'exact', head: true }),
+        supabase.from('services').select('id', { count: 'exact', head: true }),
+        supabase.from('team_members').select('id', { count: 'exact', head: true }),
+        supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
+        supabase.from('industries').select('id', { count: 'exact', head: true }),
+        supabase.from('case_studies').select('id', { count: 'exact', head: true }),
+        supabase.from('resources').select('id', { count: 'exact', head: true }),
+        supabase.from('faqs').select('id', { count: 'exact', head: true })
       ]);
 
-      newStats.pages = pagesResult.count || 0;
-      newStats.services = servicesResult.count || 0;
-      newStats.team_members = teamMembersResult.count || 0;
-      newStats.blog_posts = blogPostsResult.count || 0;
-      newStats.industries = industriesResult.count || 0;
-      newStats.case_studies = caseStudiesResult.count || 0;
-      newStats.resources = resourcesResult.count || 0;
-      newStats.faqs = faqsResult.count || 0;
+      console.log('Stats results:', {
+        pages: pagesResult.count,
+        services: servicesResult.count,
+        team_members: teamMembersResult.count,
+        blog_posts: blogPostsResult.count,
+        industries: industriesResult.count,
+        case_studies: caseStudiesResult.count,
+        resources: resourcesResult.count,
+        faqs: faqsResult.count
+      });
 
-      if (pagesResult.error) console.error('Error fetching pages count:', pagesResult.error);
-      if (servicesResult.error) console.error('Error fetching services count:', servicesResult.error);
-      if (teamMembersResult.error) console.error('Error fetching team_members count:', teamMembersResult.error);
-      if (blogPostsResult.error) console.error('Error fetching blog_posts count:', blogPostsResult.error);
-      if (industriesResult.error) console.error('Error fetching industries count:', industriesResult.error);
-      if (caseStudiesResult.error) console.error('Error fetching case_studies count:', caseStudiesResult.error);
-      if (resourcesResult.error) console.error('Error fetching resources count:', resourcesResult.error);
-      if (faqsResult.error) console.error('Error fetching faqs count:', faqsResult.error);
+      // Check for errors
+      const errors = [
+        pagesResult.error,
+        servicesResult.error,
+        teamMembersResult.error,
+        blogPostsResult.error,
+        industriesResult.error,
+        caseStudiesResult.error,
+        resourcesResult.error,
+        faqsResult.error
+      ].filter(Boolean);
+
+      if (errors.length > 0) {
+        console.error('Errors fetching stats:', errors);
+        toast({
+          title: "Warning",
+          description: "Some stats couldn't be loaded",
+          variant: "destructive",
+        });
+      }
+
+      setStats({
+        pages: pagesResult.count || 0,
+        services: servicesResult.count || 0,
+        team_members: teamMembersResult.count || 0,
+        blog_posts: blogPostsResult.count || 0,
+        industries: industriesResult.count || 0,
+        case_studies: caseStudiesResult.count || 0,
+        resources: resourcesResult.count || 0,
+        faqs: faqsResult.count || 0
+      });
+
     } catch (error) {
       console.error('Error fetching stats:', error);
-      // Set all counts to 0 if there's an error
-      newStats.pages = 0;
-      newStats.services = 0;
-      newStats.team_members = 0;
-      newStats.blog_posts = 0;
-      newStats.industries = 0;
-      newStats.case_studies = 0;
-      newStats.resources = 0;
-      newStats.faqs = 0;
+      toast({
+        title: "Error",
+        description: "Failed to load dashboard statistics",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    setStats(newStats);
   };
 
   const handleSignOut = async () => {
@@ -192,6 +219,14 @@ export const AdminDashboard = () => {
       color: "text-gray-600"
     }
   ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
