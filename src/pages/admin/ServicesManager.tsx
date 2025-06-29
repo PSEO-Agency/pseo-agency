@@ -10,13 +10,14 @@ import { Switch } from "@/components/ui/switch";
 import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import type { Json } from '@/integrations/supabase/types';
 
 interface Service {
   id: string;
   title: string;
   description: string | null;
   icon: string | null;
-  features: any[] | null;
+  features: Json | null;
   is_featured: boolean;
   sort_order: number;
   created_at: string;
@@ -27,7 +28,7 @@ interface FormData {
   title: string;
   description: string;
   icon: string;
-  features: any[];
+  features: Json;
   is_featured: boolean;
   sort_order: number;
 }
