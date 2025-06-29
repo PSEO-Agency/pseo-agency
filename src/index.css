@@ -1,8 +1,9 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Enhanced design system with WebFX-inspired colors, gradients, fonts, etc */
 
 @layer base {
   :root {
@@ -36,20 +37,24 @@
 
     --radius: 0.5rem;
 
+    /* WebFX-inspired color variables */
+    --webfx-primary: 220 100% 50%;
+    --webfx-secondary: 280 100% 70%;
+    --webfx-accent: 45 100% 60%;
+    --webfx-dark: 222 47% 11%;
+    --webfx-light: 210 40% 98%;
+    --webfx-gray: 215 16% 47%;
+    --webfx-success: 142 71% 45%;
+    --webfx-warning: 38 92% 50%;
+    --webfx-error: 0 84% 60%;
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -99,5 +104,57 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  /* WebFX-inspired utility classes */
+  .webfx-gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--webfx-primary)) 0%, hsl(var(--webfx-secondary)) 100%);
+  }
+  
+  .webfx-gradient-secondary {
+    background: linear-gradient(135deg, hsl(var(--webfx-secondary)) 0%, hsl(var(--webfx-accent)) 100%);
+  }
+  
+  .webfx-shadow-primary {
+    box-shadow: 0 20px 40px -12px hsl(var(--webfx-primary) / 0.25);
+  }
+  
+  .webfx-shadow-secondary {
+    box-shadow: 0 20px 40px -12px hsl(var(--webfx-secondary) / 0.25);
+  }
+  
+  .webfx-text-gradient {
+    background: linear-gradient(135deg, hsl(var(--webfx-primary)), hsl(var(--webfx-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .webfx-button-primary {
+    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 hover:from-blue-700 hover:via-blue-800 hover:to-purple-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .webfx-card {
+    @apply bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:border-gray-200;
+  }
+  
+  .webfx-stats-card {
+    @apply bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:border-blue-200;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

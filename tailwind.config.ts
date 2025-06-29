@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,12 +62,33 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// WebFX-inspired color extensions
+				webfx: {
+					primary: 'hsl(var(--webfx-primary))',
+					secondary: 'hsl(var(--webfx-secondary))',
+					accent: 'hsl(var(--webfx-accent))',
+					dark: 'hsl(var(--webfx-dark))',
+					light: 'hsl(var(--webfx-light))',
+					gray: 'hsl(var(--webfx-gray))',
+					success: 'hsl(var(--webfx-success))',
+					warning: 'hsl(var(--webfx-warning))',
+					error: 'hsl(var(--webfx-error))'
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			fontFamily: {
+				sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+				display: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif']
+			},
+			fontSize: {
+				'7xl': ['4.5rem', { lineHeight: '1.1' }],
+				'8xl': ['6rem', { lineHeight: '1.1' }],
+				'9xl': ['8rem', { lineHeight: '1.1' }]
 			},
 			keyframes: {
 				'accordion-down': {
@@ -84,11 +106,36 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						transform: 'scale(0.95)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'scale(1)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'scale-in': 'scale-in 0.2s ease-out'
+			},
+			backdropBlur: {
+				xs: '2px'
 			}
 		}
 	},
