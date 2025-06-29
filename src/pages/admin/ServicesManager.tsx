@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { Plus, Edit, Trash2, ArrowLeft, Briefcase } from 'lucide-react';
+import { Plus, Edit, Trash2, ArrowLeft, Briefcase, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -82,6 +82,38 @@ export const ServicesManager = () => {
       toast({
         title: "Error",
         description: "Failed to delete service: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDuplicate = async (service: Service) => {
+    try {
+      const { id, created_at, updated_at, ...serviceData } = service;
+      
+      // Create a new service with modified title and slug
+      const duplicatedService = {
+        ...serviceData,
+        title: `${service.title} (Copy)`,
+        slug: service.slug ? `${service.slug}-copy` : null,
+        sort_order: service.sort_order + 1
+      };
+
+      const { error } = await supabase
+        .from('services')
+        .insert([duplicatedService]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Service duplicated successfully",
+      });
+      fetchServices();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate service: " + error.message,
         variant: "destructive",
       });
     }
@@ -189,6 +221,13 @@ export const ServicesManager = () => {
                         onClick={() => toggleFeatured(service.id, service.is_featured)}
                       >
                         {service.is_featured ? "Unfeature" : "Feature"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDuplicate(service)}
+                      >
+                        <Copy className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"

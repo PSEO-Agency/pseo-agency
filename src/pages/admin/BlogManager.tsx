@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { Plus, Edit, Eye, Trash2, ArrowLeft } from 'lucide-react';
+import { Plus, Edit, Eye, Trash2, ArrowLeft, Copy, BookOpen } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -16,6 +16,8 @@ interface BlogPost {
   category: string | null;
   read_time: string | null;
   is_published: boolean;
+  slug: string;
+  content: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -80,6 +82,38 @@ export const BlogManager = () => {
     }
   };
 
+  const handleDuplicate = async (post: BlogPost) => {
+    try {
+      const { id, created_at, updated_at, ...postData } = post;
+      
+      // Create a new post with modified title and slug
+      const duplicatedPost = {
+        ...postData,
+        title: `${post.title} (Copy)`,
+        slug: `${post.slug}-copy`,
+        is_published: false, // Set duplicated posts as drafts
+      };
+
+      const { error } = await supabase
+        .from('blog_posts')
+        .insert([duplicatedPost]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Blog post duplicated successfully",
+      });
+      fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate blog post: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const togglePublish = async (id: string, currentStatus: boolean) => {
     try {
       const { error } = await supabase
@@ -124,7 +158,10 @@ export const BlogManager = () => {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Dashboard
             </Button>
-            <h1 className="text-3xl font-bold text-gray-900">Blog Manager</h1>
+            <div className="flex items-center space-x-2">
+              <BookOpen className="h-6 w-6 text-pink-600" />
+              <h1 className="text-3xl font-bold text-gray-900">Blog Manager</h1>
+            </div>
           </div>
           <Button onClick={() => {
             toast({
@@ -141,6 +178,7 @@ export const BlogManager = () => {
           {posts.length === 0 ? (
             <Card>
               <CardContent className="text-center py-12">
+                <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 mb-4">No blog posts found</p>
                 <Button onClick={() => {
                   toast({
@@ -176,6 +214,13 @@ export const BlogManager = () => {
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         {post.is_published ? "Unpublish" : "Publish"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDuplicate(post)}
+                      >
+                        <Copy className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"
