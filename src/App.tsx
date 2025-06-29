@@ -10,6 +10,9 @@ import Index from "./pages/Index";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { BlogManager } from "./pages/admin/BlogManager";
+import { PageManager } from "./pages/admin/PageManager";
+import { ServicesManager } from "./pages/admin/ServicesManager";
+import { TeamManager } from "./pages/admin/TeamManager";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +39,30 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <BlogManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/pages"
+              element={
+                <ProtectedRoute>
+                  <PageManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/services"
+              element={
+                <ProtectedRoute>
+                  <ServicesManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/team"
+              element={
+                <ProtectedRoute>
+                  <TeamManager />
                 </ProtectedRoute>
               }
             />
