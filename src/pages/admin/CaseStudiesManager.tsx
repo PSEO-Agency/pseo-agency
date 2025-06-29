@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save, Eye } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Eye, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface CaseStudy {
@@ -205,6 +204,39 @@ export const CaseStudiesManager = () => {
     }
   };
 
+  const handleDuplicate = async (caseStudy: CaseStudy) => {
+    try {
+      const { id, created_at, updated_at, ...caseStudyData } = caseStudy;
+      
+      // Create a new case study with modified title and slug
+      const duplicatedCaseStudy = {
+        ...caseStudyData,
+        title: `${caseStudy.title} (Copy)`,
+        slug: `${caseStudy.slug}-copy`,
+        sort_order: caseStudy.sort_order + 1,
+        is_published: false, // Set duplicated case studies as drafts
+      };
+
+      const { error } = await supabase
+        .from('case_studies')
+        .insert([duplicatedCaseStudy]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Case study duplicated successfully",
+      });
+      fetchCaseStudies();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate case study: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   if (!user || !isAdmin) {
     return null;
   }
@@ -393,6 +425,13 @@ export const CaseStudiesManager = () => {
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         {caseStudy.is_published ? "Unpublish" : "Publish"}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDuplicate(caseStudy)}
+                      >
+                        <Copy className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface Industry {
@@ -177,6 +176,40 @@ export const IndustriesManager = () => {
         title: "Error",
         description: error.message,
         variant: "destructive"
+      });
+    }
+  };
+
+  const handleDuplicate = async (industry: Industry) => {
+    try {
+      const { id, created_at, updated_at, ...industryData } = industry;
+      
+      // Create a new industry with modified name and slug
+      const duplicatedIndustry = {
+        ...industryData,
+        name: `${industry.name} (Copy)`,
+        slug: `${industry.slug}-copy`,
+        title: `${industry.title} (Copy)`,
+        sort_order: industry.sort_order + 1,
+        is_published: false, // Set duplicated industries as drafts
+      };
+
+      const { error } = await supabase
+        .from('industries')
+        .insert([duplicatedIndustry]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Industry duplicated successfully",
+      });
+      fetchIndustries();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate industry: " + error.message,
+        variant: "destructive",
       });
     }
   };
@@ -362,6 +395,13 @@ export const IndustriesManager = () => {
                     </div>
                   </div>
                   <div className="flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDuplicate(industry)}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                     <Button variant="outline" size="sm" onClick={() => handleEdit(industry)}>
                       <Edit className="h-4 w-4" />
                     </Button>

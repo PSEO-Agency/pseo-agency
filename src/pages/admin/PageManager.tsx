@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface Page {
@@ -159,6 +158,38 @@ export const PageManager = () => {
     }
   };
 
+  const handleDuplicate = async (page: Page) => {
+    try {
+      const { id, created_at, updated_at, ...pageData } = page;
+      
+      // Create a new page with modified title and slug
+      const duplicatedPage = {
+        ...pageData,
+        title: `${page.title} (Copy)`,
+        slug: `${page.slug}-copy`,
+        is_published: false, // Set duplicated pages as drafts
+      };
+
+      const { error } = await supabase
+        .from('pages')
+        .insert([duplicatedPage]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Page duplicated successfully",
+      });
+      fetchPages();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate page: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   if (!user || !isAdmin) {
     return null;
   }
@@ -275,6 +306,13 @@ export const PageManager = () => {
                     </div>
                   </div>
                   <div className="flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDuplicate(page)}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                     <Button variant="outline" size="sm" onClick={() => handleEdit(page)}>
                       <Edit className="h-4 w-4" />
                     </Button>

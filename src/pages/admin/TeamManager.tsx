@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface TeamMember {
@@ -153,6 +152,38 @@ export const TeamManager = () => {
         title: "Error",
         description: error.message,
         variant: "destructive"
+      });
+    }
+  };
+
+  const handleDuplicate = async (member: TeamMember) => {
+    try {
+      const { id, created_at, updated_at, ...memberData } = member;
+      
+      // Create a new team member with modified name
+      const duplicatedMember = {
+        ...memberData,
+        name: `${member.name} (Copy)`,
+        sort_order: member.sort_order + 1,
+        is_visible: false, // Set duplicated members as hidden by default
+      };
+
+      const { error } = await supabase
+        .from('team_members')
+        .insert([duplicatedMember]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Team member duplicated successfully",
+      });
+      fetchTeamMembers();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate team member: " + error.message,
+        variant: "destructive",
       });
     }
   };
@@ -305,6 +336,13 @@ export const TeamManager = () => {
                     </div>
                   </div>
                   <div className="flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDuplicate(member)}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                     <Button variant="outline" size="sm" onClick={() => handleEdit(member)}>
                       <Edit className="h-4 w-4" />
                     </Button>

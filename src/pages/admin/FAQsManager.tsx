@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Eye, EyeOff, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface FAQ {
@@ -171,6 +170,38 @@ export const FAQsManager = () => {
     }
   };
 
+  const handleDuplicate = async (faq: FAQ) => {
+    try {
+      const { id, created_at, updated_at, ...faqData } = faq;
+      
+      // Create a new FAQ with modified question
+      const duplicatedFaq = {
+        ...faqData,
+        question: `${faq.question} (Copy)`,
+        sort_order: faq.sort_order + 1,
+        is_visible: false, // Set duplicated FAQs as hidden by default
+      };
+
+      const { error } = await supabase
+        .from('faqs')
+        .insert([duplicatedFaq]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "FAQ duplicated successfully",
+      });
+      fetchFaqs();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate FAQ: " + error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   if (!user || !isAdmin) {
     return null;
   }
@@ -302,6 +333,13 @@ export const FAQsManager = () => {
                         onClick={() => toggleVisibility(faq.id, faq.is_visible)}
                       >
                         {faq.is_visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDuplicate(faq)}
+                      >
+                        <Copy className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Plus, Edit, Trash2, Save, Download } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Save, Download, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface Resource {
@@ -193,6 +192,40 @@ export const ResourcesManager = () => {
         title: "Error",
         description: error.message,
         variant: "destructive"
+      });
+    }
+  };
+
+  const handleDuplicate = async (resource: Resource) => {
+    try {
+      const { id, created_at, updated_at, download_count, ...resourceData } = resource;
+      
+      // Create a new resource with modified title and slug
+      const duplicatedResource = {
+        ...resourceData,
+        title: `${resource.title} (Copy)`,
+        slug: `${resource.slug}-copy`,
+        sort_order: resource.sort_order + 1,
+        is_published: false, // Set duplicated resources as drafts
+        download_count: 0, // Reset download count for duplicated resource
+      };
+
+      const { error } = await supabase
+        .from('resources')
+        .insert([duplicatedResource]);
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Resource duplicated successfully",
+      });
+      fetchResources();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate resource: " + error.message,
+        variant: "destructive",
       });
     }
   };
@@ -413,6 +446,13 @@ export const ResourcesManager = () => {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDuplicate(resource)}
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
                       <Button
                         variant="outline"
                         size="sm"
