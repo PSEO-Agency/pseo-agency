@@ -19,6 +19,7 @@ export const AdminLogin = () => {
   useEffect(() => {
     console.log('AdminLogin: Auth state changed', { user: user?.email, isAdmin, authLoading });
     
+    // Only redirect if auth is not loading and user is authenticated as admin
     if (!authLoading && user && isAdmin) {
       console.log('AdminLogin: Redirecting to admin dashboard');
       navigate('/admin');
@@ -29,6 +30,11 @@ export const AdminLogin = () => {
     e.preventDefault();
     console.log('AdminLogin: Form submitted', { email });
     
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+    
     setLoading(true);
     setError('');
 
@@ -37,23 +43,27 @@ export const AdminLogin = () => {
       
       if (error) {
         console.error('AdminLogin: Sign in error', error);
-        setError(error.message);
+        setError(error.message || 'Failed to sign in');
       } else {
         console.log('AdminLogin: Sign in successful, waiting for auth state update');
+        // Don't redirect here - let the useEffect handle it after auth state updates
       }
     } catch (err) {
       console.error('AdminLogin: Unexpected error', err);
       setError('An unexpected error occurred');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
-  // Show loading state while auth is initializing
+  // Show loading spinner while auth is initializing
   if (authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -90,6 +100,7 @@ export const AdminLogin = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -106,21 +117,30 @@ export const AdminLogin = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
             
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                'Sign In'
+              )}
             </Button>
           </form>
           
           {/* Debug info - remove this in production */}
-          <div className="mt-4 text-xs text-gray-500 space-y-1">
-            <div>Debug Info:</div>
+          <div className="mt-4 text-xs text-gray-500 space-y-1 p-2 bg-gray-50 rounded">
+            <div className="font-semibold">Debug Info:</div>
             <div>User: {user?.email || 'None'}</div>
             <div>Is Admin: {isAdmin ? 'Yes' : 'No'}</div>
             <div>Auth Loading: {authLoading ? 'Yes' : 'No'}</div>
+            <div>Form Loading: {loading ? 'Yes' : 'No'}</div>
           </div>
         </CardContent>
       </Card>

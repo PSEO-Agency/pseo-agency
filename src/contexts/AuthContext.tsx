@@ -39,37 +39,60 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const checkAdminStatus = async (userId: string) => {
+    try {
+      console.log('Checking admin status for user:', userId);
+      const { data: adminData, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+      
+      console.log('Admin check result:', { adminData, error });
+      
+      if (error && error.code !== 'PGRST116') {
+        // PGRST116 is "not found" error, which is expected for non-admin users
+        console.error('Error checking admin status:', error);
+        return false;
+      }
+      
+      return !!adminData;
+    } catch (error) {
+      console.error('Error in checkAdminStatus:', error);
+      return false;
+    }
+  };
+
   useEffect(() => {
     console.log('AuthProvider: Setting up auth state listener');
     
+    let isMounted = true;
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         console.log('Auth state change:', event, session?.user?.email);
         
+        if (!isMounted) return;
+        
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          console.log('Checking admin status for user:', session.user.id);
-          // Check if user is admin
-          try {
-            const { data: adminData, error } = await supabase
-              .from('admin_users')
-              .select('*')
-              .eq('user_id', session.user.id)
-              .single();
-            
-            console.log('Admin check result:', { adminData, error });
-            setIsAdmin(!!adminData);
-          } catch (error) {
-            console.error('Error checking admin status:', error);
-            setIsAdmin(false);
+          // Check admin status
+          const adminStatus = await checkAdminStatus(session.user.id);
+          if (isMounted) {
+            setIsAdmin(adminStatus);
           }
         } else {
-          setIsAdmin(false);
+          if (isMounted) {
+            setIsAdmin(false);
+          }
         }
-        setLoading(false);
+        
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     );
 
@@ -81,39 +104,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (error) {
           console.error('Error getting session:', error);
-          setLoading(false);
+          if (isMounted) {
+            setLoading(false);
+          }
           return;
         }
+        
+        if (!isMounted) return;
         
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          console.log('Checking admin status for existing session:', session.user.id);
-          try {
-            const { data: adminData, error } = await supabase
-              .from('admin_users')
-              .select('*')
-              .eq('user_id', session.user.id)
-              .single();
-            
-            console.log('Admin check result for existing session:', { adminData, error });
-            setIsAdmin(!!adminData);
-          } catch (error) {
-            console.error('Error checking admin status for existing session:', error);
-            setIsAdmin(false);
+          const adminStatus = await checkAdminStatus(session.user.id);
+          if (isMounted) {
+            setIsAdmin(adminStatus);
           }
         }
-        setLoading(false);
+        
+        if (isMounted) {
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error in checkExistingSession:', error);
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     checkExistingSession();
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
