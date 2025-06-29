@@ -74,39 +74,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session }, error }) => {
-      console.log('Initial session check:', session?.user?.email, error);
-      
-      if (error) {
-        console.error('Error getting session:', error);
-        setLoading(false);
-        return;
-      }
-      
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        console.log('Checking admin status for existing session:', session.user.id);
-        supabase
-          .from('admin_users')
-          .select('*')
-          .eq('user_id', session.user.id)
-          .single()
-          .then(({ data: adminData, error }) => {
+    const checkExistingSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        console.log('Initial session check:', session?.user?.email, error);
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          setLoading(false);
+          return;
+        }
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          console.log('Checking admin status for existing session:', session.user.id);
+          try {
+            const { data: adminData, error } = await supabase
+              .from('admin_users')
+              .select('*')
+              .eq('user_id', session.user.id)
+              .single();
+            
             console.log('Admin check result for existing session:', { adminData, error });
             setIsAdmin(!!adminData);
-            setLoading(false);
-          })
-          .catch((error) => {
+          } catch (error) {
             console.error('Error checking admin status for existing session:', error);
             setIsAdmin(false);
-            setLoading(false);
-          });
-      } else {
+          }
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error in checkExistingSession:', error);
         setLoading(false);
       }
-    });
+    };
+
+    checkExistingSession();
 
     return () => subscription.unsubscribe();
   }, []);
