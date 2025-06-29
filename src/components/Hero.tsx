@@ -84,11 +84,6 @@ export const Hero = () => {
                 </div>
               </div>
               
-              {/* Arrow */}
-              <div className="flex justify-center">
-                <div className="w-0.5 h-6 bg-gradient-to-b from-blue-400 to-purple-400"></div>
-              </div>
-              
               {/* Step 2 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
@@ -100,11 +95,6 @@ export const Hero = () => {
                     <p className="text-sm text-blue-100">Create scalable page templates with dynamic content</p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Arrow */}
-              <div className="flex justify-center">
-                <div className="w-0.5 h-6 bg-gradient-to-b from-purple-400 to-green-400"></div>
               </div>
               
               {/* Step 3 */}
@@ -120,11 +110,6 @@ export const Hero = () => {
                 </div>
               </div>
               
-              {/* Arrow */}
-              <div className="flex justify-center">
-                <div className="w-0.5 h-6 bg-gradient-to-b from-green-400 to-orange-400"></div>
-              </div>
-              
               {/* Step 4 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
@@ -138,11 +123,6 @@ export const Hero = () => {
                 </div>
               </div>
               
-              {/* Arrow */}
-              <div className="flex justify-center">
-                <div className="w-0.5 h-6 bg-gradient-to-b from-orange-400 to-yellow-400"></div>
-              </div>
-              
               {/* Step 5 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center">
@@ -154,11 +134,6 @@ export const Hero = () => {
                     <p className="text-sm text-blue-100">Scale organic traffic and search visibility</p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Arrow */}
-              <div className="flex justify-center">
-                <div className="w-0.5 h-6 bg-gradient-to-b from-yellow-400 to-red-400"></div>
               </div>
               
               {/* Step 6 */}
