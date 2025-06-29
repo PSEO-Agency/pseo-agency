@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { Menu, Phone, ChevronDown } from "lucide-react";
+import { Menu, Phone, ChevronDown, Settings } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,9 +9,11 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
@@ -147,6 +148,17 @@ export const Header = () => {
 
           {/* Enhanced CTA Section */}
           <div className="flex items-center space-x-2 lg:space-x-4">
+            {/* Admin Access Button - Hidden on mobile */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/admin/login')}
+              className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600"
+            >
+              <Settings className="h-4 w-4" />
+              <span className="text-xs">Admin</span>
+            </Button>
+
             {/* Enhanced phone section - Responsive */}
             <div className="hidden lg:flex items-center space-x-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl px-4 py-2 border border-gray-200 shadow-sm">
               <div className="flex items-center space-x-2">
