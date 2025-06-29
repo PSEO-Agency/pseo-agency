@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Globe, Search, TrendingUp, Target } from "lucide-react";
+import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server } from "lucide-react";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 
@@ -65,12 +65,12 @@ export const Hero = () => {
           
           {/* Process Flow Diagram */}
           <div className="relative">
-            <div className="text-center mb-6">
+            <div className="text-center mb-4">
               <h3 className="text-2xl font-bold text-white mb-2">Our Programmatic SEO Process</h3>
               <p className="text-blue-200">How we scale your organic traffic</p>
             </div>
             
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Step 1 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
@@ -79,60 +79,96 @@ export const Hero = () => {
                 <div className="flex-1">
                   <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
                     <h4 className="font-semibold text-white mb-1">1. Data Analysis</h4>
-                    <p className="text-sm text-blue-100">Identify high-volume, low-competition keywords</p>
+                    <p className="text-sm text-blue-100">Identify high-volume keywords and define dynamic entities</p>
                   </div>
                 </div>
               </div>
               
               {/* Arrow */}
               <div className="flex justify-center">
-                <div className="w-0.5 h-8 bg-gradient-to-b from-blue-400 to-purple-400"></div>
+                <div className="w-0.5 h-6 bg-gradient-to-b from-blue-400 to-purple-400"></div>
               </div>
               
               {/* Step 2 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
-                  <Globe className="h-6 w-6 text-white" />
+                  <Palette className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1">
                   <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                    <h4 className="font-semibold text-white mb-1">2. Page Generation</h4>
-                    <p className="text-sm text-blue-100">Create thousands of optimized landing pages</p>
+                    <h4 className="font-semibold text-white mb-1">2. Dynamic Template Design</h4>
+                    <p className="text-sm text-blue-100">Create scalable page templates with dynamic content</p>
                   </div>
                 </div>
               </div>
               
               {/* Arrow */}
               <div className="flex justify-center">
-                <div className="w-0.5 h-8 bg-gradient-to-b from-purple-400 to-green-400"></div>
+                <div className="w-0.5 h-6 bg-gradient-to-b from-purple-400 to-green-400"></div>
               </div>
               
               {/* Step 3 */}
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-white" />
+                  <Database className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1">
                   <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                    <h4 className="font-semibold text-white mb-1">3. Traffic Growth</h4>
-                    <p className="text-sm text-blue-100">Scale organic traffic and conversions</p>
+                    <h4 className="font-semibold text-white mb-1">3. pSEO Database Setup</h4>
+                    <p className="text-sm text-blue-100">Build structured data foundation for content generation</p>
                   </div>
                 </div>
               </div>
               
               {/* Arrow */}
               <div className="flex justify-center">
-                <div className="w-0.5 h-8 bg-gradient-to-b from-green-400 to-yellow-400"></div>
+                <div className="w-0.5 h-6 bg-gradient-to-b from-green-400 to-orange-400"></div>
               </div>
               
               {/* Step 4 */}
               <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
+                  <Server className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                    <h4 className="font-semibold text-white mb-1">4. Page Generation</h4>
+                    <p className="text-sm text-blue-100">Automatically create thousands of optimized pages</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Arrow */}
+              <div className="flex justify-center">
+                <div className="w-0.5 h-6 bg-gradient-to-b from-orange-400 to-yellow-400"></div>
+              </div>
+              
+              {/* Step 5 */}
+              <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                    <h4 className="font-semibold text-white mb-1">5. Traffic Growth</h4>
+                    <p className="text-sm text-blue-100">Scale organic traffic and search visibility</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Arrow */}
+              <div className="flex justify-center">
+                <div className="w-0.5 h-6 bg-gradient-to-b from-yellow-400 to-red-400"></div>
+              </div>
+              
+              {/* Step 6 */}
+              <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
                   <Target className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1">
                   <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                    <h4 className="font-semibold text-white mb-1">4. Revenue Impact</h4>
+                    <h4 className="font-semibold text-white mb-1">6. Revenue Impact</h4>
                     <p className="text-sm text-blue-100">Measure and optimize for maximum ROI</p>
                   </div>
                 </div>
