@@ -1,78 +1,128 @@
 
-import { Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-5 gap-8 mb-12">
-          {/* Company Info */}
-          <div className="lg:col-span-2">
-            <img 
-              src="/lovable-uploads/ba592c92-0d43-4888-adec-c4b937d2a5b7.png" 
-              alt="pSEO" 
-              className="h-8 w-auto mb-4 invert"
-            />
-            <p className="text-gray-400 mb-6 max-w-md">
-              Leading programmatic SEO agency helping businesses scale their organic traffic 
-              and revenue through data-driven content strategies.
+    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Top CTA Section */}
+        <div className="py-16 border-b border-white/20">
+          <div className="text-center">
+            <h3 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
+              Ready to Scale Your Business?
+            </h3>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Join thousands of businesses that trust our programmatic SEO expertise to drive their growth.
             </p>
-            <div className="flex space-x-4">
-              <Facebook className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-              <Twitter className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-              <Linkedin className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-              <Youtube className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
+            <Button className="webfx-button-primary text-lg px-10 py-6 h-auto">
+              Get Started Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid lg:grid-cols-5 gap-8">
+            {/* Company Info */}
+            <div className="lg:col-span-2">
+              <img 
+                src="/lovable-uploads/ba592c92-0d43-4888-adec-c4b937d2a5b7.png" 
+                alt="pSEO" 
+                className="h-12 w-auto mb-6 invert"
+              />
+              <p className="text-blue-200 mb-8 max-w-md leading-relaxed text-lg">
+                Leading programmatic SEO agency helping businesses scale their organic traffic 
+                and revenue through data-driven content strategies.
+              </p>
+              
+              {/* Contact Information */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center space-x-3">
+                  <Phone className="h-5 w-5 text-blue-400" />
+                  <span className="text-blue-200">1-888-601-5359</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-5 w-5 text-blue-400" />
+                  <span className="text-blue-200">info@pseo.com</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <MapPin className="h-5 w-5 text-blue-400" />
+                  <span className="text-blue-200">New York, NY</span>
+                </div>
+              </div>
+              
+              <div className="flex space-x-4">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                  <Facebook className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
+                </div>
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                  <Twitter className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
+                </div>
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                  <Linkedin className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
+                </div>
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                  <Youtube className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">Programmatic SEO</a></li>
-              <li><a href="#" className="hover:text-white">Technical SEO</a></li>
-              <li><a href="#" className="hover:text-white">Content Strategy</a></li>
-              <li><a href="#" className="hover:text-white">SEO Audits</a></li>
-              <li><a href="#" className="hover:text-white">Analytics & Reporting</a></li>
-            </ul>
-          </div>
+            {/* Services */}
+            <div>
+              <h4 className="text-xl font-bold mb-6 text-white">Services</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Programmatic SEO</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Technical SEO</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Content Strategy</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">SEO Audits</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Analytics & Reporting</a></li>
+              </ul>
+            </div>
 
-          {/* Resources */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">Blog</a></li>
-              <li><a href="#" className="hover:text-white">Case Studies</a></li>
-              <li><a href="#" className="hover:text-white">SEO Tools</a></li>
-              <li><a href="#" className="hover:text-white">Guides</a></li>
-              <li><a href="#" className="hover:text-white">Webinars</a></li>
-            </ul>
-          </div>
+            {/* Resources */}
+            <div>
+              <h4 className="text-xl font-bold mb-6 text-white">Resources</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Blog</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Case Studies</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">SEO Tools</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Guides</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Webinars</a></li>
+              </ul>
+            </div>
 
-          {/* Company */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">About Us</a></li>
-              <li><a href="#" className="hover:text-white">Careers</a></li>
-              <li><a href="#" className="hover:text-white">Contact</a></li>
-              <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white">Terms of Service</a></li>
-            </ul>
+            {/* Company */}
+            <div>
+              <h4 className="text-xl font-bold mb-6 text-white">Company</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">About Us</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Careers</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Contact</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Privacy Policy</a></li>
+                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Terms of Service</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 pt-8">
+        <div className="border-t border-white/20 py-8">
           <div className="grid md:grid-cols-2 gap-4 items-center">
-            <div className="text-gray-400 text-sm">
-              © 2024 pSEO. All rights reserved. | 
-              <span className="ml-1">Call us: 1-888-601-5359</span>
+            <div className="text-blue-200 text-lg">
+              © 2024 pSEO. All rights reserved.
             </div>
             <div className="text-right">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">
+              <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 Get Started Today
-              </button>
+              </Button>
             </div>
           </div>
         </div>
