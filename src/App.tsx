@@ -18,7 +18,7 @@ import { CaseStudiesManager } from "./pages/admin/CaseStudiesManager";
 import { ResourcesManager } from "./pages/admin/ResourcesManager";
 import { FAQsManager } from "./pages/admin/FAQsManager";
 import { SiteSettingsManager } from "./pages/admin/SiteSettingsManager";
-import { NotFound } from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 

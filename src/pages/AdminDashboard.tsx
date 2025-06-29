@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -53,20 +52,58 @@ export const AdminDashboard = () => {
   }, [user, isAdmin, navigate]);
 
   const fetchStats = async () => {
-    const tables = ['pages', 'services', 'team_members', 'blog_posts', 'industries', 'case_studies', 'resources', 'faqs'];
     const newStats: any = {};
 
-    for (const table of tables) {
-      try {
-        const { count, error } = await supabase
-          .from(table)
-          .select('*', { count: 'exact', head: true });
-        if (error) throw error;
-        newStats[table] = count || 0;
-      } catch (error) {
-        console.error(`Error fetching ${table} count:`, error);
-        newStats[table] = 0;
-      }
+    try {
+      // Fetch each table count individually to avoid TypeScript issues
+      const [
+        pagesResult,
+        servicesResult,
+        teamMembersResult,
+        blogPostsResult,
+        industriesResult,
+        caseStudiesResult,
+        resourcesResult,
+        faqsResult
+      ] = await Promise.all([
+        supabase.from('pages').select('*', { count: 'exact', head: true }),
+        supabase.from('services').select('*', { count: 'exact', head: true }),
+        supabase.from('team_members').select('*', { count: 'exact', head: true }),
+        supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
+        supabase.from('industries').select('*', { count: 'exact', head: true }),
+        supabase.from('case_studies').select('*', { count: 'exact', head: true }),
+        supabase.from('resources').select('*', { count: 'exact', head: true }),
+        supabase.from('faqs').select('*', { count: 'exact', head: true })
+      ]);
+
+      newStats.pages = pagesResult.count || 0;
+      newStats.services = servicesResult.count || 0;
+      newStats.team_members = teamMembersResult.count || 0;
+      newStats.blog_posts = blogPostsResult.count || 0;
+      newStats.industries = industriesResult.count || 0;
+      newStats.case_studies = caseStudiesResult.count || 0;
+      newStats.resources = resourcesResult.count || 0;
+      newStats.faqs = faqsResult.count || 0;
+
+      if (pagesResult.error) console.error('Error fetching pages count:', pagesResult.error);
+      if (servicesResult.error) console.error('Error fetching services count:', servicesResult.error);
+      if (teamMembersResult.error) console.error('Error fetching team_members count:', teamMembersResult.error);
+      if (blogPostsResult.error) console.error('Error fetching blog_posts count:', blogPostsResult.error);
+      if (industriesResult.error) console.error('Error fetching industries count:', industriesResult.error);
+      if (caseStudiesResult.error) console.error('Error fetching case_studies count:', caseStudiesResult.error);
+      if (resourcesResult.error) console.error('Error fetching resources count:', resourcesResult.error);
+      if (faqsResult.error) console.error('Error fetching faqs count:', faqsResult.error);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      // Set all counts to 0 if there's an error
+      newStats.pages = 0;
+      newStats.services = 0;
+      newStats.team_members = 0;
+      newStats.blog_posts = 0;
+      newStats.industries = 0;
+      newStats.case_studies = 0;
+      newStats.resources = 0;
+      newStats.faqs = 0;
     }
 
     setStats(newStats);
