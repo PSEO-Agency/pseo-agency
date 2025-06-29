@@ -123,28 +123,15 @@ export const Hero = () => {
                 </div>
               </div>
               
-              {/* Step 5 */}
+              {/* Combined Step 5 (formerly steps 5 and 6) */}
               <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                    <h4 className="font-semibold text-white mb-1">5. Traffic Growth</h4>
-                    <p className="text-sm text-blue-100">Scale organic traffic and search visibility</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Step 6 */}
-              <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full flex items-center justify-center">
                   <Target className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1">
                   <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                    <h4 className="font-semibold text-white mb-1">6. Revenue Impact</h4>
-                    <p className="text-sm text-blue-100">Measure and optimize for maximum ROI</p>
+                    <h4 className="font-semibold text-white mb-1">5. Traffic Growth & Revenue Impact</h4>
+                    <p className="text-sm text-blue-100">Scale organic traffic, increase search visibility, and measure ROI</p>
                   </div>
                 </div>
               </div>
