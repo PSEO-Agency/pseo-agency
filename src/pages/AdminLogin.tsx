@@ -13,28 +13,50 @@ export const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, user, isAdmin } = useAuth();
+  const { signIn, user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user && isAdmin) {
+    console.log('AdminLogin: Auth state changed', { user: user?.email, isAdmin, authLoading });
+    
+    if (!authLoading && user && isAdmin) {
+      console.log('AdminLogin: Redirecting to admin dashboard');
       navigate('/admin');
     }
-  }, [user, isAdmin, navigate]);
+  }, [user, isAdmin, navigate, authLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('AdminLogin: Form submitted', { email });
+    
     setLoading(true);
     setError('');
 
-    const { error } = await signIn(email, password);
-    
-    if (error) {
-      setError(error.message);
+    try {
+      const { error } = await signIn(email, password);
+      
+      if (error) {
+        console.error('AdminLogin: Sign in error', error);
+        setError(error.message);
+      } else {
+        console.log('AdminLogin: Sign in successful, waiting for auth state update');
+      }
+    } catch (err) {
+      console.error('AdminLogin: Unexpected error', err);
+      setError('An unexpected error occurred');
     }
     
     setLoading(false);
   };
+
+  // Show loading state while auth is initializing
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
@@ -92,6 +114,14 @@ export const AdminLogin = () => {
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
+          
+          {/* Debug info - remove this in production */}
+          <div className="mt-4 text-xs text-gray-500 space-y-1">
+            <div>Debug Info:</div>
+            <div>User: {user?.email || 'None'}</div>
+            <div>Is Admin: {isAdmin ? 'Yes' : 'No'}</div>
+            <div>Auth Loading: {authLoading ? 'Yes' : 'No'}</div>
+          </div>
         </CardContent>
       </Card>
     </div>
