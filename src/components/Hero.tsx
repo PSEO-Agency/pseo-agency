@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
@@ -109,8 +110,8 @@ export const Hero = () => {
             </div>
             
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-              {/* Steps - Mobile optimized */}
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group cursor-pointer">
+              {/* Steps - Mobile optimized with visible labels */}
+              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
                   <Search className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
                   <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">1</div>
@@ -123,7 +124,7 @@ export const Hero = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group cursor-pointer">
+              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
                   <Palette className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
                   <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">2</div>
@@ -136,7 +137,7 @@ export const Hero = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group cursor-pointer">
+              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
                   <Database className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
                   <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">3</div>
@@ -149,7 +150,7 @@ export const Hero = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group cursor-pointer">
+              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
                   <Target className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
                   <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">4</div>
