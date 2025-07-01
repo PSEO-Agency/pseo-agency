@@ -1,32 +1,18 @@
-
 import { Button } from "@/components/ui/button";
 import { Menu, Phone, ChevronDown, Settings } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { useNavigate } from "react-router-dom";
-
 export const Header = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  return (
-    <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
+  return <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <img 
-              src="/lovable-uploads/68267ce2-fd99-4216-8f3a-6afa830af03a.png" 
-              alt="pSEO" 
-              className="h-8 lg:h-12 w-auto hover:scale-105 transition-transform duration-200"
-            />
+            <img src="/lovable-uploads/68267ce2-fd99-4216-8f3a-6afa830af03a.png" alt="pSEO" className="h-6 lg:h-8 w-auto hover:scale-105 transition-transform duration-200" />
           </div>
 
           {/* Enhanced Navigation - Hidden on mobile */}
@@ -150,12 +136,7 @@ export const Header = () => {
           {/* Enhanced CTA Section */}
           <div className="flex items-center space-x-2 lg:space-x-4">
             {/* Admin Access Button - Hidden on mobile */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/admin/login')}
-              className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-            >
+            <Button variant="ghost" size="sm" onClick={() => navigate('/admin/login')} className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600">
               <Settings className="h-4 w-4" />
               <span className="text-xs">Admin</span>
             </Button>
@@ -178,10 +159,7 @@ export const Header = () => {
               <span className="text-blue-700 font-bold text-sm">Call Now</span>
             </div>
 
-            <Button 
-              className="webfx-button-primary px-4 lg:px-8 py-2 lg:py-3 text-sm lg:text-base font-bold shadow-lg hover:shadow-xl"
-              onClick={() => setIsAuditModalOpen(true)}
-            >
+            <Button className="webfx-button-primary px-4 lg:px-8 py-2 lg:py-3 text-sm lg:text-base font-bold shadow-lg hover:shadow-xl" onClick={() => setIsAuditModalOpen(true)}>
               <span className="hidden sm:inline">Get Free Strategy Call</span>
               <span className="sm:hidden">Free Call</span>
             </Button>
@@ -191,10 +169,6 @@ export const Header = () => {
         </div>
       </div>
 
-      <AuditModal 
-        isOpen={isAuditModalOpen} 
-        onClose={() => setIsAuditModalOpen(false)} 
-      />
-    </header>
-  );
+      <AuditModal isOpen={isAuditModalOpen} onClose={() => setIsAuditModalOpen(false)} />
+    </header>;
 };
