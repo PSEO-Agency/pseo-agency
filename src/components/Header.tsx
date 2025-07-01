@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Menu, Phone, ChevronDown, Settings } from "lucide-react";
 import {
@@ -22,7 +23,7 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img 
-              src="/lovable-uploads/ba592c92-0d43-4888-adec-c4b937d2a5b7.png" 
+              src="/lovable-uploads/68267ce2-fd99-4216-8f3a-6afa830af03a.png" 
               alt="pSEO" 
               className="h-8 lg:h-12 w-auto hover:scale-105 transition-transform duration-200"
             />
