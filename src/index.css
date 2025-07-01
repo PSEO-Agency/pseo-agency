@@ -95,6 +95,13 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  /* Remove default margins and padding that could cause white stripe */
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
 }
 
 @layer base {
@@ -106,6 +113,8 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    margin: 0;
+    padding: 0;
   }
   
   h1, h2, h3, h4, h5, h6 {
