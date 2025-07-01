@@ -9,6 +9,7 @@ import { RevenueProof } from "@/components/RevenueProof";
 import { IndustriesSection } from "@/components/IndustriesSection";
 import { KPISection } from "@/components/KPISection";
 import { TeamSection } from "@/components/TeamSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { BlogSection } from "@/components/BlogSection";
 import { Footer } from "@/components/Footer";
 
@@ -25,6 +26,7 @@ const Index = () => {
       <IndustriesSection />
       <KPISection />
       <TeamSection />
+      <TestimonialsSection />
       <BlogSection />
       <Footer />
     </div>
