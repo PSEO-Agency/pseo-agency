@@ -1,18 +1,26 @@
+
 import { Button } from "@/components/ui/button";
 import { Menu, Phone, ChevronDown, Settings } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { useNavigate } from "react-router-dom";
+
 export const Header = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const navigate = useNavigate();
-  return <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
+
+  return (
+    <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <img src="/lovable-uploads/68267ce2-fd99-4216-8f3a-6afa830af03a.png" alt="pSEO" className="h-6 lg:h-8 w-auto hover:scale-105 transition-transform duration-200" />
+            <img 
+              src="/lovable-uploads/0d07af3b-9627-4d89-b2a7-0972d8195b23.png" 
+              alt="pSEO" 
+              className="h-6 lg:h-8 w-auto hover:scale-105 transition-transform duration-200" 
+            />
           </div>
 
           {/* Enhanced Navigation - Hidden on mobile */}
@@ -170,5 +178,6 @@ export const Header = () => {
       </div>
 
       <AuditModal isOpen={isAuditModalOpen} onClose={() => setIsAuditModalOpen(false)} />
-    </header>;
+    </header>
+  );
 };
