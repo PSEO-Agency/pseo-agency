@@ -31,11 +31,11 @@ export const Hero = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 lg:px-6 relative z-10 py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="container mx-auto px-4 lg:px-6 relative z-10 py-8 lg:py-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div className="max-w-3xl">
             {/* Trust indicators */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 mb-6 lg:mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 mb-4 lg:mb-6">
               <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
                 <Award className="h-4 w-4 text-yellow-400 mr-2" />
                 <span className="text-blue-200 text-xs sm:text-sm font-semibold">Award-Winning SEO Agency</span>
@@ -46,18 +46,18 @@ export const Hero = () => {
               </div>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6 lg:mb-8 text-balance">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 lg:mb-6 text-balance">
               Drive More Revenue Through
               <span className="block webfx-text-gradient mt-2">Programmatic SEO</span>
             </h1>
             
-            <p className="text-lg lg:text-xl text-blue-100 mb-6 lg:mb-10 leading-relaxed max-w-2xl">
+            <p className="text-lg lg:text-xl text-blue-100 mb-4 lg:mb-6 leading-relaxed max-w-2xl">
               Scale your organic traffic exponentially with our data-driven programmatic SEO strategies. 
               We create thousands of high-converting pages that rank on page 1 and drive qualified leads to your business.
             </p>
 
             {/* Key benefits */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4 mb-6 lg:mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4 mb-4 lg:mb-6">
               <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
                 <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
                 <span className="text-xs sm:text-sm font-medium text-white">800% Avg Traffic Growth</span>
@@ -73,7 +73,7 @@ export const Hero = () => {
             </div>
             
             {/* Enhanced Website URL Input Form */}
-            <form onSubmit={handleSubmit} className="mb-6 lg:mb-10">
+            <form onSubmit={handleSubmit} className="mb-4 lg:mb-6">
               <div className="flex flex-col sm:flex-row gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-2 lg:p-3 border border-white/20 shadow-2xl">
                 <div className="flex-1">
                   <Input
@@ -104,23 +104,23 @@ export const Hero = () => {
           
           {/* Process Flow Visualization */}
           <div className="relative">
-            <div className="text-center mb-8 lg:mb-12">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 text-balance">Our Proven Programmatic SEO Process</h3>
+            <div className="text-center mb-6 lg:mb-8">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 text-balance">Our Proven Programmatic SEO Process</h3>
               <p className="text-blue-200 text-base lg:text-lg">How we systematically scale your organic growth</p>
             </div>
             
-            <div className="space-y-6 lg:space-y-8">
+            <div className="space-y-4 lg:space-y-6">
               {/* Step 1 */}
               <div className="flex items-center space-x-4 lg:space-x-6 group cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Search className="h-8 w-8 lg:h-10 lg:w-10 text-white" />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">1</div>
+                <div className="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
+                  <Search className="h-6 w-6 lg:h-8 lg:w-8 text-white" />
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">1</div>
                 </div>
                 <div className="flex-1">
-                  <div className="webfx-card p-4 lg:p-8 group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-blue-50 transition-all duration-300">
-                    <h4 className="font-bold text-gray-900 mb-2 lg:mb-3 text-lg lg:text-xl">Data Analysis & Research</h4>
-                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-40 max-h-0">
-                      <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">Identify high-volume keywords, analyze competitors, and define dynamic content entities for maximum impact.</p>
+                  <div className="webfx-card p-4 lg:p-6">
+                    <h4 className="font-bold text-gray-900 mb-2 text-lg lg:text-xl">Data Analysis & Research</h4>
+                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-32 max-h-0">
+                      <p className="text-gray-600 mb-3 text-sm lg:text-base">Identify high-volume keywords, analyze competitors, and define dynamic content entities for maximum impact.</p>
                       <div className="flex flex-wrap gap-2">
                         <span className="px-2 lg:px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs lg:text-sm font-medium">Keyword Research</span>
                         <span className="px-2 lg:px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs lg:text-sm font-medium">Competitor Analysis</span>
@@ -132,15 +132,15 @@ export const Hero = () => {
               
               {/* Step 2 */}
               <div className="flex items-center space-x-4 lg:space-x-6 group cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Palette className="h-8 w-8 lg:h-10 lg:w-10 text-white" />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">2</div>
+                <div className="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
+                  <Palette className="h-6 w-6 lg:h-8 lg:w-8 text-white" />
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">2</div>
                 </div>
                 <div className="flex-1">
-                  <div className="webfx-card p-4 lg:p-8 group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-purple-50 transition-all duration-300">
-                    <h4 className="font-bold text-gray-900 mb-2 lg:mb-3 text-lg lg:text-xl">Template Development</h4>
-                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-40 max-h-0">
-                      <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">Create scalable, SEO-optimized page templates with dynamic content placeholders for mass generation.</p>
+                  <div className="webfx-card p-4 lg:p-6">
+                    <h4 className="font-bold text-gray-900 mb-2 text-lg lg:text-xl">Template Development</h4>
+                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-32 max-h-0">
+                      <p className="text-gray-600 mb-3 text-sm lg:text-base">Create scalable, SEO-optimized page templates with dynamic content placeholders for mass generation.</p>
                       <div className="flex flex-wrap gap-2">
                         <span className="px-2 lg:px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs lg:text-sm font-medium">Dynamic Templates</span>
                         <span className="px-2 lg:px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs lg:text-sm font-medium">SEO Optimization</span>
@@ -152,15 +152,15 @@ export const Hero = () => {
               
               {/* Step 3 */}
               <div className="flex items-center space-x-4 lg:space-x-6 group cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Database className="h-8 w-8 lg:h-10 lg:w-10 text-white" />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">3</div>
+                <div className="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
+                  <Database className="h-6 w-6 lg:h-8 lg:w-8 text-white" />
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">3</div>
                 </div>
                 <div className="flex-1">
-                  <div className="webfx-card p-4 lg:p-8 group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-green-50 transition-all duration-300">
-                    <h4 className="font-bold text-gray-900 mb-2 lg:mb-3 text-lg lg:text-xl">Database & Content Setup</h4>
-                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-40 max-h-0">
-                      <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">Build structured data foundations and content databases to power thousands of unique, valuable pages.</p>
+                  <div className="webfx-card p-4 lg:p-6">
+                    <h4 className="font-bold text-gray-900 mb-2 text-lg lg:text-xl">Database & Content Setup</h4>
+                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-32 max-h-0">
+                      <p className="text-gray-600 mb-3 text-sm lg:text-base">Build structured data foundations and content databases to power thousands of unique, valuable pages.</p>
                       <div className="flex flex-wrap gap-2">
                         <span className="px-2 lg:px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs lg:text-sm font-medium">Data Structuring</span>
                         <span className="px-2 lg:px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs lg:text-sm font-medium">Content Database</span>
@@ -172,15 +172,15 @@ export const Hero = () => {
               
               {/* Step 4 */}
               <div className="flex items-center space-x-4 lg:space-x-6 group cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Target className="h-8 w-8 lg:h-10 lg:w-10 text-white" />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">4</div>
+                <div className="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
+                  <Target className="h-6 w-6 lg:h-8 lg:w-8 text-white" />
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">4</div>
                 </div>
                 <div className="flex-1">
-                  <div className="webfx-card p-4 lg:p-8 group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-orange-50 transition-all duration-300">
-                    <h4 className="font-bold text-gray-900 mb-2 lg:mb-3 text-lg lg:text-xl">Scale & Revenue Growth</h4>
-                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-40 max-h-0">
-                      <p className="text-gray-600 mb-3 lg:mb-4 text-sm lg:text-base">Launch thousands of optimized pages, track performance, and optimize for maximum revenue impact.</p>
+                  <div className="webfx-card p-4 lg:p-6">
+                    <h4 className="font-bold text-gray-900 mb-2 text-lg lg:text-xl">Scale & Revenue Growth</h4>
+                    <div className="overflow-hidden transition-all duration-300 group-hover:max-h-32 max-h-0">
+                      <p className="text-gray-600 mb-3 text-sm lg:text-base">Launch thousands of optimized pages, track performance, and optimize for maximum revenue impact.</p>
                       <div className="flex flex-wrap gap-2">
                         <span className="px-2 lg:px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs lg:text-sm font-medium">Performance Tracking</span>
                         <span className="px-2 lg:px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs lg:text-sm font-medium">Revenue Optimization</span>
