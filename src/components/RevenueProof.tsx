@@ -9,24 +9,34 @@ export const RevenueProof = () => {
 
   const caseStudies = [
     {
-      company: "E-commerce Platform",
-      industry: "Retail",
-      trafficIncrease: "1,200%",
-      revenueIncrease: "$2.3M",
-      timeframe: "18 months",
-      description: "Scaled organic traffic through programmatic product and category pages targeting over 50,000 unique keyword combinations.",
+      company: "TechFlow Solutions",
+      industry: "SaaS Technology",
+      trafficIncrease: "950%",
+      revenueIncrease: "$1.2M",
+      timeframe: "14 months",
+      description: "Revolutionary programmatic SEO strategy that transformed our B2B lead generation. Within 14 months, we went from 50 organic leads per month to over 500, with our MRR growing from $80K to $180K monthly.",
       rating: 5,
       color: "from-blue-500 to-blue-600"
     },
     {
-      company: "SaaS Company",
-      industry: "Technology",
-      trafficIncrease: "850%",
-      revenueIncrease: "$1.8M",
-      timeframe: "12 months",
-      description: "Created thousands of location-based and feature-specific landing pages that dominated local search results.",
+      company: "Urban Retail Co.",
+      industry: "E-commerce",
+      trafficIncrease: "1,400%",
+      revenueIncrease: "$2.8M",
+      timeframe: "18 months",
+      description: "The programmatic approach to product and category pages was game-changing. Our organic traffic exploded from 25K to 375K monthly visitors, directly contributing to a 240% increase in online revenue.",
       rating: 5,
-      color: "from-green-500 to-green-600"
+      color: "from-green-500 to-green-600"  
+    },
+    {
+      company: "HealthTech Innovations",
+      industry: "Healthcare Technology",
+      trafficIncrease: "750%",
+      revenueIncrease: "$950K",
+      timeframe: "12 months",
+      description: "Exceptional results in the competitive healthcare space. The location-based landing pages and condition-specific content drove qualified traffic that converted 3x better than our previous campaigns.",
+      rating: 5,
+      color: "from-purple-500 to-purple-600"
     }
   ];
 
@@ -55,7 +65,7 @@ export const RevenueProof = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
           {caseStudies.map((study, index) => (
             <div key={index} className="webfx-card p-8 group hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
