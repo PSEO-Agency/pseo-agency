@@ -11,15 +11,15 @@ export const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="bg-white/98 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img 
               src="/lovable-uploads/0d07af3b-9627-4d89-b2a7-0972d8195b23.png" 
               alt="pSEO" 
-              className="h-6 lg:h-8 w-auto hover:scale-105 transition-transform duration-200" 
+              className="h-5 lg:h-7 w-auto hover:scale-105 transition-transform duration-200" 
             />
           </div>
 
@@ -27,7 +27,7 @@ export const Header = () => {
           <NavigationMenu className="hidden xl:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-800 hover:text-blue-600 font-semibold text-base px-4 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">
+                <NavigationMenuTrigger className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -91,7 +91,7 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-base px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
+                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -113,11 +113,11 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-base px-4 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</a>
+                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</a>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-base px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
+                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -132,17 +132,17 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-base px-4 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">About</a>
+                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">About</a>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-base px-4 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Contact</a>
+                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Contact</a>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
           {/* Enhanced CTA Section */}
-          <div className="flex items-center space-x-2 lg:space-x-4">
+          <div className="flex items-center space-x-2 lg:space-x-3">
             {/* Admin Access Button - Hidden on mobile */}
             <Button variant="ghost" size="sm" onClick={() => navigate('/admin/login')} className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600">
               <Settings className="h-4 w-4" />
@@ -150,7 +150,7 @@ export const Header = () => {
             </Button>
 
             {/* Enhanced phone section - Responsive */}
-            <div className="hidden lg:flex items-center space-x-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl px-4 py-2 border border-gray-200 shadow-sm">
+            <div className="hidden lg:flex items-center space-x-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl px-3 py-2 border border-gray-200 shadow-sm">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <Phone className="h-4 w-4 text-blue-600" />
@@ -162,17 +162,17 @@ export const Header = () => {
             </div>
 
             {/* Mobile phone display */}
-            <div className="flex lg:hidden items-center space-x-2 bg-blue-50 rounded-lg px-3 py-2">
+            <div className="flex lg:hidden items-center space-x-2 bg-blue-50 rounded-lg px-2 py-1">
               <Phone className="h-4 w-4 text-blue-600" />
-              <span className="text-blue-700 font-bold text-sm">Call Now</span>
+              <span className="text-blue-700 font-bold text-xs">Call</span>
             </div>
 
-            <Button className="webfx-button-primary px-4 lg:px-8 py-2 lg:py-3 text-sm lg:text-base font-bold shadow-lg hover:shadow-xl" onClick={() => setIsAuditModalOpen(true)}>
+            <Button className="webfx-button-primary px-3 lg:px-6 py-2 text-xs lg:text-sm font-bold shadow-lg hover:shadow-xl" onClick={() => setIsAuditModalOpen(true)}>
               <span className="hidden sm:inline">Get Free Strategy Call</span>
               <span className="sm:hidden">Free Call</span>
             </Button>
             
-            <Menu className="h-6 w-6 xl:hidden cursor-pointer text-gray-800 hover:text-blue-600 transition-colors duration-200" />
+            <Menu className="h-5 w-5 xl:hidden cursor-pointer text-gray-800 hover:text-blue-600 transition-colors duration-200" />
           </div>
         </div>
       </div>
