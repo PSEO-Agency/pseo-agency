@@ -1,8 +1,26 @@
 
 import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 export const Footer = () => {
+  // Load the chat widget script when the footer component mounts
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://widgets.leadconnectorhq.com/loader.js';
+    script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+    script.setAttribute('data-widget-id', '68639be981758b26193bfaba');
+    document.body.appendChild(script);
+
+    return () => {
+      // Clean up script when component unmounts
+      const existingScript = document.querySelector('script[src="https://widgets.leadconnectorhq.com/loader.js"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, []);
+
   return (
     <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
       {/* Background decoration */}
