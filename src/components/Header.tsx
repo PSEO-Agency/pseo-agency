@@ -115,14 +115,6 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link to="/software" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Software</Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link to="/tools" className="text-gray-800 hover:text-emerald-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-emerald-50 transition-all duration-200">Tools</Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
                 <Link to="/results" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</Link>
               </NavigationMenuItem>
 
@@ -131,29 +123,47 @@ export const Header = () => {
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-3 p-6 w-[400px] bg-white shadow-2xl rounded-2xl border border-gray-100">
-                    <Link 
-                      to="/free-strategy"
-                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                    >
-                      Free SEO Strategy
-                    </Link>
-                    <Link 
-                      to="/blog" 
-                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                    >
-                      Blog
-                    </Link>
-                    <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
-                    {resources?.slice(0, 2).map((resource) => (
+                  <div className="grid gap-4 p-6 w-[500px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
+                    <div className="space-y-3">
+                      <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">Content & Guides</h4>
                       <Link 
-                        key={resource.id}
-                        to={`/resources/${resource.slug}`} 
+                        to="/free-strategy"
                         className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
                       >
-                        {resource.title}
+                        Free SEO Strategy
                       </Link>
-                    ))}
+                      <Link 
+                        to="/blog" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        Blog
+                      </Link>
+                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
+                      {resources?.slice(0, 2).map((resource) => (
+                        <Link 
+                          key={resource.id}
+                          to={`/resources/${resource.slug}`} 
+                          className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                        >
+                          {resource.title}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">Software & Tools</h4>
+                      <Link 
+                        to="/software" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        Software Platforms
+                      </Link>
+                      <Link 
+                        to="/tools" 
+                        className="block text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        SEO Tools
+                      </Link>
+                    </div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>

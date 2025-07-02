@@ -17,8 +17,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
-  const [softwareOpen, setSoftwareOpen] = useState(false);
-  const [toolsOpen, setToolsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const navigate = useNavigate();
   
@@ -94,60 +92,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             </CollapsibleContent>
           </Collapsible>
 
-          {/* Software Section */}
-          <Collapsible open={softwareOpen} onOpenChange={setSoftwareOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
-              Software
-              <ChevronDown className={`h-4 w-4 transition-transform ${softwareOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <Link 
-                to="/software" 
-                className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" 
-                onClick={() => setIsOpen(false)}
-              >
-                All Software
-              </Link>
-              {software?.map((item) => (
-                <Link 
-                  key={item.id}
-                  to={`/software/${item.slug}`} 
-                  className="block text-gray-600 py-2 text-sm hover:text-blue-600"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </CollapsibleContent>
-          </Collapsible>
-
-          {/* Tools Section */}
-          <Collapsible open={toolsOpen} onOpenChange={setToolsOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-emerald-600 transition-colors">
-              Tools
-              <ChevronDown className={`h-4 w-4 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <Link 
-                to="/tools" 
-                className="block text-gray-600 py-2 text-sm hover:text-emerald-600 font-medium" 
-                onClick={() => setIsOpen(false)}
-              >
-                All Tools
-              </Link>
-              {tools?.map((item) => (
-                <Link 
-                  key={item.id}
-                  to={`/tools/${item.slug}`} 
-                  className="block text-gray-600 py-2 text-sm hover:text-emerald-600"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </CollapsibleContent>
-          </Collapsible>
-
           {/* Direct Links */}
           <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
             Results
@@ -159,21 +103,64 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
               Resources
               <ChevronDown className={`h-4 w-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <Link to="/blog" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Blog
-              </Link>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Case Studies</a>
-              {resources?.map((resource) => (
+            <CollapsibleContent className="pl-4 space-y-3 pt-2">
+              {/* Content & Guides */}
+              <div className="space-y-2">
+                <h4 className="font-medium text-gray-900 text-sm">Content & Guides</h4>
+                <Link to="/blog" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  Blog
+                </Link>
+                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Case Studies</a>
+                {resources?.map((resource) => (
+                  <Link 
+                    key={resource.id}
+                    to={`/resources/${resource.slug}`} 
+                    className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {resource.title}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Software & Tools */}
+              <div className="space-y-2 pt-4 border-t border-gray-100">
+                <h4 className="font-medium text-gray-900 text-sm">Software & Tools</h4>
                 <Link 
-                  key={resource.id}
-                  to={`/resources/${resource.slug}`} 
-                  className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                  to="/software" 
+                  className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" 
                   onClick={() => setIsOpen(false)}
                 >
-                  {resource.title}
+                  All Software
                 </Link>
-              ))}
+                {software?.slice(0, 3).map((item) => (
+                  <Link 
+                    key={item.id}
+                    to={`/software/${item.slug}`} 
+                    className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+                <Link 
+                  to="/tools" 
+                  className="block text-gray-600 py-2 text-sm hover:text-emerald-600 font-medium" 
+                  onClick={() => setIsOpen(false)}
+                >
+                  All Tools
+                </Link>
+                {tools?.slice(0, 3).map((item) => (
+                  <Link 
+                    key={item.id}
+                    to={`/tools/${item.slug}`} 
+                    className="block text-gray-600 py-2 text-sm hover:text-emerald-600"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
             </CollapsibleContent>
           </Collapsible>
 
