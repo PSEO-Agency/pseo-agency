@@ -55,3 +55,29 @@ export const useSoftwareBySlug = (slug: string) => {
     enabled: !!slug,
   });
 };
+
+// New hook for related software
+export const useRelatedSoftware = (currentSlug: string, category?: string) => {
+  return useQuery({
+    queryKey: ['related-software', currentSlug, category],
+    queryFn: async () => {
+      let query = supabase
+        .from('software')
+        .select('*')
+        .eq('is_published', true)
+        .eq('type', 'software')
+        .neq('slug', currentSlug)
+        .limit(3);
+
+      if (category) {
+        query = query.eq('category', category);
+      }
+
+      const { data, error } = await query.order('popularity_score', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!currentSlug,
+  });
+};

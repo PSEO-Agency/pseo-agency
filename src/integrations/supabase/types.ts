@@ -704,22 +704,31 @@ export type Database = {
           created_at: string | null
           demo_url: string | null
           description: string | null
+          difficulty_level: string | null
           documentation_url: string | null
           features: Json | null
           github_url: string | null
           id: string
           image_url: string | null
+          integration_capabilities: Json | null
           is_featured: boolean | null
           is_published: boolean | null
           meta_description: string | null
           meta_title: string | null
+          popularity_score: number | null
           pricing_info: Json | null
+          review_count: number | null
+          setup_time: string | null
           slug: string
           sort_order: number | null
           tags: Json | null
+          target_audience: string | null
+          technical_specs: Json | null
           title: string
           type: string
           updated_at: string | null
+          use_cases: Json | null
+          user_rating: number | null
         }
         Insert: {
           category?: string | null
@@ -727,22 +736,31 @@ export type Database = {
           created_at?: string | null
           demo_url?: string | null
           description?: string | null
+          difficulty_level?: string | null
           documentation_url?: string | null
           features?: Json | null
           github_url?: string | null
           id?: string
           image_url?: string | null
+          integration_capabilities?: Json | null
           is_featured?: boolean | null
           is_published?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
+          popularity_score?: number | null
           pricing_info?: Json | null
+          review_count?: number | null
+          setup_time?: string | null
           slug: string
           sort_order?: number | null
           tags?: Json | null
+          target_audience?: string | null
+          technical_specs?: Json | null
           title: string
           type?: string
           updated_at?: string | null
+          use_cases?: Json | null
+          user_rating?: number | null
         }
         Update: {
           category?: string | null
@@ -750,22 +768,31 @@ export type Database = {
           created_at?: string | null
           demo_url?: string | null
           description?: string | null
+          difficulty_level?: string | null
           documentation_url?: string | null
           features?: Json | null
           github_url?: string | null
           id?: string
           image_url?: string | null
+          integration_capabilities?: Json | null
           is_featured?: boolean | null
           is_published?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
+          popularity_score?: number | null
           pricing_info?: Json | null
+          review_count?: number | null
+          setup_time?: string | null
           slug?: string
           sort_order?: number | null
           tags?: Json | null
+          target_audience?: string | null
+          technical_specs?: Json | null
           title?: string
           type?: string
           updated_at?: string | null
+          use_cases?: Json | null
+          user_rating?: number | null
         }
         Relationships: []
       }

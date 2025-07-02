@@ -1,8 +1,6 @@
 
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
-import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -10,26 +8,18 @@ import NotFound from "./NotFound";
 import { SoftwareHero } from "@/components/software/SoftwareHero";
 import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
 import { SoftwarePricing } from "@/components/software/SoftwarePricing";
+import { SoftwareSpecs } from "@/components/software/SoftwareSpecs";
+import { RelatedSoftware } from "@/components/software/RelatedSoftware";
 import { Badge } from "@/components/ui/badge";
+import { useToolBySlug, useRelatedTools } from "@/hooks/useTools";
+import { useRelatedSoftware } from "@/hooks/useSoftware";
 
 const ToolPage = () => {
   const { slug } = useParams();
 
-  const { data: tool, isLoading, error } = useQuery({
-    queryKey: ['tool', slug],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('software')
-        .select('*')
-        .eq('slug', slug)
-        .eq('is_published', true)
-        .eq('type', 'tool')
-        .single();
-      
-      if (error) throw error;
-      return data;
-    },
-  });
+  const { data: tool, isLoading, error } = useToolBySlug(slug!);
+  const { data: relatedTools } = useRelatedTools(slug!, tool?.category);
+  const { data: relatedSoftware } = useRelatedSoftware(slug!, tool?.category);
 
   if (isLoading) {
     return (
@@ -81,6 +71,7 @@ const ToolPage = () => {
       <main>
         <SoftwareHero software={tool} />
         <SoftwareFeatures features={features} />
+        <SoftwareSpecs software={tool} />
 
         {/* Content Section */}
         {tool.content && (
@@ -97,6 +88,24 @@ const ToolPage = () => {
         )}
 
         <SoftwarePricing pricingInfo={pricingInfo} />
+
+        {/* Related Tools */}
+        {relatedTools && relatedTools.length > 0 && (
+          <RelatedSoftware 
+            items={relatedTools}
+            title="Related Tools"
+            subtitle="Other essential SEO tools for comprehensive optimization"
+          />
+        )}
+
+        {/* Related Software */}
+        {relatedSoftware && relatedSoftware.length > 0 && (
+          <RelatedSoftware 
+            items={relatedSoftware}
+            title="Recommended Software"
+            subtitle="Software platforms that integrate well with this tool"
+          />
+        )}
 
         {/* Tags Section */}
         {tags.length > 0 && (
