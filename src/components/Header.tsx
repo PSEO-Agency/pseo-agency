@@ -119,6 +119,10 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                <Link to="/tools" className="text-gray-800 hover:text-emerald-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-emerald-50 transition-all duration-200">Tools</Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <Link to="/results" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</Link>
               </NavigationMenuItem>
 

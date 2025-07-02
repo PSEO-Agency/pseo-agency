@@ -718,6 +718,7 @@ export type Database = {
           sort_order: number | null
           tags: Json | null
           title: string
+          type: string
           updated_at: string | null
         }
         Insert: {
@@ -740,6 +741,7 @@ export type Database = {
           sort_order?: number | null
           tags?: Json | null
           title: string
+          type?: string
           updated_at?: string | null
         }
         Update: {
@@ -762,6 +764,7 @@ export type Database = {
           sort_order?: number | null
           tags?: Json | null
           title?: string
+          type?: string
           updated_at?: string | null
         }
         Relationships: []

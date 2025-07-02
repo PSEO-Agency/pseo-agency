@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -34,10 +35,12 @@ import BlogPost from "./pages/BlogPost";
 import CaseStudy from "./pages/CaseStudy";
 import Resource from "./pages/Resource";
 import SoftwarePage from "./pages/SoftwarePage";
+import ToolPage from "./pages/ToolPage";
 import ServicesCollection from "./pages/ServicesCollection";
 import IndustriesCollection from "./pages/IndustriesCollection";
 import ResourcesCollection from "./pages/ResourcesCollection";
 import SoftwareCollection from "./pages/SoftwareCollection";
+import ToolsCollection from "./pages/ToolsCollection";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +66,7 @@ const App = () => (
             <Route path="/industries" element={<IndustriesCollection />} />
             <Route path="/resources" element={<ResourcesCollection />} />
             <Route path="/software" element={<SoftwareCollection />} />
+            <Route path="/tools" element={<ToolsCollection />} />
             
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={
@@ -133,6 +137,7 @@ const App = () => (
             <Route path="/case-studies/:slug" element={<CaseStudy />} />
             <Route path="/resources/:slug" element={<Resource />} />
             <Route path="/software/:slug" element={<SoftwarePage />} />
+            <Route path="/tools/:slug" element={<ToolPage />} />
             <Route path="/:slug" element={<DynamicPage />} />
             
             <Route path="*" element={<NotFound />} />

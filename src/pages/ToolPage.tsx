@@ -6,24 +6,24 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Badge } from "@/components/ui/badge";
 import NotFound from "./NotFound";
 import { SoftwareHero } from "@/components/software/SoftwareHero";
 import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
 import { SoftwarePricing } from "@/components/software/SoftwarePricing";
+import { Badge } from "@/components/ui/badge";
 
-const SoftwarePage = () => {
+const ToolPage = () => {
   const { slug } = useParams();
 
-  const { data: software, isLoading, error } = useQuery({
-    queryKey: ['software', slug],
+  const { data: tool, isLoading, error } = useQuery({
+    queryKey: ['tool', slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('software')
         .select('*')
         .eq('slug', slug)
         .eq('is_published', true)
-        .eq('type', 'software')
+        .eq('type', 'tool')
         .single();
       
       if (error) throw error;
@@ -36,19 +36,19 @@ const SoftwarePage = () => {
       <div className="min-h-screen bg-white">
         <Header />
         <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
         </div>
       </div>
     );
   }
 
-  if (error || !software) {
+  if (error || !tool) {
     return <NotFound />;
   }
 
   // Properly type and validate features data
-  const features = Array.isArray(software.features) 
-    ? software.features.filter((feature): feature is { name: string; description: string } => 
+  const features = Array.isArray(tool.features) 
+    ? tool.features.filter((feature): feature is { name: string; description: string } => 
         typeof feature === 'object' && 
         feature !== null && 
         typeof (feature as any).name === 'string' && 
@@ -56,40 +56,40 @@ const SoftwarePage = () => {
       )
     : [];
 
-  const tags = Array.isArray(software.tags) ? software.tags : [];
+  const tags = Array.isArray(tool.tags) ? tool.tags : [];
   
   // Type guard for pricing info
-  const pricingInfo = software.pricing_info && typeof software.pricing_info === 'object' && !Array.isArray(software.pricing_info) 
-    ? software.pricing_info as Record<string, any>
+  const pricingInfo = tool.pricing_info && typeof tool.pricing_info === 'object' && !Array.isArray(tool.pricing_info) 
+    ? tool.pricing_info as Record<string, any>
     : {};
 
   const breadcrumbItems = [
-    { label: "Software", href: "/software" },
-    { label: software.title }
+    { label: "Tools", href: "/tools" },
+    { label: tool.title }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{software.meta_title || `${software.title} - Programmatic SEO Software`}</title>
-        <meta name="description" content={software.meta_description || software.description || `Learn about ${software.title} - powerful programmatic SEO software solution.`} />
+        <title>{tool.meta_title || `${tool.title} - Professional SEO Tool`}</title>
+        <meta name="description" content={tool.meta_description || tool.description || `Learn about ${tool.title} - professional SEO tool for optimization and analysis.`} />
       </Helmet>
       
       <Header />
       <Breadcrumbs items={breadcrumbItems} />
       
       <main>
-        <SoftwareHero software={software} />
+        <SoftwareHero software={tool} />
         <SoftwareFeatures features={features} />
 
         {/* Content Section */}
-        {software.content && (
+        {tool.content && (
           <section className="py-20 bg-gray-50">
             <div className="container mx-auto px-6">
               <div className="max-w-4xl mx-auto">
                 <div 
-                  className="prose prose-lg prose-blue max-w-none"
-                  dangerouslySetInnerHTML={{ __html: software.content }}
+                  className="prose prose-lg prose-emerald max-w-none"
+                  dangerouslySetInnerHTML={{ __html: tool.content }}
                 />
               </div>
             </div>
@@ -103,10 +103,10 @@ const SoftwarePage = () => {
           <section className="py-16 bg-white border-t border-gray-100">
             <div className="container mx-auto px-6">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Technologies</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Categories</h3>
                 <div className="flex flex-wrap justify-center gap-3">
                   {tags.map((tag: string, index: number) => (
-                    <Badge key={index} variant="outline" className="px-4 py-2 text-base border-blue-200 text-blue-700 hover:bg-blue-50">
+                    <Badge key={index} variant="outline" className="px-4 py-2 text-base border-emerald-200 text-emerald-700 hover:bg-emerald-50">
                       {tag}
                     </Badge>
                   ))}
@@ -122,4 +122,4 @@ const SoftwarePage = () => {
   );
 };
 
-export default SoftwarePage;
+export default ToolPage;

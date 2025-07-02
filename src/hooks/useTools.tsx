@@ -2,15 +2,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-export const useSoftware = () => {
+export const useTools = () => {
   return useQuery({
-    queryKey: ['software'],
+    queryKey: ['tools'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('software')
         .select('*')
         .eq('is_published', true)
-        .eq('type', 'software')
+        .eq('type', 'tool')
         .order('sort_order', { ascending: true });
       
       if (error) throw error;
@@ -19,15 +19,15 @@ export const useSoftware = () => {
   });
 };
 
-export const useFeaturedSoftware = () => {
+export const useFeaturedTools = () => {
   return useQuery({
-    queryKey: ['featured-software'],
+    queryKey: ['featured-tools'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('software')
         .select('*')
         .eq('is_published', true)
-        .eq('type', 'software')
+        .eq('type', 'tool')
         .eq('is_featured', true)
         .order('sort_order', { ascending: true });
       
@@ -37,16 +37,16 @@ export const useFeaturedSoftware = () => {
   });
 };
 
-export const useSoftwareBySlug = (slug: string) => {
+export const useToolBySlug = (slug: string) => {
   return useQuery({
-    queryKey: ['software', slug],
+    queryKey: ['tool', slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('software')
         .select('*')
         .eq('slug', slug)
         .eq('is_published', true)
-        .eq('type', 'software')
+        .eq('type', 'tool')
         .single();
       
       if (error) throw error;

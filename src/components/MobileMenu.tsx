@@ -7,6 +7,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useNavigate, Link } from "react-router-dom";
 import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
 import { useSoftware } from "@/hooks/useSoftware";
+import { useTools } from "@/hooks/useTools";
 
 interface MobileMenuProps {
   onAuditModalOpen: () => void;
@@ -17,12 +18,14 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [softwareOpen, setSoftwareOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const navigate = useNavigate();
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
   const { data: software } = useSoftware();
+  const { data: tools } = useTools();
   const { data: resources } = useResources();
 
   const handleAuditClick = () => {
@@ -110,6 +113,33 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   key={item.id}
                   to={`/software/${item.slug}`} 
                   className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Tools Section */}
+          <Collapsible open={toolsOpen} onOpenChange={setToolsOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-emerald-600 transition-colors">
+              Tools
+              <ChevronDown className={`h-4 w-4 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-4 space-y-2 pt-2">
+              <Link 
+                to="/tools" 
+                className="block text-gray-600 py-2 text-sm hover:text-emerald-600 font-medium" 
+                onClick={() => setIsOpen(false)}
+              >
+                All Tools
+              </Link>
+              {tools?.map((item) => (
+                <Link 
+                  key={item.id}
+                  to={`/tools/${item.slug}`} 
+                  className="block text-gray-600 py-2 text-sm hover:text-emerald-600"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.title}
