@@ -1,99 +1,122 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Github, ExternalLink } from "lucide-react";
+import { Star, Users, Clock, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface SoftwareCardProps {
   software: {
     id: string;
     title: string;
+    description: string | null;
     slug: string;
-    description?: string;
-    category?: string;
-    image_url?: string;
-    is_featured: boolean;
-    demo_url?: string;
-    github_url?: string;
+    image_url: string | null;
+    category: string | null;
+    user_rating: number | null;
+    popularity_score: number | null;
+    difficulty_level: string | null;
+    setup_time: string | null;
+    tags: any;
+    type: string | null;
   };
   featured?: boolean;
 }
 
 export const SoftwareCard = ({ software, featured = false }: SoftwareCardProps) => {
+  const tags = Array.isArray(software.tags) ? software.tags : [];
+  
+  // Determine the correct URL based on the type
+  const getItemUrl = () => {
+    if (software.type === 'tool') {
+      return `/tools/${software.slug}`;
+    }
+    return `/software/${software.slug}`;
+  };
+
   return (
-    <Card className="hover:shadow-xl transition-all duration-300 group border-0 shadow-lg bg-white">
+    <Card className={`group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${featured ? 'border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-purple-50' : 'hover:shadow-lg'}`}>
       <CardContent className="p-0">
-        {software.image_url && (
-          <div className="relative overflow-hidden rounded-t-lg">
-            <img 
-              src={software.image_url} 
-              alt={software.title}
-              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-            {software.is_featured && (
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg">
-                  <Star className="h-3 w-3 mr-1 fill-current" />
+        <Link to={getItemUrl()} className="block">
+          {/* Image */}
+          <div className="relative overflow-hidden rounded-t-lg bg-gradient-to-br from-blue-50 to-purple-50 h-48">
+            {software.image_url ? (
+              <img 
+                src={software.image_url} 
+                alt={software.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <ExternalLink className="h-8 w-8 text-white" />
+                </div>
+              </div>
+            )}
+            {featured && (
+              <div className="absolute top-3 right-3">
+                <Badge className="bg-yellow-500 text-white border-0 font-bold">
                   Featured
                 </Badge>
               </div>
             )}
           </div>
-        )}
-        
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            {software.category && (
-              <Badge variant="secondary" className="text-blue-600 bg-blue-100 border-blue-200">
-                {software.category}
-              </Badge>
-            )}
-            {!software.image_url && software.is_featured && (
-              <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg">
-                <Star className="h-3 w-3 mr-1 fill-current" />
-                Featured
-              </Badge>
-            )}
-          </div>
-          
-          <h3 className={`font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 ${featured ? 'text-2xl' : 'text-xl'}`}>
-            {software.title}
-          </h3>
-          
-          {software.description && (
-            <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
-              {software.description}
+
+          {/* Content */}
+          <div className="p-6">
+            <div className="mb-3">
+              <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                {software.title}
+              </h3>
+              {software.category && (
+                <Badge variant="outline" className="text-xs text-blue-600 border-blue-200">
+                  {software.category}
+                </Badge>
+              )}
+            </div>
+
+            <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+              {software.description || 'Professional tool for optimization and analysis.'}
             </p>
-          )}
-          
-          <div className="flex flex-wrap gap-2 mb-6">
-            {software.demo_url && (
-              <Button size="sm" variant="outline" asChild>
-                <a href={software.demo_url} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-3 w-3 mr-1" />
-                  Demo
-                </a>
-              </Button>
-            )}
-            {software.github_url && (
-              <Button size="sm" variant="outline" asChild>
-                <a href={software.github_url} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-3 w-3 mr-1" />
-                  GitHub
-                </a>
-              </Button>
+
+            {/* Stats Row */}
+            <div className="flex items-center justify-between text-xs text-gray-500 mb-4 space-x-4">
+              {software.user_rating && (
+                <div className="flex items-center space-x-1">
+                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                  <span className="font-medium">{software.user_rating}</span>
+                </div>
+              )}
+              {software.popularity_score && (
+                <div className="flex items-center space-x-1">
+                  <Users className="h-3 w-3" />
+                  <span>{software.popularity_score}k</span>
+                </div>
+              )}
+              {software.setup_time && (
+                <div className="flex items-center space-x-1">
+                  <Clock className="h-3 w-3" />
+                  <span>{software.setup_time}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Tags */}
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {tags.slice(0, 3).map((tag: string, index: number) => (
+                  <Badge key={index} variant="secondary" className="text-xs px-2 py-1">
+                    {tag}
+                  </Badge>
+                ))}
+                {tags.length > 3 && (
+                  <Badge variant="secondary" className="text-xs px-2 py-1">
+                    +{tags.length - 3}
+                  </Badge>
+                )}
+              </div>
             )}
           </div>
-          
-          <Link 
-            to={`/software/${software.slug}`}
-            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group-hover:translate-x-1 transition-all duration-200"
-          >
-            Learn More
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </div>
+        </Link>
       </CardContent>
     </Card>
   );
