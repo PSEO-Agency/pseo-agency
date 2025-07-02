@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
 
@@ -46,6 +47,10 @@ const DynamicPage = () => {
     return <NotFound />;
   }
 
+  const breadcrumbItems = [
+    { label: page.title }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -54,6 +59,7 @@ const DynamicPage = () => {
       </Helmet>
       
       <Header />
+      <Breadcrumbs items={breadcrumbItems} />
       
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">

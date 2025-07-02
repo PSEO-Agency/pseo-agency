@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,6 +53,11 @@ const SoftwarePage = () => {
     ? software.pricing_info as Record<string, any>
     : {};
 
+  const breadcrumbItems = [
+    { label: "Software", href: "/software" },
+    { label: software.title }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
@@ -60,8 +66,9 @@ const SoftwarePage = () => {
       </Helmet>
       
       <Header />
+      <Breadcrumbs items={breadcrumbItems} />
       
-      <main className="pt-20">
+      <main className="pt-8">
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="container mx-auto px-6">

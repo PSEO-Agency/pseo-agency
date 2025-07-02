@@ -114,6 +114,9 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   {resource.title}
                 </Link>
               ))}
+              <Link to="/software" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                Software & Tools
+              </Link>
             </CollapsibleContent>
           </Collapsible>
 

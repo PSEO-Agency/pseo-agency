@@ -137,7 +137,7 @@ export const Header = () => {
                       Blog
                     </Link>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
-                    {resources?.slice(0, 3).map((resource) => (
+                    {resources?.slice(0, 2).map((resource) => (
                       <Link 
                         key={resource.id}
                         to={`/resources/${resource.slug}`} 
@@ -146,6 +146,12 @@ export const Header = () => {
                         {resource.title}
                       </Link>
                     ))}
+                    <Link 
+                      to="/software"
+                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                    >
+                      Software & Tools
+                    </Link>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
