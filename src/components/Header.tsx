@@ -115,6 +115,10 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                <Link to="/software" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Software</Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <Link to="/results" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</Link>
               </NavigationMenuItem>
 
@@ -146,12 +150,6 @@ export const Header = () => {
                         {resource.title}
                       </Link>
                     ))}
-                    <Link 
-                      to="/software"
-                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                    >
-                      Software & Tools
-                    </Link>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
