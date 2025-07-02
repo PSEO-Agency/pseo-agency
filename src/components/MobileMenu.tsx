@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -5,6 +6,7 @@ import { Menu, X, ChevronDown, Phone, Settings } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useNavigate, Link } from "react-router-dom";
 import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
+import { useSoftware } from "@/hooks/useSoftware";
 
 interface MobileMenuProps {
   onAuditModalOpen: () => void;
@@ -14,11 +16,13 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [softwareOpen, setSoftwareOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const navigate = useNavigate();
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
+  const { data: software } = useSoftware();
   const { data: resources } = useResources();
 
   const handleAuditClick = () => {
@@ -87,10 +91,32 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             </CollapsibleContent>
           </Collapsible>
 
-          {/* Software Link - Added here */}
-          <Link to="/software" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
-            Software
-          </Link>
+          {/* Software Section */}
+          <Collapsible open={softwareOpen} onOpenChange={setSoftwareOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+              Software
+              <ChevronDown className={`h-4 w-4 transition-transform ${softwareOpen ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-4 space-y-2 pt-2">
+              <Link 
+                to="/software" 
+                className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" 
+                onClick={() => setIsOpen(false)}
+              >
+                All Software
+              </Link>
+              {software?.map((item) => (
+                <Link 
+                  key={item.id}
+                  to={`/software/${item.slug}`} 
+                  className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Direct Links */}
           <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
