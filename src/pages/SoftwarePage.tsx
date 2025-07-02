@@ -46,7 +46,11 @@ const SoftwarePage = () => {
 
   const features = Array.isArray(software.features) ? software.features : [];
   const tags = Array.isArray(software.tags) ? software.tags : [];
-  const pricingInfo = software.pricing_info || {};
+  
+  // Type guard for pricing info
+  const pricingInfo = software.pricing_info && typeof software.pricing_info === 'object' && !Array.isArray(software.pricing_info) 
+    ? software.pricing_info as Record<string, any>
+    : {};
 
   return (
     <div className="min-h-screen bg-white">
