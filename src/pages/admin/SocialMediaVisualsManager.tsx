@@ -80,11 +80,27 @@ const SocialMediaVisualsManager = () => {
     mutationFn: async (visual: Partial<SocialMediaVisual> & { id?: string }) => {
       const { id, created_at, updated_at, ...visualData } = visual;
       
+      // Ensure required fields are present and properly typed
+      const processedVisualData = {
+        title: visualData.title || '',
+        slug: visualData.slug || '',
+        description: visualData.description,
+        format: visualData.format || 'facebook-post',
+        width: visualData.width || 1200,
+        height: visualData.height || 630,
+        template_data: visualData.template_data || {},
+        html_variations: visualData.html_variations || [],
+        generated_images: visualData.generated_images,
+        is_published: visualData.is_published ?? true,
+        sort_order: visualData.sort_order ?? 0,
+        download_count: visualData.download_count ?? 0,
+      };
+      
       if (id) {
-        const { error } = await supabase.from('social_media_visuals').update(visualData).eq('id', id);
+        const { error } = await supabase.from('social_media_visuals').update(processedVisualData).eq('id', id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('social_media_visuals').insert(visualData);
+        const { error } = await supabase.from('social_media_visuals').insert(processedVisualData);
         if (error) throw error;
       }
     },
@@ -329,6 +345,17 @@ const VisualForm = ({ visual, onSave, onCancel, generateSlug, formats }: VisualF
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.title.trim()) {
+      toast.error("Visual title is required");
+      return;
+    }
+    
+    if (!formData.slug.trim()) {
+      toast.error("Visual slug is required");
+      return;
+    }
     
     try {
       const templateData = JSON.parse(templateDataString);

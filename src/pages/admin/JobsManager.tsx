@@ -72,12 +72,23 @@ const JobsManager = () => {
     mutationFn: async (job: Partial<Job> & { id?: string }) => {
       const { id, created_at, updated_at, ...jobData } = job;
       
-      // Convert string arrays to Json type for Supabase
+      // Ensure required fields are present and properly typed
       const processedJobData = {
-        ...jobData,
+        title: jobData.title || '',
+        slug: jobData.slug || '',
+        description: jobData.description,
+        department: jobData.department,
+        location: jobData.location,
+        employment_type: jobData.employment_type || 'full-time',
+        salary_range: jobData.salary_range,
         requirements: jobData.requirements as any,
         responsibilities: jobData.responsibilities as any,
         benefits: jobData.benefits as any,
+        meta_title: jobData.meta_title,
+        meta_description: jobData.meta_description,
+        is_published: jobData.is_published ?? true,
+        is_featured: jobData.is_featured ?? false,
+        sort_order: jobData.sort_order ?? 0,
       };
       
       if (id) {
@@ -279,6 +290,17 @@ const JobForm = ({ job, onSave, onCancel, generateSlug }: JobFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.title.trim()) {
+      toast.error("Job title is required");
+      return;
+    }
+    
+    if (!formData.slug.trim()) {
+      toast.error("Job slug is required");
+      return;
+    }
     
     const jobData = {
       ...formData,
