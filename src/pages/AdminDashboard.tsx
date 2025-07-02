@@ -11,7 +11,8 @@ import {
   Building,
   BookOpen,
   HelpCircle,
-  Briefcase
+  Briefcase,
+  Share2
 } from "lucide-react";
 
 export const AdminDashboard = () => {
@@ -73,6 +74,13 @@ export const AdminDashboard = () => {
       icon: Briefcase,
       path: "/admin/jobs",
       color: "bg-emerald-500"
+    },
+    {
+      title: "Social Visuals",
+      description: "Create and manage social media visual templates",
+      icon: Share2,
+      path: "/admin/social-visuals",
+      color: "bg-rose-500"
     },
     {
       title: "FAQs",

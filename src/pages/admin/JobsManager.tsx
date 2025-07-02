@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -85,7 +84,7 @@ const JobsManager = () => {
         const { error } = await supabase.from('jobs').update(processedJobData).eq('id', id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('jobs').insert([processedJobData]);
+        const { error } = await supabase.from('jobs').insert(processedJobData);
         if (error) throw error;
       }
     },

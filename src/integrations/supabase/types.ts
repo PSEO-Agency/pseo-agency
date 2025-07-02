@@ -643,6 +643,60 @@ export type Database = {
         }
         Relationships: []
       }
+      social_media_visuals: {
+        Row: {
+          created_at: string
+          description: string | null
+          download_count: number | null
+          format: string
+          generated_images: Json | null
+          height: number
+          html_variations: Json
+          id: string
+          is_published: boolean | null
+          slug: string
+          sort_order: number | null
+          template_data: Json
+          title: string
+          updated_at: string
+          width: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          format: string
+          generated_images?: Json | null
+          height: number
+          html_variations?: Json
+          id?: string
+          is_published?: boolean | null
+          slug: string
+          sort_order?: number | null
+          template_data?: Json
+          title: string
+          updated_at?: string
+          width: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          format?: string
+          generated_images?: Json | null
+          height?: number
+          html_variations?: Json
+          id?: string
+          is_published?: boolean | null
+          slug?: string
+          sort_order?: number | null
+          template_data?: Json
+          title?: string
+          updated_at?: string
+          width?: number
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
           achievements: Json | null
