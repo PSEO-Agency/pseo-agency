@@ -23,7 +23,7 @@ interface Service {
 
 export const ServicesManager = () => {
   const { toast } = useToast();
-  const { entities: services, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement<Service>({
+  const { entities: services, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement({
     tableName: 'services',
     orderBy: 'sort_order',
     orderDirection: 'asc'

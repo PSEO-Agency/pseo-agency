@@ -5,20 +5,19 @@ import { useToast } from "@/hooks/use-toast";
 import { Database } from '@/integrations/supabase/types';
 
 type TableName = keyof Database['public']['Tables'];
-type TableRow<T extends TableName> = Database['public']['Tables'][T]['Row'];
 
-interface UseEntityManagementOptions<T extends TableName> {
-  tableName: T;
+interface UseEntityManagementOptions {
+  tableName: TableName;
   orderBy?: string;
   orderDirection?: 'asc' | 'desc';
 }
 
-export const useEntityManagement = <T extends TableName>({
+export const useEntityManagement = ({
   tableName,
   orderBy = 'created_at',
   orderDirection = 'desc'
-}: UseEntityManagementOptions<T>) => {
-  const [entities, setEntities] = useState<TableRow<T>[]>([]);
+}: UseEntityManagementOptions) => {
+  const [entities, setEntities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -30,7 +29,7 @@ export const useEntityManagement = <T extends TableName>({
         .order(orderBy, { ascending: orderDirection === 'asc' });
 
       if (error) throw error;
-      setEntities((data || []) as TableRow<T>[]);
+      setEntities(data || []);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -71,7 +70,7 @@ export const useEntityManagement = <T extends TableName>({
     try {
       const { error } = await supabase
         .from(tableName)
-        .update({ [statusField]: !currentStatus })
+        .update({ [statusField]: !currentStatus } as any)
         .eq('id', id);
 
       if (error) throw error;

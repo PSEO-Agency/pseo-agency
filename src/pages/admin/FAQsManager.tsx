@@ -35,7 +35,7 @@ interface FormData {
 
 export const FAQsManager = () => {
   const { toast } = useToast();
-  const { entities: faqs, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement<FAQ>({
+  const { entities: faqs, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement({
     tableName: 'faqs',
     orderBy: 'sort_order',
     orderDirection: 'asc'

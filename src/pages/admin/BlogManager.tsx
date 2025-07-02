@@ -25,7 +25,7 @@ interface BlogPost {
 export const BlogManager = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { entities: posts, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement<BlogPost>({
+  const { entities: posts, loading, fetchEntities, deleteEntity, toggleEntityStatus } = useEntityManagement({
     tableName: 'blog_posts',
     orderBy: 'created_at',
     orderDirection: 'desc'
