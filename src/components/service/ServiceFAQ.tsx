@@ -1,11 +1,13 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface ServiceFAQProps {
   service: {
     title: string;
-    faq_ids?: string[];
+    faq_ids?: Json;
+    [key: string]: any;
   };
 }
 

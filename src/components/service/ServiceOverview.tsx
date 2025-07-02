@@ -1,11 +1,13 @@
 
 import { CheckCircle, Target, Zap, TrendingUp } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface ServiceOverviewProps {
   service: {
     title: string;
-    description?: string;
-    features?: string[];
+    description?: string | null;
+    features?: Json;
+    [key: string]: any;
   };
 }
 
@@ -17,9 +19,8 @@ export const ServiceOverview = ({ service }: ServiceOverviewProps) => {
     "Detailed reporting and insights"
   ];
 
-  const features = service.features && Array.isArray(service.features) 
-    ? service.features 
-    : defaultFeatures;
+  // Safely convert Json to string array
+  const features = Array.isArray(service.features) ? service.features as string[] : defaultFeatures;
 
   const serviceIcons = [Target, Zap, TrendingUp, CheckCircle];
 

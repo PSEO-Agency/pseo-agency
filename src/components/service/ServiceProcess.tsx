@@ -1,10 +1,12 @@
 
 import { Search, Palette, Database, Target } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface ServiceProcessProps {
   service: {
     title: string;
-    process_steps?: any[];
+    process_steps?: Json;
+    [key: string]: any;
   };
 }
 
@@ -32,7 +34,8 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
     }
   ];
 
-  const steps = service.process_steps && Array.isArray(service.process_steps) && service.process_steps.length > 0
+  // Safely convert Json to array
+  const steps = Array.isArray(service.process_steps) && service.process_steps.length > 0
     ? service.process_steps.slice(0, 4)
     : defaultSteps;
 

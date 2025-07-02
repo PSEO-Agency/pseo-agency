@@ -4,13 +4,15 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2, Star, Award } from "lucide-react";
 import { useState } from "react";
 import { AuditModal } from "@/components/AuditModal";
+import { Json } from "@/integrations/supabase/types";
 
 interface ServiceHeroProps {
   service: {
     title: string;
-    description?: string;
-    hero_image_url?: string;
-    features?: string[];
+    description?: string | null;
+    hero_image_url?: string | null;
+    features?: Json;
+    [key: string]: any;
   };
 }
 
@@ -22,6 +24,9 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
     e.preventDefault();
     setIsAuditModalOpen(true);
   };
+
+  // Safely convert Json to string array
+  const features = Array.isArray(service.features) ? service.features as string[] : [];
 
   return (
     <>
@@ -64,9 +69,9 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
               )}
 
               {/* Key benefits */}
-              {service.features && Array.isArray(service.features) && service.features.length > 0 && (
+              {features.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                  {service.features.slice(0, 4).map((feature, index) => (
+                  {features.slice(0, 4).map((feature, index) => (
                     <div key={index} className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
                       <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
                       <span className="text-sm font-medium text-white">{feature}</span>

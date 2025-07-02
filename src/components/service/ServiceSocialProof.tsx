@@ -1,10 +1,12 @@
 
 import { Star, Quote } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface ServiceSocialProofProps {
   service: {
     title: string;
-    case_study_ids?: string[];
+    case_study_ids?: Json;
+    [key: string]: any;
   };
 }
 
