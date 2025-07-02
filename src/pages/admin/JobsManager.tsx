@@ -70,14 +70,22 @@ const JobsManager = () => {
   });
 
   const upsertMutation = useMutation({
-    mutationFn: async (job: Partial<Job>) => {
+    mutationFn: async (job: Partial<Job> & { id?: string }) => {
       const { id, created_at, updated_at, ...jobData } = job;
       
+      // Convert string arrays to Json type for Supabase
+      const processedJobData = {
+        ...jobData,
+        requirements: jobData.requirements as any,
+        responsibilities: jobData.responsibilities as any,
+        benefits: jobData.benefits as any,
+      };
+      
       if (id) {
-        const { error } = await supabase.from('jobs').update(jobData).eq('id', id);
+        const { error } = await supabase.from('jobs').update(processedJobData).eq('id', id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('jobs').insert([jobData]);
+        const { error } = await supabase.from('jobs').insert([processedJobData]);
         if (error) throw error;
       }
     },
@@ -280,11 +288,10 @@ const JobForm = ({ job, onSave, onCancel, generateSlug }: JobFormProps) => {
       benefits: arrayInputs.benefits.split('\n').filter(item => item.trim()),
     };
 
-    if (job?.id) {
-      jobData.id = job.id;
-    }
+    // Add id if editing existing job
+    const finalJobData = job?.id ? { ...jobData, id: job.id } : jobData;
 
-    onSave(jobData);
+    onSave(finalJobData);
   };
 
   return (
