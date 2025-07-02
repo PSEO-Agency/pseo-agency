@@ -53,6 +53,25 @@ const SoftwarePage = () => {
     ? software.pricing_info as Record<string, any>
     : {};
 
+  // Transform data for SoftwareSpecs component
+  const softwareSpecsData = {
+    user_rating: software.user_rating,
+    review_count: software.review_count,
+    popularity_score: software.popularity_score,
+    difficulty_level: software.difficulty_level,
+    setup_time: software.setup_time,
+    target_audience: software.target_audience,
+    integration_capabilities: Array.isArray(software.integration_capabilities) 
+      ? software.integration_capabilities 
+      : [],
+    use_cases: Array.isArray(software.use_cases) 
+      ? software.use_cases 
+      : [],
+    technical_specs: software.technical_specs && typeof software.technical_specs === 'object' && !Array.isArray(software.technical_specs)
+      ? software.technical_specs as Record<string, any>
+      : {},
+  };
+
   const breadcrumbItems = [
     { label: "Software", href: "/software" },
     { label: software.title }
@@ -71,7 +90,7 @@ const SoftwarePage = () => {
       <main>
         <SoftwareHero software={software} />
         <SoftwareFeatures features={features} />
-        <SoftwareSpecs software={software} />
+        <SoftwareSpecs software={softwareSpecsData} />
 
         {/* Content Section */}
         {software.content && (
