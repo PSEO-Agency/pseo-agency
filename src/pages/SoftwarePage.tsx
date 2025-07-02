@@ -45,7 +45,16 @@ const SoftwarePage = () => {
     return <NotFound />;
   }
 
-  const features = Array.isArray(software.features) ? software.features : [];
+  // Properly type and validate features data
+  const features = Array.isArray(software.features) 
+    ? software.features.filter((feature): feature is { name: string; description: string } => 
+        typeof feature === 'object' && 
+        feature !== null && 
+        typeof (feature as any).name === 'string' && 
+        typeof (feature as any).description === 'string'
+      )
+    : [];
+
   const tags = Array.isArray(software.tags) ? software.tags : [];
   
   // Type guard for pricing info
