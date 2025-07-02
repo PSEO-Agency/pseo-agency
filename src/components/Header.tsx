@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Phone, Settings } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
@@ -19,7 +20,8 @@ export const Header = () => {
             <img 
               src="/lovable-uploads/0d07af3b-9627-4d89-b2a7-0972d8195b23.png" 
               alt="pSEO" 
-              className="h-5 lg:h-7 w-auto hover:scale-105 transition-transform duration-200" 
+              className="h-5 lg:h-7 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
+              onClick={() => navigate('/')}
             />
           </div>
 
@@ -61,12 +63,15 @@ export const Header = () => {
                     </div>
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Analytics & Strategy</h4>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
+                      <button 
+                        onClick={() => navigate('/free-strategy')}
+                        className="block w-full text-left text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
+                      >
                         <div className="flex items-center">
                           <div className="w-2 h-2 bg-red-500 rounded-full mr-3 group-hover:bg-red-600"></div>
-                          SEO Audit
+                          Free SEO Strategy
                         </div>
-                      </a>
+                      </button>
                       <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
                         <div className="flex items-center">
                           <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600"></div>
@@ -122,6 +127,12 @@ export const Header = () => {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid gap-3 p-6 w-[400px] bg-white shadow-2xl rounded-2xl border border-gray-100">
+                    <button 
+                      onClick={() => navigate('/free-strategy')}
+                      className="block w-full text-left text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                    >
+                      Free SEO Strategy
+                    </button>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Blog</a>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">SEO Tools</a>
