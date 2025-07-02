@@ -9,8 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Users, Zap } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -244,7 +246,10 @@ const Contact = () => {
                       <p className="mb-6 opacity-90">
                         Book a free 30-minute strategy call with our team to discuss how programmatic SEO can transform your business.
                       </p>
-                      <Button className="bg-white text-blue-600 hover:bg-gray-100 w-full font-semibold">
+                      <Button 
+                        className="bg-white text-blue-600 hover:bg-gray-100 w-full font-semibold"
+                        onClick={() => navigate('/free-strategy')}
+                      >
                         Schedule Free Call
                       </Button>
                     </div>

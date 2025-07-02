@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
 import { useState } from "react";
-import { AuditModal } from "./AuditModal";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
-  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsAuditModalOpen(true);
+    // Navigate to the free strategy page instead of opening modal
+    navigate('/free-strategy');
   };
 
   return (
@@ -166,11 +167,6 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-
-      <AuditModal 
-        isOpen={isAuditModalOpen} 
-        onClose={() => setIsAuditModalOpen(false)} 
-      />
     </section>
   );
 };

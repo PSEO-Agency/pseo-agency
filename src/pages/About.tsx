@@ -6,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Target, Zap, Award, TrendingUp, Globe, Rocket, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const navigate = useNavigate();
+
   const stats = [
     { number: "500+", label: "Clients Served", icon: <Users className="h-6 w-6" /> },
     { number: "10M+", label: "Pages Created", icon: <Globe className="h-6 w-6" /> },
@@ -68,10 +71,25 @@ const About = () => {
               that drive exponential organic growth through programmatic excellence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold">
+              <Button 
+                size="lg" 
+                className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold"
+                onClick={() => {
+                  const element = document.getElementById('our-mission');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 Our Story
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold"
+                onClick={() => {
+                  const element = document.getElementById('our-values');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 Meet Our Team
               </Button>
             </div>
@@ -99,7 +117,7 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-white">
+      <section id="our-mission" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -146,7 +164,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="our-values" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -230,10 +248,19 @@ const About = () => {
             Join hundreds of businesses that have transformed their online presence with our programmatic SEO strategies.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+              onClick={() => navigate('/free-strategy')}
+            >
               Get Started Today
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
+              onClick={() => navigate('/results')}
+            >
               View Case Studies
             </Button>
           </div>

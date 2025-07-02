@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,10 +6,12 @@ import { useState } from "react";
 import { AuditModal } from "@/components/AuditModal";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const FreeStrategy = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -276,7 +277,7 @@ const FreeStrategy = () => {
           </p>
           
           <Button 
-            onClick={() => setIsAuditModalOpen(true)}
+            onClick={() => navigate('/contact')}
             size="lg" 
             className="webfx-button-primary text-xl px-12 py-6 h-auto font-bold shadow-xl hover:shadow-2xl"
           >

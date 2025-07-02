@@ -16,19 +16,15 @@ export const AdminLogin = () => {
   const { signIn, user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
+  // Simplified redirect logic
   useEffect(() => {
-    console.log('AdminLogin: Auth state changed', { user: user?.email, isAdmin, authLoading });
-    
-    // Only redirect if auth is not loading and user is authenticated as admin
     if (!authLoading && user && isAdmin) {
-      console.log('AdminLogin: Redirecting to admin dashboard');
       navigate('/admin');
     }
   }, [user, isAdmin, navigate, authLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('AdminLogin: Form submitted', { email });
     
     if (!email || !password) {
       setError('Please enter both email and password');
@@ -42,28 +38,20 @@ export const AdminLogin = () => {
       const { error } = await signIn(email, password);
       
       if (error) {
-        console.error('AdminLogin: Sign in error', error);
         setError(error.message || 'Failed to sign in');
-      } else {
-        console.log('AdminLogin: Sign in successful, waiting for auth state update');
-        // Don't redirect here - let the useEffect handle it after auth state updates
       }
     } catch (err) {
-      console.error('AdminLogin: Unexpected error', err);
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);
     }
   };
 
-  // Show loading spinner while auth is initializing
+  // Simplified loading state
   if (authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -133,15 +121,6 @@ export const AdminLogin = () => {
               )}
             </Button>
           </form>
-          
-          {/* Debug info - remove this in production */}
-          <div className="mt-4 text-xs text-gray-500 space-y-1 p-2 bg-gray-50 rounded">
-            <div className="font-semibold">Debug Info:</div>
-            <div>User: {user?.email || 'None'}</div>
-            <div>Is Admin: {isAdmin ? 'Yes' : 'No'}</div>
-            <div>Auth Loading: {authLoading ? 'Yes' : 'No'}</div>
-            <div>Form Loading: {loading ? 'Yes' : 'No'}</div>
-          </div>
         </CardContent>
       </Card>
     </div>
