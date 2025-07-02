@@ -186,7 +186,7 @@ export const Header = () => {
               </div>
               <div>
                 <div className="text-xs text-gray-600 font-medium">Call Now:</div>
-                <div className="font-bold text-gray-900 text-sm">1-888-601-5359</div>
+                <div className="font-bold text-gray-900 text-sm">+31 (0) 85 060 1065</div>
               </div>
             </div>
 
