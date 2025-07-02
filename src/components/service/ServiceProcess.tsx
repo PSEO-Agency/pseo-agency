@@ -1,0 +1,121 @@
+
+import { Search, Palette, Database, Target } from "lucide-react";
+
+interface ServiceProcessProps {
+  service: {
+    title: string;
+    process_steps?: any[];
+  };
+}
+
+export const ServiceProcess = ({ service }: ServiceProcessProps) => {
+  const defaultSteps = [
+    { 
+      title: "Discovery & Analysis", 
+      description: "We analyze your current situation and identify opportunities for improvement.",
+      icon: Search 
+    },
+    { 
+      title: "Strategy Development", 
+      description: "We create a customized strategy tailored to your specific needs and goals.",
+      icon: Palette 
+    },
+    { 
+      title: "Implementation", 
+      description: "We execute the strategy with precision and attention to detail.",
+      icon: Database 
+    },
+    { 
+      title: "Optimization & Results", 
+      description: "We continuously optimize and track results to maximize your ROI.",
+      icon: Target 
+    }
+  ];
+
+  const steps = service.process_steps && Array.isArray(service.process_steps) && service.process_steps.length > 0
+    ? service.process_steps.slice(0, 4)
+    : defaultSteps;
+
+  const stepColors = [
+    "from-blue-500 to-blue-600",
+    "from-purple-500 to-purple-600",
+    "from-green-500 to-green-600",
+    "from-orange-500 to-red-500"
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center bg-purple-50 rounded-full px-6 py-3 mb-8 border border-purple-100">
+            <Target className="h-5 w-5 text-purple-600 mr-2" />
+            <span className="text-purple-700 text-sm font-bold">OUR PROCESS</span>
+          </div>
+          
+          <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-8 leading-tight text-balance">
+            How We Deliver
+            <span className="webfx-text-gradient block mt-2">{service.title} Results</span>
+          </h2>
+          
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Our proven methodology ensures consistent, measurable results for every client.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            {steps.map((step, index) => {
+              const IconComponent = step.icon || Search;
+              return (
+                <div key={index} className="flex items-start space-x-6 group">
+                  <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${stepColors[index]} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative`}>
+                    <IconComponent className="h-8 w-8 text-white" />
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">
+                      {index + 1}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="webfx-card p-6">
+                      <h4 className="font-bold text-gray-900 mb-2 text-xl">{step.title}</h4>
+                      <p className="text-gray-600">{step.description}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          
+          <div className="relative">
+            <div className="bg-white rounded-2xl p-8 shadow-2xl border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Process Highlights</h3>
+              <div className="space-y-6">
+                <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                  <span className="text-gray-600">Timeline:</span>
+                  <span className="font-bold text-gray-900">30-90 days</span>
+                </div>
+                <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                  <span className="text-gray-600">Dedicated Support:</span>
+                  <span className="font-bold text-blue-600">24/7 Available</span>
+                </div>
+                <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                  <span className="text-gray-600">Progress Updates:</span>
+                  <span className="font-bold text-green-600">Weekly Reports</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="text-gray-600">Success Rate:</span>
+                  <span className="font-bold text-green-600 text-xl">95%+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

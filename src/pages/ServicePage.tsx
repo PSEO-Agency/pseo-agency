@@ -4,8 +4,16 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
+import { ServiceHero } from "@/components/service/ServiceHero";
+import { ServiceOverview } from "@/components/service/ServiceOverview";
+import { ServiceImpact } from "@/components/service/ServiceImpact";
+import { ServiceProcess } from "@/components/service/ServiceProcess";
+import { ServiceSocialProof } from "@/components/service/ServiceSocialProof";
+import { ServiceFAQ } from "@/components/service/ServiceFAQ";
+import { ServiceCTA } from "@/components/service/ServiceCTA";
 
 const ServicePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -45,35 +53,29 @@ const ServicePage = () => {
     return <NotFound />;
   }
 
+  const breadcrumbItems = [
+    { label: "Services", href: "/services" },
+    { label: service.title }
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>{service.title} | pSEO Services</title>
         <meta name="description" content={service.description || `Learn about our ${service.title} service`} />
       </Helmet>
       
       <Header />
+      <Breadcrumbs items={breadcrumbItems} />
       
-      <main className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">{service.title}</h1>
-          {service.description && (
-            <div className="prose prose-lg max-w-none mb-8">
-              <p className="text-lg text-gray-600">{service.description}</p>
-            </div>
-          )}
-          
-          {service.features && Array.isArray(service.features) && service.features.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Features</h2>
-              <ul className="list-disc list-inside space-y-2">
-                {service.features.map((feature: string, index: number) => (
-                  <li key={index} className="text-gray-700">{feature}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+      <main>
+        <ServiceHero service={service} />
+        <ServiceOverview service={service} />
+        <ServiceImpact service={service} />
+        <ServiceProcess service={service} />
+        <ServiceSocialProof service={service} />
+        <ServiceFAQ service={service} />
+        <ServiceCTA service={service} />
       </main>
       
       <Footer />
