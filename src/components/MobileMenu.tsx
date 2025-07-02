@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -88,6 +87,11 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             </CollapsibleContent>
           </Collapsible>
 
+          {/* Software Link - Added here */}
+          <Link to="/software" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
+            Software
+          </Link>
+
           {/* Direct Links */}
           <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
             Results
@@ -114,9 +118,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   {resource.title}
                 </Link>
               ))}
-              <Link to="/software" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Software & Tools
-              </Link>
             </CollapsibleContent>
           </Collapsible>
 
