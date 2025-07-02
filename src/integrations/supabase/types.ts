@@ -306,6 +306,69 @@ export type Database = {
         }
         Relationships: []
       }
+      jobs: {
+        Row: {
+          benefits: Json | null
+          created_at: string | null
+          department: string | null
+          description: string | null
+          employment_type: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          location: string | null
+          meta_description: string | null
+          meta_title: string | null
+          requirements: Json | null
+          responsibilities: Json | null
+          salary_range: string | null
+          slug: string
+          sort_order: number | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          benefits?: Json | null
+          created_at?: string | null
+          department?: string | null
+          description?: string | null
+          employment_type?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          requirements?: Json | null
+          responsibilities?: Json | null
+          salary_range?: string | null
+          slug: string
+          sort_order?: number | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          benefits?: Json | null
+          created_at?: string | null
+          department?: string | null
+          description?: string | null
+          employment_type?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          requirements?: Json | null
+          responsibilities?: Json | null
+          salary_range?: string | null
+          slug?: string
+          sort_order?: number | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       navigation_items: {
         Row: {
           created_at: string | null

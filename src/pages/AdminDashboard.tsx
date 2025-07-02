@@ -1,300 +1,130 @@
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { supabase } from '@/integrations/supabase/client';
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import { 
-  Users, 
   FileText, 
+  Users, 
+  MessageSquare, 
   Settings, 
-  LogOut, 
-  BarChart3,
-  Briefcase,
+  Wrench,
   Building,
   BookOpen,
   HelpCircle,
-  Download,
-  Wrench
-} from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
-
-interface Stats {
-  pages: number;
-  services: number;
-  team_members: number;
-  blog_posts: number;
-  industries: number;
-  case_studies: number;
-  resources: number;
-  faqs: number;
-}
+  Briefcase
+} from "lucide-react";
 
 export const AdminDashboard = () => {
-  const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [stats, setStats] = useState<Stats>({
-    pages: 0,
-    services: 0,
-    team_members: 0,
-    blog_posts: 0,
-    industries: 0,
-    case_studies: 0,
-    resources: 0,
-    faqs: 0
-  });
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!user || !isAdmin) {
-      navigate('/admin/login');
-      return;
-    }
-    fetchStats();
-  }, [user, isAdmin, navigate]);
-
-  const fetchStats = async () => {
-    console.log('Fetching stats...');
-    setLoading(true);
-    
-    try {
-      // Fetch counts for each table
-      const [
-        pagesResult,
-        servicesResult,
-        teamMembersResult,
-        blogPostsResult,
-        industriesResult,
-        caseStudiesResult,
-        resourcesResult,
-        faqsResult
-      ] = await Promise.all([
-        supabase.from('pages').select('id', { count: 'exact', head: true }),
-        supabase.from('services').select('id', { count: 'exact', head: true }),
-        supabase.from('team_members').select('id', { count: 'exact', head: true }),
-        supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
-        supabase.from('industries').select('id', { count: 'exact', head: true }),
-        supabase.from('case_studies').select('id', { count: 'exact', head: true }),
-        supabase.from('resources').select('id', { count: 'exact', head: true }),
-        supabase.from('faqs').select('id', { count: 'exact', head: true })
-      ]);
-
-      console.log('Stats results:', {
-        pages: pagesResult.count,
-        services: servicesResult.count,
-        team_members: teamMembersResult.count,
-        blog_posts: blogPostsResult.count,
-        industries: industriesResult.count,
-        case_studies: caseStudiesResult.count,
-        resources: resourcesResult.count,
-        faqs: faqsResult.count
-      });
-
-      // Check for errors
-      const errors = [
-        pagesResult.error,
-        servicesResult.error,
-        teamMembersResult.error,
-        blogPostsResult.error,
-        industriesResult.error,
-        caseStudiesResult.error,
-        resourcesResult.error,
-        faqsResult.error
-      ].filter(Boolean);
-
-      if (errors.length > 0) {
-        console.error('Errors fetching stats:', errors);
-        toast({
-          title: "Warning",
-          description: "Some stats couldn't be loaded",
-          variant: "destructive",
-        });
-      }
-
-      setStats({
-        pages: pagesResult.count || 0,
-        services: servicesResult.count || 0,
-        team_members: teamMembersResult.count || 0,
-        blog_posts: blogPostsResult.count || 0,
-        industries: industriesResult.count || 0,
-        case_studies: caseStudiesResult.count || 0,
-        resources: resourcesResult.count || 0,
-        faqs: faqsResult.count || 0
-      });
-
-    } catch (error) {
-      console.error('Error fetching stats:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load dashboard statistics",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/admin/login');
-  };
-
-  if (!user || !isAdmin) {
-    return null;
-  }
-
-  const managementCards = [
+  const adminSections = [
     {
       title: "Pages",
-      description: "Manage website pages and content structure",
+      description: "Manage website pages and content",
       icon: FileText,
-      count: stats.pages,
       path: "/admin/pages",
-      color: "text-blue-600"
+      color: "bg-blue-500"
     },
     {
       title: "Services", 
-      description: "Manage service offerings and descriptions",
-      icon: Briefcase,
-      count: stats.services,
+      description: "Manage service offerings and features",
+      icon: Wrench,
       path: "/admin/services",
-      color: "text-green-600"
+      color: "bg-green-500"
     },
     {
       title: "Industries",
-      description: "Manage industry-specific landing pages",
+      description: "Manage industry-specific content",
       icon: Building,
-      count: stats.industries,
-      path: "/admin/industries",
-      color: "text-purple-600"
+      path: "/admin/industries", 
+      color: "bg-purple-500"
     },
     {
       title: "Case Studies",
-      description: "Showcase client success stories",
-      icon: BarChart3,
-      count: stats.case_studies,
+      description: "Manage client success stories",
+      icon: BookOpen,
       path: "/admin/case-studies",
-      color: "text-orange-600"
+      color: "bg-orange-500"
     },
     {
       title: "Resources",
-      description: "Manage guides, tools, and downloadable content",
-      icon: Download,
-      count: stats.resources,
+      description: "Manage downloadable resources and guides",
+      icon: FileText,
       path: "/admin/resources",
-      color: "text-teal-600"
+      color: "bg-cyan-500"
     },
     {
-      title: "Team Members",
-      description: "Manage team profiles and information",
+      title: "Team",
+      description: "Manage team members and profiles", 
       icon: Users,
-      count: stats.team_members,
       path: "/admin/team",
-      color: "text-indigo-600"
+      color: "bg-indigo-500"
     },
     {
-      title: "Blog Posts",
-      description: "Create and manage blog content",
-      icon: BookOpen,
-      count: stats.blog_posts,
+      title: "Blog",
+      description: "Manage blog posts and articles",
+      icon: MessageSquare,
       path: "/admin/blog",
-      color: "text-pink-600"
+      color: "bg-pink-500"
+    },
+    {
+      title: "Jobs",
+      description: "Manage job postings and career opportunities",
+      icon: Briefcase,
+      path: "/admin/jobs",
+      color: "bg-emerald-500"
     },
     {
       title: "FAQs",
       description: "Manage frequently asked questions",
       icon: HelpCircle,
-      count: stats.faqs,
       path: "/admin/faqs",
-      color: "text-cyan-600"
+      color: "bg-yellow-500"
     },
     {
       title: "Site Settings",
-      description: "Configure global site settings and preferences",
-      icon: Wrench,
-      count: Object.keys(stats).length,
+      description: "Configure global site settings",
+      icon: Settings,
       path: "/admin/settings",
-      color: "text-gray-600"
+      color: "bg-gray-500"
     }
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600 mt-2">Welcome back, {user.email}</p>
-          </div>
-          <Button onClick={handleSignOut} variant="outline">
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
-          </Button>
+      <div className="container mx-auto p-6">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+          <p className="text-gray-600">Manage your website content and settings</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {managementCards.map((card) => {
-            const IconComponent = card.icon;
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {adminSections.map((section) => {
+            const IconComponent = section.icon;
             return (
-              <Card key={card.title} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(card.path)}>
+              <Card key={section.path} className="hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <IconComponent className={`h-6 w-6 ${card.color}`} />
-                      <CardTitle className="text-lg">{card.title}</CardTitle>
-                    </div>
-                    <div className="text-2xl font-bold text-gray-900">{card.count}</div>
+                  <div className={`w-12 h-12 ${section.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-200`}>
+                    <IconComponent className="h-6 w-6 text-white" />
                   </div>
-                  <CardDescription>{card.description}</CardDescription>
+                  <CardTitle className="text-lg font-semibold">{section.title}</CardTitle>
+                  <CardDescription className="text-sm text-gray-600">
+                    {section.description}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Button className="w-full" variant="outline">
-                    Manage {card.title}
+                <CardContent className="pt-0">
+                  <Button 
+                    onClick={() => navigate(section.path)}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    Manage {section.title}
                   </Button>
                 </CardContent>
               </Card>
             );
           })}
         </div>
-
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Settings className="h-5 w-5" />
-              <span>Quick Actions</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Button onClick={() => navigate('/admin/pages')} className="justify-start">
-                <FileText className="h-4 w-4 mr-2" />
-                Add New Page
-              </Button>
-              <Button onClick={() => navigate('/admin/blog')} className="justify-start">
-                <BookOpen className="h-4 w-4 mr-2" />
-                Write Blog Post
-              </Button>
-              <Button onClick={() => navigate('/admin/case-studies')} className="justify-start">
-                <BarChart3 className="h-4 w-4 mr-2" />
-                Add Case Study
-              </Button>
-              <Button onClick={() => navigate('/admin/settings')} className="justify-start">
-                <Wrench className="h-4 w-4 mr-2" />
-                Site Settings
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

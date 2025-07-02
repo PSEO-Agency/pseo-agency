@@ -147,6 +147,15 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                <button 
+                  onClick={() => navigate('/jobs')}
+                  className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200"
+                >
+                  Jobs
+                </button>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Contact</a>
               </NavigationMenuItem>
             </NavigationMenuList>

@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import Index from "./pages/Index";
 import FreeStrategy from "./pages/FreeStrategy";
+import Jobs from "./pages/Jobs";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { PageManager } from "./pages/admin/PageManager";
@@ -18,6 +19,7 @@ import { IndustriesManager } from "./pages/admin/IndustriesManager";
 import { CaseStudiesManager } from "./pages/admin/CaseStudiesManager";
 import { ResourcesManager } from "./pages/admin/ResourcesManager";
 import { FAQsManager } from "./pages/admin/FAQsManager";
+import { JobsManager } from "./pages/admin/JobsManager";
 import { SiteSettingsManager } from "./pages/admin/SiteSettingsManager";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +35,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/free-strategy" element={<FreeStrategy />} />
+            <Route path="/jobs" element={<Jobs />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={
               <ProtectedRoute>
@@ -72,6 +75,11 @@ const App = () => (
             <Route path="/admin/blog" element={
               <ProtectedRoute>
                 <BlogManager />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/jobs" element={
+              <ProtectedRoute>
+                <JobsManager />
               </ProtectedRoute>
             } />
             <Route path="/admin/faqs" element={
