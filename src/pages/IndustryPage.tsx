@@ -7,6 +7,16 @@ import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
+import { IndustryHero } from "@/components/industry/IndustryHero";
+import { IndustryOverview } from "@/components/industry/IndustryOverview";
+import { IndustryStrategies } from "@/components/industry/IndustryStrategies";
+import { IndustryDatasets } from "@/components/industry/IndustryDatasets";
+import { IndustryKeywords } from "@/components/industry/IndustryKeywords";
+import { IndustryTemplates } from "@/components/industry/IndustryTemplates";
+import { IndustryImpact } from "@/components/industry/IndustryImpact";
+import { IndustrySocialProof } from "@/components/industry/IndustrySocialProof";
+import { IndustryFAQ } from "@/components/industry/IndustryFAQ";
+import { IndustryCTA } from "@/components/industry/IndustryCTA";
 
 const IndustryPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -53,46 +63,26 @@ const IndustryPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{industry.meta_title || industry.title}</title>
-        <meta name="description" content={industry.meta_description || industry.description} />
+        <title>{industry.meta_title || `${industry.title} - Programmatic SEO Services`}</title>
+        <meta name="description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence with industry-specific strategies.`} />
       </Helmet>
       
       <Header />
       <Breadcrumbs items={breadcrumbItems} />
       
-      <main className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">{industry.title}</h1>
-          {industry.description && (
-            <div className="prose prose-lg max-w-none mb-8">
-              <p className="text-lg text-gray-600">{industry.description}</p>
-            </div>
-          )}
-          
-          {industry.solutions && Array.isArray(industry.solutions) && industry.solutions.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Solutions</h2>
-              <ul className="list-disc list-inside space-y-2">
-                {industry.solutions.map((solution: string, index: number) => (
-                  <li key={index} className="text-gray-700">{solution}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          
-          {industry.pain_points && Array.isArray(industry.pain_points) && industry.pain_points.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Challenges We Address</h2>
-              <ul className="list-disc list-inside space-y-2">
-                {industry.pain_points.map((point: string, index: number) => (
-                  <li key={index} className="text-gray-700">{point}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+      <main>
+        <IndustryHero industry={industry} />
+        <IndustryOverview industry={industry} />
+        <IndustryStrategies industry={industry} />
+        <IndustryDatasets industry={industry} />
+        <IndustryKeywords industry={industry} />
+        <IndustryTemplates industry={industry} />
+        <IndustryImpact industry={industry} />
+        <IndustrySocialProof industry={industry} />
+        <IndustryFAQ industry={industry} />
+        <IndustryCTA industry={industry} />
       </main>
       
       <Footer />
