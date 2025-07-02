@@ -66,15 +66,18 @@ export const Footer = () => {
               <div className="space-y-4 mb-8">
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-blue-400" />
-                  <span className="text-blue-200">1-888-601-5359</span>
+                  <span className="text-blue-200">+31 (0) 85 060 1065</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-blue-400" />
-                  <span className="text-blue-200">info@pseo.com</span>
+                  <span className="text-blue-200">info@programmaticseo.agency</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-400" />
-                  <span className="text-blue-200">New York, NY</span>
+                  <div className="text-blue-200">
+                    <div>Euregioweg 235</div>
+                    <div>7532 SM Enschede, Netherlands</div>
+                  </div>
                 </div>
               </div>
               
@@ -136,7 +139,7 @@ export const Footer = () => {
         <div className="border-t border-white/20 py-8">
           <div className="grid md:grid-cols-2 gap-4 items-center">
             <div className="text-blue-200 text-lg">
-              © 2024 pSEO. All rights reserved.
+              © 2024 Programmatic SEO B.V. All rights reserved.
             </div>
             <div className="text-right">
               <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">

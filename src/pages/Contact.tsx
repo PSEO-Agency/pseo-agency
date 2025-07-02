@@ -36,19 +36,19 @@ const Contact = () => {
     {
       icon: <Phone className="h-6 w-6 text-blue-600" />,
       title: "Phone",
-      content: "1-888-601-5359",
-      description: "Mon-Fri 9am-6pm EST"
+      content: "+31 (0) 85 060 1065",
+      description: "Mon-Fri 9am-6pm CET"
     },
     {
       icon: <Mail className="h-6 w-6 text-green-600" />,
       title: "Email",
-      content: "hello@pseo.com",
+      content: "info@programmaticseo.agency",
       description: "We respond within 2 hours"
     },
     {
       icon: <MapPin className="h-6 w-6 text-purple-600" />,
       title: "Location",
-      content: "New York, NY",
+      content: "Enschede, Netherlands",
       description: "Remote team worldwide"
     }
   ];
@@ -74,8 +74,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Contact Us - pSEO | Get Your Free SEO Strategy Call</title>
-        <meta name="description" content="Ready to scale with programmatic SEO? Contact pSEO for a free consultation. Expert team, fast response, proven results." />
+        <title>Contact Us - Programmatic SEO | Get Your Free SEO Strategy Call</title>
+        <meta name="description" content="Ready to scale with programmatic SEO? Contact Programmatic SEO B.V. for a free consultation. Expert team, fast response, proven results." />
       </Helmet>
       
       <Header />
@@ -235,6 +235,27 @@ const Contact = () => {
                       </CardContent>
                     </Card>
                   ))}
+                  
+                  {/* Address Card */}
+                  <Card className="hover:shadow-lg transition-shadow duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <MapPin className="h-6 w-6 text-purple-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-900 mb-1">Office Address</h3>
+                          <div className="text-gray-900 font-medium mb-1">
+                            <div>Programmatic SEO B.V.</div>
+                            <div>Euregioweg 235</div>
+                            <div>7532 SM Enschede</div>
+                            <div>Netherlands</div>
+                          </div>
+                          <p className="text-sm text-gray-600">Headquarters</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
                 
                 {/* CTA Card */}
