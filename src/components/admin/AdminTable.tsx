@@ -12,7 +12,7 @@ interface TableColumn {
 }
 
 interface TableAction {
-  icon: React.ReactNode;
+  icon: React.ReactNode | ((item: any) => React.ReactNode);
   label: string;
   onClick: (item: any) => void;
   variant?: "default" | "destructive" | "outline" | "secondary";
@@ -150,7 +150,7 @@ export const AdminTable: React.FC<AdminTableProps> = ({
                 <div className="mt-4 text-sm text-gray-500">
                   Created: {new Date(item.created_at).toLocaleDateString()}
                   {item.updated_at !== item.created_at && (
-                    <span> • Updated: {new Date(item.updated_at).toLocaleDateDate()}</span>
+                    <span> • Updated: {new Date(item.updated_at).toLocaleDateString()}</span>
                   )}
                 </div>
               )}

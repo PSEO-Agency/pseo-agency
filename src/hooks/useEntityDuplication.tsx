@@ -1,6 +1,9 @@
 
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from '@/integrations/supabase/client';
+import { Database } from '@/integrations/supabase/types';
+
+type TableName = keyof Database['public']['Tables'];
 
 interface DuplicateOptions {
   titleField?: string;
@@ -10,7 +13,7 @@ interface DuplicateOptions {
   sortOrderField?: string;
 }
 
-export const useEntityDuplication = (tableName: string, options: DuplicateOptions = {}) => {
+export const useEntityDuplication = (tableName: TableName, options: DuplicateOptions = {}) => {
   const { toast } = useToast();
   const {
     titleField = 'title',

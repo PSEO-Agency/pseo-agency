@@ -2,19 +2,23 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/hooks/use-toast";
+import { Database } from '@/integrations/supabase/types';
 
-interface UseEntityManagementOptions {
-  tableName: string;
+type TableName = keyof Database['public']['Tables'];
+type TableRow<T extends TableName> = Database['public']['Tables'][T]['Row'];
+
+interface UseEntityManagementOptions<T extends TableName> {
+  tableName: T;
   orderBy?: string;
   orderDirection?: 'asc' | 'desc';
 }
 
-export const useEntityManagement = <T extends Record<string, any>>({
+export const useEntityManagement = <T extends TableName>({
   tableName,
   orderBy = 'created_at',
   orderDirection = 'desc'
-}: UseEntityManagementOptions) => {
-  const [entities, setEntities] = useState<T[]>([]);
+}: UseEntityManagementOptions<T>) => {
+  const [entities, setEntities] = useState<TableRow<T>[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -26,7 +30,7 @@ export const useEntityManagement = <T extends Record<string, any>>({
         .order(orderBy, { ascending: orderDirection === 'asc' });
 
       if (error) throw error;
-      setEntities(data || []);
+      setEntities((data || []) as TableRow<T>[]);
     } catch (error: any) {
       toast({
         title: "Error",
