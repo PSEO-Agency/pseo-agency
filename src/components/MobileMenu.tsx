@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Menu, X, ChevronDown, Phone, Settings } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
 
 interface MobileMenuProps {
   onAuditModalOpen: () => void;
@@ -16,6 +17,10 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const navigate = useNavigate();
+  
+  const { data: services } = useServices();
+  const { data: industries } = useIndustries();
+  const { data: resources } = useResources();
 
   const handleAuditClick = () => {
     setIsOpen(false);
@@ -49,17 +54,16 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             <CollapsibleContent className="pl-4 space-y-3 pt-2">
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-900 text-sm">SEO Services</h4>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Programmatic SEO</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Technical SEO</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Content at Scale</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Link Building</a>
-              </div>
-              <div className="space-y-2 pt-3 border-t border-gray-100">
-                <h4 className="font-medium text-gray-900 text-sm">Analytics & Strategy</h4>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">SEO Audit</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Keyword Research</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Competitor Analysis</a>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Performance Tracking</a>
+                {services?.filter(service => service.slug).map((service) => (
+                  <Link 
+                    key={service.id}
+                    to={`/services/${service.slug}`} 
+                    className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {service.title}
+                  </Link>
+                ))}
               </div>
             </CollapsibleContent>
           </Collapsible>
@@ -71,14 +75,16 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
               <ChevronDown className={`h-4 w-4 transition-transform ${industriesOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">E-commerce</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">SaaS</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Healthcare</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Real Estate</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Finance</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Travel</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Education</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Legal</a>
+              {industries?.map((industry) => (
+                <Link 
+                  key={industry.id}
+                  to={`/industries/${industry.slug}`} 
+                  className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {industry.name}
+                </Link>
+              ))}
             </CollapsibleContent>
           </Collapsible>
 
@@ -94,13 +100,31 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             <CollapsibleContent className="pl-4 space-y-2 pt-2">
               <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Blog</a>
               <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Case Studies</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">SEO Tools</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Guides & eBooks</a>
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Webinars</a>
+              {resources?.map((resource) => (
+                <Link 
+                  key={resource.id}
+                  to={`/resources/${resource.slug}`} 
+                  className="block text-gray-600 py-2 text-sm hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {resource.title}
+                </Link>
+              ))}
             </CollapsibleContent>
           </Collapsible>
 
           <a href="#" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors">About</a>
+          
+          <button 
+            onClick={() => {
+              setIsOpen(false);
+              navigate('/jobs');
+            }}
+            className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors text-left"
+          >
+            Jobs
+          </button>
+          
           <a href="#" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors">Contact</a>
 
           {/* Admin Access */}

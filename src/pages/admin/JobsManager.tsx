@@ -98,7 +98,7 @@ const JobsManager = () => {
     }
   };
 
-  const handleSave = (job: Partial<Job>) => {
+  const handleSave = (job: Partial<Job> & { id?: string }) => {
     upsertMutation.mutate(job);
   };
 
@@ -240,7 +240,7 @@ const JobsManager = () => {
 
 interface JobFormProps {
   job: Job | null;
-  onSave: (job: Partial<Job>) => void;
+  onSave: (job: Partial<Job> & { id?: string }) => void;
   onCancel: () => void;
   generateSlug: (title: string) => string;
 }
@@ -280,7 +280,7 @@ const JobForm = ({ job, onSave, onCancel, generateSlug }: JobFormProps) => {
       benefits: arrayInputs.benefits.split('\n').filter(item => item.trim()),
     };
 
-    if (job) {
+    if (job?.id) {
       jobData.id = job.id;
     }
 

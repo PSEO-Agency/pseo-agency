@@ -5,11 +5,16 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { MobileMenu } from "./MobileMenu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
 
 export const Header = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const navigate = useNavigate();
+  
+  const { data: services } = useServices();
+  const { data: industries } = useIndustries();
+  const { data: resources } = useResources();
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -36,30 +41,18 @@ export const Header = () => {
                   <div className="grid gap-6 p-8 w-[700px] grid-cols-2 bg-white shadow-2xl rounded-3xl border border-gray-100">
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">SEO Services</h4>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:bg-blue-600"></div>
-                          Programmatic SEO
-                        </div>
-                      </a>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mr-3 group-hover:bg-green-600"></div>
-                          Technical SEO
-                        </div>
-                      </a>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full mr-3 group-hover:bg-purple-600"></div>
-                          Content at Scale
-                        </div>
-                      </a>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-orange-500 rounded-full mr-3 group-hover:bg-orange-600"></div>
-                          Link Building
-                        </div>
-                      </a>
+                      {services?.filter(service => service.slug).slice(0, 4).map((service) => (
+                        <Link 
+                          key={service.id}
+                          to={`/services/${service.slug}`} 
+                          className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
+                        >
+                          <div className="flex items-center">
+                            <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:bg-blue-600"></div>
+                            {service.title}
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Analytics & Strategy</h4>
@@ -72,24 +65,18 @@ export const Header = () => {
                           Free SEO Strategy
                         </div>
                       </button>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600"></div>
-                          Keyword Research
-                        </div>
-                      </a>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-indigo-500 rounded-full mr-3 group-hover:bg-indigo-600"></div>
-                          Competitor Analysis
-                        </div>
-                      </a>
-                      <a href="#" className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 group-hover:bg-pink-600"></div>
-                          Performance Tracking
-                        </div>
-                      </a>
+                      {services?.filter(service => service.slug).slice(4, 7).map((service) => (
+                        <Link 
+                          key={service.id}
+                          to={`/services/${service.slug}`} 
+                          className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
+                        >
+                          <div className="flex items-center">
+                            <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600"></div>
+                            {service.title}
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </NavigationMenuContent>
@@ -102,16 +89,26 @@ export const Header = () => {
                 <NavigationMenuContent>
                   <div className="grid gap-4 p-6 w-[500px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
                     <div className="space-y-3">
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">E-commerce</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">SaaS</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Healthcare</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Real Estate</a>
+                      {industries?.slice(0, 4).map((industry) => (
+                        <Link 
+                          key={industry.id}
+                          to={`/industries/${industry.slug}`} 
+                          className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                        >
+                          {industry.name}
+                        </Link>
+                      ))}
                     </div>
                     <div className="space-y-3">
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Finance</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Travel</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Education</a>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Legal</a>
+                      {industries?.slice(4, 8).map((industry) => (
+                        <Link 
+                          key={industry.id}
+                          to={`/industries/${industry.slug}`} 
+                          className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                        >
+                          {industry.name}
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </NavigationMenuContent>
@@ -135,9 +132,15 @@ export const Header = () => {
                     </button>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Blog</a>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
-                    <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">SEO Tools</a>
-                    <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Guides & eBooks</a>
-                    <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Webinars</a>
+                    {resources?.slice(0, 3).map((resource) => (
+                      <Link 
+                        key={resource.id}
+                        to={`/resources/${resource.slug}`} 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        {resource.title}
+                      </Link>
+                    ))}
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>

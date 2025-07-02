@@ -19,9 +19,15 @@ import { IndustriesManager } from "./pages/admin/IndustriesManager";
 import { CaseStudiesManager } from "./pages/admin/CaseStudiesManager";
 import { ResourcesManager } from "./pages/admin/ResourcesManager";
 import { FAQsManager } from "./pages/admin/FAQsManager";
-import { JobsManager } from "./pages/admin/JobsManager";
+import JobsManager from "./pages/admin/JobsManager";
 import { SiteSettingsManager } from "./pages/admin/SiteSettingsManager";
 import NotFound from "./pages/NotFound";
+import DynamicPage from "./pages/DynamicPage";
+import ServicePage from "./pages/ServicePage";
+import IndustryPage from "./pages/IndustryPage";
+import BlogPost from "./pages/BlogPost";
+import CaseStudy from "./pages/CaseStudy";
+import Resource from "./pages/Resource";
 
 const queryClient = new QueryClient();
 
@@ -92,6 +98,15 @@ const App = () => (
                 <SiteSettingsManager />
               </ProtectedRoute>
             } />
+            
+            {/* Dynamic content routes */}
+            <Route path="/services/:slug" element={<ServicePage />} />
+            <Route path="/industries/:slug" element={<IndustryPage />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/case-studies/:slug" element={<CaseStudy />} />
+            <Route path="/resources/:slug" element={<Resource />} />
+            <Route path="/:slug" element={<DynamicPage />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
