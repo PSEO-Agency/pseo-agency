@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -34,6 +33,11 @@ import IndustryPage from "./pages/IndustryPage";
 import BlogPost from "./pages/BlogPost";
 import CaseStudy from "./pages/CaseStudy";
 import Resource from "./pages/Resource";
+import SoftwarePage from "./pages/SoftwarePage";
+import ServicesCollection from "./pages/ServicesCollection";
+import IndustriesCollection from "./pages/IndustriesCollection";
+import ResourcesCollection from "./pages/ResourcesCollection";
+import SoftwareCollection from "./pages/SoftwareCollection";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +57,13 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/results" element={<Results />} />
             <Route path="/blog" element={<Blog />} />
+            
+            {/* Collection Pages */}
+            <Route path="/services" element={<ServicesCollection />} />
+            <Route path="/industries" element={<IndustriesCollection />} />
+            <Route path="/resources" element={<ResourcesCollection />} />
+            <Route path="/software" element={<SoftwareCollection />} />
+            
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={
               <ProtectedRoute>
@@ -121,6 +132,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/case-studies/:slug" element={<CaseStudy />} />
             <Route path="/resources/:slug" element={<Resource />} />
+            <Route path="/software/:slug" element={<SoftwarePage />} />
             <Route path="/:slug" element={<DynamicPage />} />
             
             <Route path="*" element={<NotFound />} />

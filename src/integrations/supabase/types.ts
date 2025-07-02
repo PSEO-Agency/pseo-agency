@@ -697,6 +697,75 @@ export type Database = {
         }
         Relationships: []
       }
+      software: {
+        Row: {
+          category: string | null
+          content: string | null
+          created_at: string | null
+          demo_url: string | null
+          description: string | null
+          documentation_url: string | null
+          features: Json | null
+          github_url: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          meta_description: string | null
+          meta_title: string | null
+          pricing_info: Json | null
+          slug: string
+          sort_order: number | null
+          tags: Json | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          created_at?: string | null
+          demo_url?: string | null
+          description?: string | null
+          documentation_url?: string | null
+          features?: Json | null
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          pricing_info?: Json | null
+          slug: string
+          sort_order?: number | null
+          tags?: Json | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          created_at?: string | null
+          demo_url?: string | null
+          description?: string | null
+          documentation_url?: string | null
+          features?: Json | null
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          meta_description?: string | null
+          meta_title?: string | null
+          pricing_info?: Json | null
+          slug?: string
+          sort_order?: number | null
+          tags?: Json | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
           achievements: Json | null
