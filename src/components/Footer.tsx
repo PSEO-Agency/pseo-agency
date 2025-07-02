@@ -2,6 +2,7 @@
 import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   // Load the chat widget script when the footer component mounts
@@ -109,7 +110,7 @@ export const Footer = () => {
             <div>
               <h4 className="text-xl font-bold mb-6 text-white">Resources</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Blog</a></li>
+                <li><Link to="/blog" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Blog</Link></li>
                 <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Case Studies</a></li>
                 <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">SEO Tools</a></li>
                 <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Guides</a></li>
@@ -121,9 +122,9 @@ export const Footer = () => {
             <div>
               <h4 className="text-xl font-bold mb-6 text-white">Company</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">About Us</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Careers</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Contact</a></li>
+                <li><Link to="/about" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">About Us</Link></li>
+                <li><Link to="/jobs" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Careers</Link></li>
+                <li><Link to="/contact" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Contact</Link></li>
                 <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Privacy Policy</a></li>
                 <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Terms of Service</a></li>
               </ul>

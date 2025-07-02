@@ -6,9 +6,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import FreeStrategy from "./pages/FreeStrategy";
 import Jobs from "./pages/Jobs";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Results from "./pages/Results";
+import Blog from "./pages/Blog";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { PageManager } from "./pages/admin/PageManager";
@@ -39,10 +44,15 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/free-strategy" element={<FreeStrategy />} />
             <Route path="/jobs" element={<Jobs />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={
               <ProtectedRoute>

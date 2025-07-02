@@ -56,15 +56,15 @@ export const Header = () => {
                     </div>
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Analytics & Strategy</h4>
-                      <button 
-                        onClick={() => navigate('/free-strategy')}
-                        className="block w-full text-left text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
+                      <Link 
+                        to="/free-strategy"
+                        className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
                       >
                         <div className="flex items-center">
                           <div className="w-2 h-2 bg-red-500 rounded-full mr-3 group-hover:bg-red-600"></div>
                           Free SEO Strategy
                         </div>
-                      </button>
+                      </Link>
                       {services?.filter(service => service.slug).slice(4, 7).map((service) => (
                         <Link 
                           key={service.id}
@@ -115,7 +115,7 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</a>
+                <Link to="/results" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Results</Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -124,13 +124,18 @@ export const Header = () => {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid gap-3 p-6 w-[400px] bg-white shadow-2xl rounded-2xl border border-gray-100">
-                    <button 
-                      onClick={() => navigate('/free-strategy')}
-                      className="block w-full text-left text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                    <Link 
+                      to="/free-strategy"
+                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
                     >
                       Free SEO Strategy
-                    </button>
-                    <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Blog</a>
+                    </Link>
+                    <Link 
+                      to="/blog" 
+                      className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                    >
+                      Blog
+                    </Link>
                     <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
                     {resources?.slice(0, 3).map((resource) => (
                       <Link 
@@ -146,20 +151,15 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">About</a>
+                <Link to="/about" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">About</Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <button 
-                  onClick={() => navigate('/jobs')}
-                  className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200"
-                >
-                  Jobs
-                </button>
+                <Link to="/jobs" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Jobs</Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <a href="#" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Contact</a>
+                <Link to="/contact" className="text-gray-800 hover:text-blue-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200">Contact</Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

@@ -89,7 +89,9 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
           </Collapsible>
 
           {/* Direct Links */}
-          <a href="#" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors">Results</a>
+          <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
+            Results
+          </Link>
 
           {/* Resources Section */}
           <Collapsible open={resourcesOpen} onOpenChange={setResourcesOpen}>
@@ -98,7 +100,9 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
               <ChevronDown className={`h-4 w-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Blog</a>
+              <Link to="/blog" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                Blog
+              </Link>
               <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Case Studies</a>
               {resources?.map((resource) => (
                 <Link 
@@ -113,19 +117,17 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             </CollapsibleContent>
           </Collapsible>
 
-          <a href="#" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors">About</a>
+          <Link to="/about" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
+            About
+          </Link>
           
-          <button 
-            onClick={() => {
-              setIsOpen(false);
-              navigate('/jobs');
-            }}
-            className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors text-left"
-          >
+          <Link to="/jobs" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
             Jobs
-          </button>
+          </Link>
           
-          <a href="#" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors">Contact</a>
+          <Link to="/contact" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
+            Contact
+          </Link>
 
           {/* Admin Access */}
           <Button 
