@@ -34,31 +34,83 @@ export default async (req: Request, context: Context) => {
   const isBot = botUserAgents.some((regex) => regex.test(userAgent));
   const url = new URL(req.url);
   const urlPath = url.pathname;
+  const fullUrl = req.url;
+
+  console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}`);
 
   // Handle bot traffic with Prerender.io
   if (isBot) {
-    const prerenderUrl = `https://service.prerender.io${urlPath}`;
+    // Construct proper Prerender.io URL with the full site URL
+    const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
     const prerenderToken = "iCYcttsrVusf8Vlp8emm";
+
+    console.log(`Prerender URL: ${prerenderUrl}`);
 
     try {
       const prerendered = await fetch(prerenderUrl, {
         headers: {
           "User-Agent": userAgent,
           "X-Prerender-Token": prerenderToken,
+          "X-Forwarded-For": req.headers.get("x-forwarded-for") || "",
+          "Accept": req.headers.get("accept") || "text/html",
+          "Accept-Language": req.headers.get("accept-language") || "en",
         },
+        timeout: 30000, // 30 second timeout
       });
+
+      console.log(`Prerender response status: ${prerendered.status}`);
 
       if (prerendered.ok) {
         const html = await prerendered.text();
+        console.log(`Prerender success - HTML length: ${html.length}`);
+        
         return new Response(html, {
           status: 200,
           headers: {
-            "Content-Type": "text/html",
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=300, s-maxage=300", // Cache for 5 minutes
+            "X-Prerendered": "true",
           },
         });
+      } else {
+        console.error(`Prerender failed with status: ${prerendered.status}`);
+        const errorText = await prerendered.text();
+        console.error(`Prerender error response: ${errorText}`);
       }
     } catch (err) {
       console.error("Prerender fetch failed:", err);
+      
+      // If Prerender.io fails, try to serve a basic version with meta tags
+      try {
+        const response = await context.next();
+        if (response.ok) {
+          let html = await response.text();
+          
+          // Inject basic SEO meta tags if missing
+          if (!html.includes('<meta property="og:')) {
+            const metaTags = `
+              <meta property="og:title" content="P SEO Agency - Professional SEO Services">
+              <meta property="og:description" content="Transform your business with data-driven SEO strategies. We help companies increase organic traffic and revenue through proven SEO techniques.">
+              <meta property="og:url" content="${fullUrl}">
+              <meta property="og:type" content="website">
+              <meta name="twitter:card" content="summary_large_image">
+              <meta name="twitter:title" content="P SEO Agency - Professional SEO Services">
+              <meta name="twitter:description" content="Transform your business with data-driven SEO strategies.">
+            `;
+            html = html.replace('</head>', `${metaTags}</head>`);
+          }
+          
+          return new Response(html, {
+            status: 200,
+            headers: {
+              "Content-Type": "text/html; charset=utf-8",
+              "X-Fallback": "true",
+            },
+          });
+        }
+      } catch (fallbackErr) {
+        console.error("Fallback also failed:", fallbackErr);
+      }
     }
   }
 
@@ -82,7 +134,7 @@ export default async (req: Request, context: Context) => {
         return new Response(html, {
           status: 200,
           headers: {
-            "Content-Type": "text/html",
+            "Content-Type": "text/html; charset=utf-8",
           },
         });
       }
@@ -99,7 +151,7 @@ export default async (req: Request, context: Context) => {
         return new Response(html, {
           status: 200,
           headers: {
-            "Content-Type": "text/html",
+            "Content-Type": "text/html; charset=utf-8",
           },
         });
       }
