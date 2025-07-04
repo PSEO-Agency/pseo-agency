@@ -6,8 +6,6 @@ export default async (req: Request, context: Context) => {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const siteUrl = new URL(req.url).origin;
-  
   const robots = `User-agent: *
 Allow: /
 
@@ -59,7 +57,7 @@ Allow: /case-studies/
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: ${siteUrl}/sitemap.xml`;
+Sitemap: https://pseoagency.netlify.app/sitemap.xml`;
 
   return new Response(robots, {
     headers: {
