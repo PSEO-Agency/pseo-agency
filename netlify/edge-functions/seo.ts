@@ -32,17 +32,19 @@ const botUserAgents = [
 export default async (req: Request, context: Context) => {
   const userAgent = req.headers.get("user-agent") || "";
   const isBot = botUserAgents.some((regex) => regex.test(userAgent));
-  const urlPath = new URL(req.url).pathname;
+  const url = new URL(req.url);
+  const urlPath = url.pathname;
 
+  // Handle bot traffic with Prerender.io
   if (isBot) {
     const prerenderUrl = `https://service.prerender.io${urlPath}`;
-    const prerenderToken = "iCYcttsrVusf8Vlp8emm"; // if required
+    const prerenderToken = "iCYcttsrVusf8Vlp8emm";
 
     try {
       const prerendered = await fetch(prerenderUrl, {
         headers: {
           "User-Agent": userAgent,
-          "X-Prerender-Token": prerenderToken, // if needed
+          "X-Prerender-Token": prerenderToken,
         },
       });
 
@@ -60,6 +62,51 @@ export default async (req: Request, context: Context) => {
     }
   }
 
-  // Human or fallback: pass to SPA
-  return context.next();
+  // Handle static assets - let them pass through normally
+  if (urlPath.includes('.') && !urlPath.endsWith('.html')) {
+    return context.next();
+  }
+
+  // Handle SPA routing for human users
+  // For any route that doesn't correspond to a static file, serve index.html
+  // This allows React Router to handle client-side routing
+  try {
+    // Try to get the actual file first
+    const response = await context.next();
+    
+    // If we get a 404, serve index.html instead (SPA fallback)
+    if (response.status === 404) {
+      const indexResponse = await fetch(new URL('/index.html', req.url).href);
+      if (indexResponse.ok) {
+        const html = await indexResponse.text();
+        return new Response(html, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html",
+          },
+        });
+      }
+    }
+    
+    return response;
+  } catch (err) {
+    console.error("Error handling request:", err);
+    // Fallback to serving index.html
+    try {
+      const indexResponse = await fetch(new URL('/index.html', req.url).href);
+      if (indexResponse.ok) {
+        const html = await indexResponse.text();
+        return new Response(html, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html",
+          },
+        });
+      }
+    } catch (indexErr) {
+      console.error("Failed to serve index.html:", indexErr);
+    }
+    
+    return context.next();
+  }
 };
