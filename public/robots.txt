@@ -1,14 +1,7 @@
-User-agent: Googlebot
-Allow: /
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# This file is now dynamically generated at /robots.txt
+# Please visit /robots.txt for the current robots directives
 User-agent: *
 Allow: /
+
+Sitemap: /sitemap.xml
