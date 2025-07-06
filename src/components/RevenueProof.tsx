@@ -56,7 +56,7 @@ export const RevenueProof = () => {
         </div>
 
         {/* Case Study Preview */}
-        <div className="webfx-card p-8 lg:p-12 text-center">
+        <div className="webfx-card p-8 lg:p-12 text-center mb-12">
           <div className="max-w-4xl mx-auto">
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
               Real Results from Real Businesses
@@ -77,6 +77,20 @@ export const RevenueProof = () => {
                 <div className="text-gray-700 font-medium mb-2">Monthly Revenue</div>
                 <div className="text-sm text-gray-600">Local service business</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Real Project Example Image */}
+        <div className="relative max-w-6xl mx-auto">
+          <div className="relative overflow-hidden rounded-xl shadow-2xl">
+            <img 
+              src="/lovable-uploads/704ca633-1198-4152-87f0-dc67bd7139a4.png" 
+              alt="Real project analytics dashboard showing traffic growth"
+              className="w-full h-auto"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              <div className="text-white text-xl font-bold">Real project example</div>
             </div>
           </div>
         </div>
