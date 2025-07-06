@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
@@ -59,13 +58,6 @@ export const IndustriesSection = () => {
                 to={`/industries/${industry.slug}`}
                 className="webfx-card p-6 text-center group hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {industry.icon ? (
-                    <span className="text-2xl">{industry.icon}</span>
-                  ) : (
-                    <Building2 className="h-8 w-8 text-white" />
-                  )}
-                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">
                   {industry.name}
                 </h3>
