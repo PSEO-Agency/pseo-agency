@@ -86,7 +86,7 @@ export const ServiceCTA = ({ service }: ServiceCTAProps) => {
               </div>
               <div className="flex items-center space-x-2">
                 <CheckCircle2 className="h-5 w-5 text-green-400" />
-                <span className="text-sm">Results in 24 hours</span>
+                <span className="text-sm">Report in 24 hours</span>
               </div>
             </div>
           </div>
