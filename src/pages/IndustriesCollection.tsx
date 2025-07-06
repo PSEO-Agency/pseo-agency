@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +42,10 @@ const IndustriesCollection = () => {
   const featuredIndustries = industries?.filter(industry => industry.is_featured) || [];
   const regularIndustries = industries?.filter(industry => !industry.is_featured) || [];
 
+  const breadcrumbItems = [
+    { label: "Industries" }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
@@ -49,8 +54,9 @@ const IndustriesCollection = () => {
       </Helmet>
       
       <Header />
+      <Breadcrumbs items={breadcrumbItems} />
       
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="container mx-auto px-6">
@@ -76,12 +82,7 @@ const IndustriesCollection = () => {
                 {featuredIndustries.map((industry) => (
                   <Card key={industry.id} className="hover:shadow-lg transition-all duration-300 group">
                     <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        {industry.icon && (
-                          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <span className="text-2xl">{industry.icon}</span>
-                          </div>
-                        )}
+                      <div className="flex items-center justify-end mb-4">
                         <Badge className="bg-yellow-100 text-yellow-800">
                           <Star className="h-3 w-3 mr-1" />
                           Featured
@@ -123,12 +124,6 @@ const IndustriesCollection = () => {
               {(featuredIndustries.length > 0 ? regularIndustries : industries || []).map((industry) => (
                 <Card key={industry.id} className="hover:shadow-lg transition-all duration-300 group">
                   <CardContent className="p-6">
-                    {industry.icon && (
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                        <span className="text-2xl">{industry.icon}</span>
-                      </div>
-                    )}
-                    
                     <h3 className="text-xl font-bold text-gray-900 mb-3">
                       {industry.name}
                     </h3>
