@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2, Star, Award } from "lucide-react";
 import { useState } from "react";
-import { AuditModal } from "@/components/AuditModal";
+import { useNavigate } from "react-router-dom";
 import { Json } from "@/integrations/supabase/types";
 
 interface ServiceHeroProps {
@@ -17,12 +17,13 @@ interface ServiceHeroProps {
 }
 
 export const ServiceHero = ({ service }: ServiceHeroProps) => {
-  const [websiteUrl, setWebsiteUrl] = useState("");
-  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+  const [domain, setDomain] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsAuditModalOpen(true);
+    // Navigate to the free strategy page with domain parameter
+    navigate(`/free-strategy?domain=${encodeURIComponent(domain)}`);
   };
 
   // Safely convert Json to string array
@@ -84,10 +85,10 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
               <form onSubmit={handleSubmit} className="mb-6">
                 <div className="flex flex-col gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-3 border border-white/20 shadow-2xl">
                   <Input
-                    type="url"
-                    placeholder="Enter your website URL"
-                    value={websiteUrl}
-                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                    type="text"
+                    placeholder="Enter your domain (e.g., example.com)"
+                    value={domain}
+                    onChange={(e) => setDomain(e.target.value)}
                     className="bg-transparent border-none text-white placeholder:text-blue-200 h-12 text-base focus:ring-0 focus-visible:ring-0"
                     required
                   />
@@ -140,11 +141,6 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
           </div>
         </div>
       </section>
-
-      <AuditModal 
-        isOpen={isAuditModalOpen} 
-        onClose={() => setIsAuditModalOpen(false)} 
-      />
     </>
   );
 };
