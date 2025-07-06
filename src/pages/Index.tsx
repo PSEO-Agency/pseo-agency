@@ -11,9 +11,16 @@ import { KPISection } from "@/components/KPISection";
 import { TeamSection } from "@/components/TeamSection";
 import { BlogSection } from "@/components/BlogSection";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
+import { ServiceSocialProof } from "@/components/service/ServiceSocialProof";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
+  // Create a service object for the social proof section
+  const programmticSeoService = {
+    title: "Programmatic SEO",
+    case_study_ids: null
+  };
+
   return (
     <div className="min-h-screen bg-white m-0 p-0">
       <Header />
@@ -23,6 +30,7 @@ const Index = () => {
       {/* <ImpactSection /> Hidden as requested - "Inside pSEO" section */}
       <ExpertiseSection />
       <RevenueProof />
+      <ServiceSocialProof service={programmticSeoService} />
       <IndustriesSection />
       <KPISection />
       <TeamSection />
