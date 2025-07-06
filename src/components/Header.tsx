@@ -37,10 +37,10 @@ export const Header = () => {
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-6 p-8 w-[700px] grid-cols-2 bg-white shadow-2xl rounded-3xl border border-gray-100">
+                  <div className="grid gap-6 p-8 w-[700px] grid-cols-1 bg-white shadow-2xl rounded-3xl border border-gray-100">
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
-                      {services?.filter(service => service.slug).slice(0, 4).map((service) => (
+                      {services?.filter(service => service.slug).map((service) => (
                         <Link 
                           key={service.id}
                           to={`/services/${service.slug}`} 
@@ -48,30 +48,6 @@ export const Header = () => {
                         >
                           <div className="flex items-center">
                             <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:bg-blue-600"></div>
-                            {service.title}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="space-y-4">
-                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Start Free</h4>
-                      <Link 
-                        to="/free-strategy"
-                        className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
-                      >
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-red-500 rounded-full mr-3 group-hover:bg-red-600"></div>
-                          Free SEO Strategy
-                        </div>
-                      </Link>
-                      {services?.filter(service => service.slug).slice(4, 7).map((service) => (
-                        <Link 
-                          key={service.id}
-                          to={`/services/${service.slug}`} 
-                          className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
-                        >
-                          <div className="flex items-center">
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600"></div>
                             {service.title}
                           </div>
                         </Link>
