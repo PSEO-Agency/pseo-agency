@@ -58,22 +58,23 @@ export const IndustryCTA = ({ industry }: IndustryCTAProps) => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
               <Button 
-                className="webfx-button-primary text-lg px-8 py-6 h-auto flex-1"
+                className="webfx-button-primary text-lg px-8 py-6 h-auto"
                 onClick={() => setIsAuditModalOpen(true)}
               >
                 <Calendar className="mr-2 h-5 w-5" />
                 Get Free {industry.name} Analysis
               </Button>
               
-              <Button 
-                variant="outline" 
-                className="text-lg px-8 py-6 h-auto border-white/30 text-white hover:bg-white/10 flex-1"
-              >
-                <Phone className="mr-2 h-5 w-5" />
-                Call (555) 123-4567
-              </Button>
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <Phone className="h-5 w-5 text-white" />
+                <div>
+                  <div className="text-sm text-blue-200">Call Now:</div>
+                  <div className="font-bold text-white">(555) 123-4567</div>
+                </div>
+              </div>
             </div>
             
             <div className="flex items-center justify-center sm:justify-start space-x-3 text-blue-200 mt-4">
