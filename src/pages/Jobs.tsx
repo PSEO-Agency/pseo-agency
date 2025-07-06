@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Clock, Building, DollarSign, Star, Users, Zap, Globe, Heart, Award, Rocket } from "lucide-react";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 interface Job {
   id: string;
@@ -26,6 +27,8 @@ interface Job {
 }
 
 const Jobs = () => {
+  const navigate = useNavigate();
+  
   const { data: jobs, isLoading } = useQuery({
     queryKey: ['jobs'],
     queryFn: async () => {
@@ -85,6 +88,13 @@ const Jobs = () => {
     { icon: <Users className="h-5 w-5" />, text: "Collaborative Culture" }
   ];
 
+  const scrollToAllJobs = () => {
+    const element = document.getElementById('all-open-positions');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white">
@@ -136,12 +146,13 @@ const Jobs = () => {
               Join a team that's revolutionizing SEO through automation, AI, and scalable content strategies. 
               Help enterprise clients achieve exponential organic growth while advancing your career.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold">
+            <div className="flex justify-center">
+              <Button 
+                size="lg" 
+                className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold"
+                onClick={scrollToAllJobs}
+              >
                 View Open Positions
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold">
-                Learn About Our Culture
               </Button>
             </div>
           </div>
@@ -164,7 +175,7 @@ const Jobs = () => {
               
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {featuredJobs.map((job) => (
-                  <Card key={job.id} className="border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative group overflow-hidden">
+                  <Card key={job.id} className="border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative group overflow-hidden min-h-[400px] flex flex-col">
                     <div className="absolute -top-3 left-6">
                       <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 flex items-center gap-1 shadow-lg">
                         <Star className="h-3 w-3" />
@@ -172,7 +183,7 @@ const Jobs = () => {
                       </Badge>
                     </div>
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-bl-full"></div>
-                    <CardHeader className="pb-4 pt-8">
+                    <CardHeader className="pb-4 pt-8 flex-1">
                       <CardTitle className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                         {job.title}
                       </CardTitle>
@@ -196,18 +207,21 @@ const Jobs = () => {
                           </Badge>
                         )}
                       </div>
-                      <CardDescription className="text-gray-600 line-clamp-3 leading-relaxed">
+                      <CardDescription className="text-gray-600 leading-relaxed flex-1">
                         {job.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="pt-0">
+                    <CardContent className="pt-0 pb-6">
                       {job.salary_range && (
                         <div className="flex items-center gap-2 mb-4 p-3 bg-green-50 rounded-lg">
                           <DollarSign className="h-4 w-4 text-green-600" />
                           <span className="font-semibold text-green-700">{job.salary_range}</span>
                         </div>
                       )}
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg">
+                      <Button 
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
+                        onClick={() => navigate('/contact')}
+                      >
                         Apply Now
                       </Button>
                     </CardContent>
@@ -220,7 +234,7 @@ const Jobs = () => {
       )}
 
       {/* All Jobs */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" id="all-open-positions">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -272,7 +286,11 @@ const Jobs = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <Button variant="outline" className="w-full hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all">
+                      <Button 
+                        variant="outline" 
+                        className="w-full hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all"
+                        onClick={() => navigate('/contact')}
+                      >
                         Learn More & Apply
                       </Button>
                     </CardContent>
@@ -288,7 +306,10 @@ const Jobs = () => {
                     We're not currently hiring, but we're always looking for exceptional talent. 
                     Send us your resume and we'll keep you in mind for future opportunities.
                   </p>
-                  <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Button 
+                    className="bg-blue-600 hover:bg-blue-700"
+                    onClick={() => navigate('/contact')}
+                  >
                     Send Resume
                   </Button>
                 </CardContent>
@@ -338,10 +359,19 @@ const Jobs = () => {
               Your expertise could be the key to unlocking exponential growth for our clients.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
+              <Button 
+                size="lg" 
+                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                onClick={() => navigate('/contact')}
+              >
                 Apply Now
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
+                onClick={() => navigate('/about')}
+              >
                 Learn More About Us
               </Button>
             </div>
