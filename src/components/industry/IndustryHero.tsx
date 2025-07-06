@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { useState } from "react";
@@ -47,8 +46,7 @@ export const IndustryHero = ({ industry }: IndustryHeroProps) => {
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-8 leading-tight">
-              Programmatic SEO for 
-              <span className="webfx-text-gradient block mt-2">{industry.name}</span>
+              Programmatic SEO for <span className="webfx-text-gradient">{industry.name}</span>
             </h1>
             
             <p className="text-xl text-blue-100 mb-10 leading-relaxed">
