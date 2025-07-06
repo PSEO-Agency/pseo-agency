@@ -1,4 +1,5 @@
 
+
 export const TrustedToolsSection = () => {
   const tools = [
     {
@@ -8,7 +9,7 @@ export const TrustedToolsSection = () => {
     },
     {
       name: "OpenAI",
-      image: "/lovable-uploads/17d3db48-1aec-44c5-b92d-88f98d05b57f.png",
+      image: "/lovable-uploads/17d3db48-1aec-4c5-b92d-88f98d05b57f.png",
       alt: "OpenAI logo"
     },
     {
@@ -64,7 +65,7 @@ export const TrustedToolsSection = () => {
               <img
                 src={tool.image}
                 alt={tool.alt}
-                className="max-h-12 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                className="max-h-12 max-w-full object-contain transition-all duration-300"
               />
             </div>
           ))}
@@ -73,3 +74,4 @@ export const TrustedToolsSection = () => {
     </section>
   );
 };
+
