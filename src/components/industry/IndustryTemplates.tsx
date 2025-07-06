@@ -1,5 +1,5 @@
 
-import { FileText, Layout, Smartphone, Globe } from "lucide-react";
+import { FileText, Layout, Smartphone, Globe, Users, Building, Scale, Gavel } from "lucide-react";
 
 interface IndustryTemplatesProps {
   industry: {
@@ -9,40 +9,190 @@ interface IndustryTemplatesProps {
 }
 
 export const IndustryTemplates = ({ industry }: IndustryTemplatesProps) => {
-  const templates = [
-    {
-      title: `${industry.name} Landing Pages`,
-      description: `High-converting landing page templates designed specifically for ${industry.name.toLowerCase()} businesses with proven conversion elements.`,
-      count: "50+ templates",
-      preview: "Product showcase, testimonials, CTA optimization",
-      icon: Layout,
-      color: "from-blue-500 to-blue-600"
-    },
-    {
-      title: `${industry.name} Service Pages`,
-      description: `Comprehensive service page templates that highlight ${industry.name.toLowerCase()} expertise and drive qualified leads.`,
-      count: "30+ templates",
-      preview: "Service details, pricing, case studies",
-      icon: FileText,
-      color: "from-green-500 to-green-600"
-    },
-    {
-      title: `${industry.name} Location Pages`,
-      description: `Location-specific page templates optimized for local SEO and ${industry.name.toLowerCase()} market penetration.`,
-      count: "25+ templates",
-      preview: "Local info, contact details, service areas",
-      icon: Globe,
-      color: "from-purple-500 to-purple-600"
-    },
-    {
-      title: `${industry.name} Mobile Pages`,
-      description: `Mobile-optimized templates ensuring perfect user experience across all devices for ${industry.name.toLowerCase()} customers.`,
-      count: "40+ templates",
-      preview: "Mobile-first design, touch optimization",
-      icon: Smartphone,
-      color: "from-orange-500 to-red-500"
+  // Industry-specific templates
+  const getTemplates = () => {
+    const industryName = industry.name.toLowerCase();
+    
+    if (industryName === 'saas') {
+      return [
+        {
+          title: `${industry.name} Comparison Pages`,
+          description: `Feature-rich comparison templates that showcase your SAAS against competitors with detailed feature matrices and pricing comparisons.`,
+          count: "40+ templates",
+          preview: "Feature comparison, pricing tables, user reviews",
+          icon: Layout,
+          color: "from-blue-500 to-blue-600"
+        },
+        {
+          title: `${industry.name} Alternative Pages`,
+          description: `Alternative page templates that capture users searching for competitors, positioning your SAAS as the better choice.`,
+          count: "35+ templates",
+          preview: "Competitor analysis, feature gaps, migration guides",
+          icon: FileText,
+          color: "from-green-500 to-green-600"
+        },
+        {
+          title: `${industry.name} Feature Pages`,
+          description: `Individual feature showcase templates that deep-dive into specific SAAS capabilities and use cases.`,
+          count: "50+ templates",
+          preview: "Feature benefits, use cases, integration details",
+          icon: Users,
+          color: "from-purple-500 to-purple-600"
+        },
+        {
+          title: `${industry.name} Integration Pages`,
+          description: `Integration-focused templates that showcase your SAAS compatibility with popular tools and platforms.`,
+          count: "30+ templates",
+          preview: "Integration guides, API documentation, workflow examples",
+          icon: Globe,
+          color: "from-orange-500 to-red-500"
+        }
+      ];
+    } else if (industryName === 'local business') {
+      return [
+        {
+          title: `${industry.name} Service Area Pages`,
+          description: `Location-specific service pages optimized for local SEO and "near me" searches in every service area.`,
+          count: "60+ templates",
+          preview: "Local service details, area coverage, contact info",
+          icon: Globe,
+          color: "from-blue-500 to-blue-600"
+        },
+        {
+          title: `${industry.name} Service Type Pages`,
+          description: `Comprehensive service page templates for different local business services with local optimization.`,
+          count: "45+ templates",
+          preview: "Service descriptions, local pricing, customer reviews",
+          icon: FileText,
+          color: "from-green-500 to-green-600"
+        },
+        {
+          title: `${industry.name} Local Landing Pages`,
+          description: `Neighborhood and city-specific landing pages that capture hyperlocal search traffic.`,
+          count: "80+ templates",
+          preview: "Local testimonials, area-specific offers, directions",
+          icon: Building,
+          color: "from-purple-500 to-purple-600"
+        },
+        {
+          title: `${industry.name} Emergency Service Pages`,
+          description: `24/7 emergency service templates optimized for urgent local search queries.`,
+          count: "25+ templates",
+          preview: "Emergency contact, rapid response, service guarantees",
+          icon: Smartphone,
+          color: "from-orange-500 to-red-500"
+        }
+      ];
+    } else if (industryName === 'accounting firm') {
+      return [
+        {
+          title: `${industry.name} Service Pages`,
+          description: `Professional accounting service templates covering tax preparation, bookkeeping, and financial consulting.`,
+          count: "35+ templates",
+          preview: "Service details, pricing, credentials, testimonials",
+          icon: FileText,
+          color: "from-blue-500 to-blue-600"
+        },
+        {
+          title: `${industry.name} Tax Season Pages`,
+          description: `Seasonal landing pages optimized for tax preparation searches during peak seasons.`,
+          count: "20+ templates",
+          preview: "Tax deadlines, preparation checklists, pricing",
+          icon: Layout,
+          color: "from-green-500 to-green-600"
+        },
+        {
+          title: `${industry.name} Industry Specialization Pages`,
+          description: `Industry-specific accounting service pages for different business sectors and specializations.`,
+          count: "40+ templates",
+          preview: "Industry expertise, case studies, compliance info",
+          icon: Building,
+          color: "from-purple-500 to-purple-600"
+        },
+        {
+          title: `${industry.name} CPA Profile Pages`,
+          description: `Professional CPA and accountant profile pages showcasing credentials and expertise.`,
+          count: "15+ templates",
+          preview: "Professional credentials, experience, client testimonials",
+          icon: Users,
+          color: "from-orange-500 to-red-500"
+        }
+      ];
+    } else if (industryName === 'law firm') {
+      return [
+        {
+          title: `${industry.name} Practice Area Pages`,
+          description: `Comprehensive practice area templates for different legal specializations and case types.`,
+          count: "45+ templates",
+          preview: "Practice area expertise, case results, attorney profiles",
+          icon: Scale,
+          color: "from-blue-500 to-blue-600"
+        },
+        {
+          title: `${industry.name} Attorney Profile Pages`,
+          description: `Professional attorney biography pages showcasing experience, education, and case successes.`,
+          count: "20+ templates",
+          preview: "Attorney credentials, case wins, client testimonials",
+          icon: Users,
+          color: "from-green-500 to-green-600"
+        },
+        {
+          title: `${industry.name} Legal Resource Pages`,
+          description: `Educational legal content templates that establish authority and attract potential clients.`,
+          count: "60+ templates",
+          preview: "Legal guides, FAQ sections, case law explanations",
+          icon: FileText,
+          color: "from-purple-500 to-purple-600"
+        },
+        {
+          title: `${industry.name} Case Study Pages`,
+          description: `Legal case study templates that showcase successful outcomes while maintaining client confidentiality.`,
+          count: "25+ templates",
+          preview: "Case summaries, legal strategies, successful outcomes",
+          icon: Gavel,
+          color: "from-orange-500 to-red-500"
+        }
+      ];
     }
-  ];
+    
+    // Default templates for other industries
+    return [
+      {
+        title: `${industry.name} Landing Pages`,
+        description: `High-converting landing page templates designed specifically for ${industry.name.toLowerCase()} businesses with proven conversion elements.`,
+        count: "50+ templates",
+        preview: "Product showcase, testimonials, CTA optimization",
+        icon: Layout,
+        color: "from-blue-500 to-blue-600"
+      },
+      {
+        title: `${industry.name} Service Pages`,
+        description: `Comprehensive service page templates that highlight ${industry.name.toLowerCase()} expertise and drive qualified leads.`,
+        count: "30+ templates",
+        preview: "Service details, pricing, case studies",
+        icon: FileText,
+        color: "from-green-500 to-green-600"
+      },
+      {
+        title: `${industry.name} Location Pages`,
+        description: `Location-specific page templates optimized for local SEO and ${industry.name.toLowerCase()} market penetration.`,
+        count: "25+ templates",
+        preview: "Local info, contact details, service areas",
+        icon: Globe,
+        color: "from-purple-500 to-purple-600"
+      },
+      {
+        title: `${industry.name} Mobile Pages`,
+        description: `Mobile-optimized templates ensuring perfect user experience across all devices for ${industry.name.toLowerCase()} customers.`,
+        count: "40+ templates",
+        preview: "Mobile-first design, touch optimization",
+        icon: Smartphone,
+        color: "from-orange-500 to-red-500"
+      }
+    ];
+  };
+
+  const templates = getTemplates();
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
