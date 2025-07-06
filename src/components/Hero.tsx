@@ -48,7 +48,7 @@ export const Hero = () => {
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight mb-3 sm:mb-4 lg:mb-6 text-balance">
-              Drive More Revenue Through
+              10x Your Traffic Through
               <span className="block webfx-text-gradient mt-1 sm:mt-2">Programmatic SEO</span>
             </h1>
             
@@ -153,13 +153,13 @@ export const Hero = () => {
               
               <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Target className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
+                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
                   <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">4</div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="webfx-card p-3 sm:p-4 lg:p-6">
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Scale & Revenue Growth</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Launch thousands of optimized pages and track performance for maximum ROI.</p>
+                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Scale & Traffic Growth</h4>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Launch thousands of optimized pages and track performance for maximum traffic growth.</p>
                   </div>
                 </div>
               </div>
