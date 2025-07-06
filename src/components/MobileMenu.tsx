@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import { Menu, X, ChevronDown, Phone, Settings } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
 import { useSoftware } from "@/hooks/useSoftware";
 import { useTools } from "@/hooks/useTools";
@@ -18,7 +18,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
-  const navigate = useNavigate();
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
@@ -175,19 +174,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
           <Link to="/contact" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
             Contact
           </Link>
-
-          {/* Admin Access */}
-          <Button 
-            variant="ghost" 
-            onClick={() => {
-              setIsOpen(false);
-              navigate('/admin/login');
-            }} 
-            className="justify-start p-3 text-gray-600 hover:text-blue-600"
-          >
-            <Settings className="h-4 w-4 mr-2" />
-            Admin Access
-          </Button>
 
           {/* Contact Info */}
           <div className="pt-4 border-t border-gray-100">
