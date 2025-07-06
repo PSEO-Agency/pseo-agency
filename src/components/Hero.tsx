@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
@@ -6,13 +5,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
-  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [domain, setDomain] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Navigate to the free strategy page instead of opening modal
-    navigate('/free-strategy');
+    // Navigate to the free strategy page with domain parameter
+    navigate(`/free-strategy?domain=${encodeURIComponent(domain)}`);
   };
 
   return (
@@ -42,8 +41,8 @@ export const Hero = () => {
                 <span className="text-blue-200 text-xs font-semibold whitespace-nowrap">Award-Winning SEO</span>
               </div>
               <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 border border-white/20">
-                <Users className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 mr-1.5 sm:mr-2" />
-                <span className="text-blue-200 text-xs font-semibold whitespace-nowrap">2,500+ Clients</span>
+                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 mr-1.5 sm:mr-2" />
+                <span className="text-blue-200 text-xs font-semibold whitespace-nowrap">10X Your Traffic</span>
               </div>
             </div>
             
@@ -78,10 +77,10 @@ export const Hero = () => {
               <div className="flex flex-col gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-2 sm:p-3 border border-white/20 shadow-2xl">
                 <div className="flex-1">
                   <Input
-                    type="url"
-                    placeholder="Enter your website URL"
-                    value={websiteUrl}
-                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                    type="text"
+                    placeholder="Enter your domain (e.g., example.com)"
+                    value={domain}
+                    onChange={(e) => setDomain(e.target.value)}
                     className="bg-transparent border-none text-white placeholder:text-blue-200 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg focus:ring-0 focus-visible:ring-0"
                     required
                   />
@@ -98,7 +97,7 @@ export const Hero = () => {
               </div>
               <p className="text-blue-200 text-xs sm:text-sm mt-2 sm:mt-3 flex items-center justify-center sm:justify-start">
                 <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-green-400" />
-                Free audit • No commitment • Results in 24 hours
+                Free audit • No commitment • Report in 24 hours
               </p>
             </form>
           </div>
@@ -120,7 +119,7 @@ export const Hero = () => {
                 <div className="flex-1 min-w-0">
                   <div className="webfx-card p-3 sm:p-4 lg:p-6">
                     <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Data Analysis & Research</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Identify high-volume keywords and analyze competitors for maximum impact.</p>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Identify high-volume keywords, dynamic data sources and analyze competitors for maximum impact.</p>
                   </div>
                 </div>
               </div>

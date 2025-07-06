@@ -1,91 +1,92 @@
 
-import { CheckCircle, Award, Users, Clock } from "lucide-react";
+import { Brain, Database, Code, BarChart3, Search, Zap } from "lucide-react";
 
 export const ExpertiseSection = () => {
-  const expertise = [
+  const expertiseAreas = [
     {
-      icon: Award,
-      title: "Industry Recognition",
-      description: "Recognized as a leading programmatic SEO agency by industry experts and publications."
+      icon: Search,
+      title: "Technical SEO Mastery",
+      description: "Deep expertise in crawlability, indexation, and site architecture optimization at scale.",
+      color: "from-blue-500 to-blue-600"
     },
     {
-      icon: Users,
-      title: "Expert Team",
-      description: "50+ SEO specialists with deep expertise in technical SEO and content automation."
+      icon: Database,
+      title: "Data Architecture",
+      description: "Advanced database design and API integration for seamless content automation.",
+      color: "from-green-500 to-green-600"
     },
     {
-      icon: CheckCircle,
-      title: "Proven Methodology",
-      description: "Battle-tested strategies that have generated billions in revenue for our clients."
+      icon: Code,
+      title: "Development Integration",
+      description: "Full-stack development capabilities for custom pSEO implementations and tools.",
+      color: "from-purple-500 to-purple-600"
     },
     {
-      icon: Clock,
-      title: "Fast Results",
-      description: "See significant traffic improvements within 90 days of campaign launch."
+      icon: Brain,
+      title: "AI & Machine Learning",
+      description: "Leveraging artificial intelligence for content optimization and keyword research.",
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: BarChart3,
+      title: "Analytics & Reporting",
+      description: "Comprehensive tracking and performance measurement across thousands of pages.",
+      color: "from-teal-500 to-cyan-500"
+    },
+    {
+      icon: Zap,
+      title: "Automation Systems",
+      description: "Building robust workflows that scale content production without manual intervention.",
+      color: "from-yellow-500 to-orange-500"
     }
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Unmatched Expertise <span className="text-blue-600">Driving Results</span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Unmatched Expertise <span className="webfx-text-gradient">Driving Results</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            With years of experience in programmatic SEO, we've perfected the art and science 
-            of scaling organic traffic through automated content strategies.
-          </p>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Our team of SEO specialists with deep expertise in pSEO, dynamic data sets and content automation
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Battle-tested strategies that have generated billions in revenue through systematic programmatic approaches
+            </p>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="space-y-8">
-              {expertise.map((item, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg flex-shrink-0">
-                    <item.icon className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-600">{item.description}</p>
-                  </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {expertiseAreas.map((area, index) => {
+            const IconComponent = area.icon;
+            return (
+              <div key={index} className="webfx-card p-8 group hover:shadow-xl transition-all duration-300">
+                <div className={`w-16 h-16 bg-gradient-to-br ${area.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className="h-8 w-8 text-white" />
                 </div>
-              ))}
-            </div>
-          </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{area.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{area.description}</p>
+              </div>
+            );
+          })}
+        </div>
 
-          <div className="bg-white rounded-lg p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Process</h3>
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">1</div>
-                <div>
-                  <div className="font-semibold text-gray-900">Audit & Strategy</div>
-                  <div className="text-sm text-gray-600">Comprehensive analysis of your current SEO performance</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">2</div>
-                <div>
-                  <div className="font-semibold text-gray-900">Content Framework</div>
-                  <div className="text-sm text-gray-600">Build scalable content templates and automation systems</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">3</div>
-                <div>
-                  <div className="font-semibold text-gray-900">Scale & Optimize</div>
-                  <div className="text-sm text-gray-600">Launch campaigns and continuously optimize for performance</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">4</div>
-                <div>
-                  <div className="font-semibold text-gray-900">Monitor & Report</div>
-                  <div className="text-sm text-gray-600">Track results and provide detailed performance insights</div>
-                </div>
-              </div>
+        {/* Team Stats */}
+        <div className="mt-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 lg:p-12">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-black webfx-text-gradient mb-2">15+</div>
+              <div className="text-gray-700 font-medium">Years of Experience</div>
+            </div>
+            <div>
+              <div className="text-4xl font-black webfx-text-gradient mb-2">100+</div>
+              <div className="text-gray-700 font-medium">Projects Completed</div>
+            </div>
+            <div>
+              <div className="text-4xl font-black webfx-text-gradient mb-2">24/7</div>
+              <div className="text-gray-700 font-medium">Support & Monitoring</div>
             </div>
           </div>
         </div>

@@ -39,7 +39,7 @@ export const Header = () => {
                 <NavigationMenuContent>
                   <div className="grid gap-6 p-8 w-[700px] grid-cols-2 bg-white shadow-2xl rounded-3xl border border-gray-100">
                     <div className="space-y-4">
-                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">SEO Services</h4>
+                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
                       {services?.filter(service => service.slug).slice(0, 4).map((service) => (
                         <Link 
                           key={service.id}
@@ -54,7 +54,7 @@ export const Header = () => {
                       ))}
                     </div>
                     <div className="space-y-4">
-                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Analytics & Strategy</h4>
+                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">Start Free</h4>
                       <Link 
                         to="/free-strategy"
                         className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"

@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { AutomationSection } from "@/components/AutomationSection";
 import { ServicesOverview } from "@/components/ServicesOverview";
-import { ImpactSection } from "@/components/ImpactSection";
+// import { ImpactSection } from "@/components/ImpactSection"; // Hidden for now
 import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { RevenueProof } from "@/components/RevenueProof";
 import { IndustriesSection } from "@/components/IndustriesSection";
@@ -19,7 +19,7 @@ const Index = () => {
       <Hero />
       <AutomationSection />
       <ServicesOverview />
-      <ImpactSection />
+      {/* <ImpactSection /> Hidden as requested - "Inside pSEO" section */}
       <ExpertiseSection />
       <RevenueProof />
       <IndustriesSection />

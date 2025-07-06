@@ -1,28 +1,55 @@
 
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+
 export const BlogSection = () => {
-  const blogPosts = [
-    {
-      title: "The Complete Guide to Programmatic SEO in 2024",
-      excerpt: "Learn how to scale your content strategy and drive massive organic growth with programmatic SEO techniques.",
-      category: "Strategy",
-      readTime: "8 min read",
-      image: "/api/placeholder/400/250"
+  const { data: blogPosts, isLoading } = useQuery({
+    queryKey: ['featured-blog-posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('is_published', true)
+        .eq('is_featured', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
     },
-    {
-      title: "How We Generated 10M+ Page Views with Automated Content",
-      excerpt: "A detailed case study showing our step-by-step process for creating thousands of high-ranking pages.",
-      category: "Case Study",
-      readTime: "12 min read",
-      image: "/api/placeholder/400/250"
-    },
-    {
-      title: "Technical SEO for Large-Scale Content Operations",
-      excerpt: "Essential technical considerations when implementing programmatic SEO at enterprise scale.",
-      category: "Technical",
-      readTime: "6 min read",
-      image: "/api/placeholder/400/250"
-    }
-  ];
+  });
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!blogPosts || blogPosts.length === 0) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              From the pSEO Blog
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Stay updated with the latest programmatic SEO strategies, case studies, and industry insights.
+            </p>
+            <p className="text-gray-500">No featured blog posts available at the moment.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-white">
@@ -36,31 +63,48 @@ export const BlogSection = () => {
               Stay updated with the latest programmatic SEO strategies, case studies, and industry insights.
             </p>
           </div>
-          <button className="text-blue-600 font-semibold hover:text-blue-700">
-            View All Posts →
-          </button>
+          <Link to="/blog" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center">
+            View All Posts <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
-            <article key={index} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
-              <div className="h-48 bg-gray-200 mb-4"></div>
+          {blogPosts.map((post) => (
+            <article key={post.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden border border-gray-100">
+              {post.image_url && (
+                <div className="h-48 bg-gray-200 mb-4 overflow-hidden">
+                  <img 
+                    src={post.image_url} 
+                    alt={post.featured_image_alt || post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-                    {post.category}
-                  </span>
-                  <span className="text-sm text-gray-500">{post.readTime}</span>
+                  {post.category && (
+                    <span className="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                      {post.category}
+                    </span>
+                  )}
+                  {post.read_time && (
+                    <span className="text-sm text-gray-500">{post.read_time}</span>
+                  )}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-gray-600 mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
-                <button className="text-blue-600 font-semibold hover:text-blue-700">
-                  Read More →
-                </button>
+                {post.excerpt && (
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                )}
+                <Link 
+                  to={`/blog/${post.slug}`}
+                  className="text-blue-600 font-semibold hover:text-blue-700 flex items-center"
+                >
+                  Read More <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
               </div>
             </article>
           ))}

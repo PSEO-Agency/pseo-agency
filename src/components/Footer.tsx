@@ -3,8 +3,11 @@ import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin }
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useServices } from "@/hooks/useNavigation";
 
 export const Footer = () => {
+  const { data: services } = useServices();
+
   // Load the chat widget script when the footer component mounts
   useEffect(() => {
     const script = document.createElement('script');
@@ -40,10 +43,12 @@ export const Footer = () => {
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               Join thousands of businesses that trust our programmatic SEO expertise to drive their growth.
             </p>
-            <Button className="webfx-button-primary text-lg px-10 py-6 h-auto">
-              Get Started Today
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/free-strategy">
+              <Button className="webfx-button-primary text-lg px-10 py-6 h-auto">
+                Get Started Today
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -52,11 +57,9 @@ export const Footer = () => {
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <img 
-                src="/lovable-uploads/ba592c92-0d43-4888-adec-c4b937d2a5b7.png" 
-                alt="pSEO" 
-                className="h-12 w-auto mb-6 invert"
-              />
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold text-white">#1 Programmatic SEO Agency</h2>
+              </div>
               <p className="text-blue-200 mb-8 max-w-md leading-relaxed text-lg">
                 Leading programmatic SEO agency helping businesses scale their organic traffic 
                 and revenue through data-driven content strategies.
@@ -101,11 +104,16 @@ export const Footer = () => {
             <div>
               <h4 className="text-xl font-bold mb-6 text-white">Services</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Programmatic SEO</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Technical SEO</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Content Strategy</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">SEO Audits</a></li>
-                <li><a href="#" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Analytics & Reporting</a></li>
+                {services?.slice(0, 5).map((service) => (
+                  <li key={service.id}>
+                    <Link 
+                      to={`/services/${service.slug}`} 
+                      className="text-blue-200 hover:text-white transition-colors duration-200 text-lg"
+                    >
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -142,9 +150,11 @@ export const Footer = () => {
               © 2024 Programmatic SEO B.V. All rights reserved.
             </div>
             <div className="text-right">
-              <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                Get Started Today
-              </Button>
+              <Link to="/free-strategy">
+                <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                  Get Started Today
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
