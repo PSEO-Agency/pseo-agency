@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import NotFound from "./NotFound";
 import { SoftwareHero } from "@/components/software/SoftwareHero";
 import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
@@ -28,6 +29,8 @@ const ToolPage = () => {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
         </div>
+        <TrustedToolsSection />
+        <Footer />
       </div>
     );
   }
@@ -145,6 +148,7 @@ const ToolPage = () => {
         )}
       </main>
       
+      <TrustedToolsSection />
       <Footer />
     </div>
   );

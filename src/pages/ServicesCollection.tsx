@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star } from "lucide-react";
@@ -30,6 +31,8 @@ const ServicesCollection = () => {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
+        <TrustedToolsSection />
+        <Footer />
       </div>
     );
   }
@@ -154,6 +157,7 @@ const ServicesCollection = () => {
         </section>
       </main>
       
+      <TrustedToolsSection />
       <Footer />
     </div>
   );

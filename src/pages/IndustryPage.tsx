@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
 import { IndustryHero } from "@/components/industry/IndustryHero";
@@ -48,6 +49,7 @@ const IndustryPage = () => {
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
           </div>
         </div>
+        <TrustedToolsSection />
         <Footer />
       </div>
     );
@@ -85,6 +87,7 @@ const IndustryPage = () => {
         <IndustryCTA industry={industry} />
       </main>
       
+      <TrustedToolsSection />
       <Footer />
     </div>
   );

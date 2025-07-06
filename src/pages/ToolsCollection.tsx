@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Badge } from "@/components/ui/badge";
 import { Wrench, Target, BarChart3, Search } from "lucide-react";
 import { SoftwareCard } from "@/components/software/SoftwareCard";
@@ -32,6 +33,8 @@ const ToolsCollection = () => {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
+        <TrustedToolsSection />
+        <Footer />
       </div>
     );
   }
@@ -176,6 +179,7 @@ const ToolsCollection = () => {
         </section>
       </main>
       
+      <TrustedToolsSection />
       <Footer />
     </div>
   );

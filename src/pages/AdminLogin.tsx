@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from '@/contexts/AuthContext';
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Lock, Mail, AlertCircle, CheckCircle } from 'lucide-react';
 
 export const AdminLogin = () => {
@@ -85,109 +86,112 @@ export const AdminLogin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl space-y-4"> {/* Wider container for debug info */}
-        <Card className="w-full max-w-md mx-auto">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Lock className="h-8 w-8 text-white" />
-            </div>
-            <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
-            <CardDescription>
-              Sign in to access the content management system
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && (
-                <Alert variant="destructive">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-
-              {user && !isAdmin && (
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    You are signed in as {user.email} but don't have admin privileges.
-                  </AlertDescription>
-                </Alert>
-              )}
-
-              {user && isAdmin && (
-                <Alert>
-                  <CheckCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Successfully authenticated as admin. Redirecting...
-                  </AlertDescription>
-                </Alert>
-              )}
-              
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="admin@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
-                    required
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
-                    required
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-              
-              <Button type="submit" className="w-full" disabled={loading || authLoading}>
-                {loading ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>Signing in...</span>
-                  </div>
-                ) : (
-                  'Sign In'
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Debug information card */}
-        {debugInfo.length > 0 && (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex items-center justify-center p-4 min-h-screen">
+        <div className="w-full max-w-2xl space-y-4">
           <Card className="w-full max-w-md mx-auto">
-            <CardHeader>
-              <CardTitle className="text-sm">Debug Information</CardTitle>
+            <CardHeader className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lock className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
+              <CardDescription>
+                Sign in to access the content management system
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-1 text-xs font-mono">
-                {debugInfo.map((info, index) => (
-                  <div key={index} className="text-gray-600">{info}</div>
-                ))}
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                {user && !isAdmin && (
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      You are signed in as {user.email} but don't have admin privileges.
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {user && isAdmin && (
+                  <Alert>
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Successfully authenticated as admin. Redirecting...
+                    </AlertDescription>
+                  </Alert>
+                )}
+                
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">Email</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="admin@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10"
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-sm font-medium">Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-10"
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
+                
+                <Button type="submit" className="w-full" disabled={loading || authLoading}>
+                  {loading ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Signing in...</span>
+                    </div>
+                  ) : (
+                    'Sign In'
+                  )}
+                </Button>
+              </form>
             </CardContent>
           </Card>
-        )}
+
+          {/* Debug information card */}
+          {debugInfo.length > 0 && (
+            <Card className="w-full max-w-md mx-auto">
+              <CardHeader>
+                <CardTitle className="text-sm">Debug Information</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-1 text-xs font-mono">
+                  {debugInfo.map((info, index) => (
+                    <div key={index} className="text-gray-600">{info}</div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
+      <TrustedToolsSection />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
 
@@ -37,6 +38,7 @@ const BlogPost = () => {
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
           </div>
         </div>
+        <TrustedToolsSection />
         <Footer />
       </div>
     );
@@ -85,6 +87,7 @@ const BlogPost = () => {
         </article>
       </main>
       
+      <TrustedToolsSection />
       <Footer />
     </div>
   );

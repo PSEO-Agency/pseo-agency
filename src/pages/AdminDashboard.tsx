@@ -2,6 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { 
   FileText, 
   Users, 
@@ -134,6 +135,7 @@ export const AdminDashboard = () => {
           })}
         </div>
       </div>
+      <TrustedToolsSection />
     </div>
   );
 };
