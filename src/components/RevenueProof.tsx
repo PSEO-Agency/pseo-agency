@@ -1,4 +1,6 @@
 
+import { TrendingUp, Users, Award, Target } from "lucide-react";
+
 export const RevenueProof = () => {
   return (
     <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
@@ -21,21 +23,33 @@ export const RevenueProof = () => {
         {/* Statistics Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <TrendingUp className="h-8 w-8 text-white" />
+            </div>
             <div className="text-4xl font-black text-gray-900 mb-2">$2.4B+</div>
             <div className="text-gray-600 font-medium">Revenue Generated</div>
           </div>
 
           <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Target className="h-8 w-8 text-white" />
+            </div>
             <div className="text-4xl font-black text-gray-900 mb-2">45K+</div>
             <div className="text-gray-600 font-medium">Keywords Ranking</div>
           </div>
 
           <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Award className="h-8 w-8 text-white" />
+            </div>
             <div className="text-4xl font-black text-gray-900 mb-2">800%</div>
             <div className="text-gray-600 font-medium">Average Traffic Growth</div>
           </div>
 
           <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Users className="h-8 w-8 text-white" />
+            </div>
             <div className="text-4xl font-black text-gray-900 mb-2">10M+</div>
             <div className="text-gray-600 font-medium">Pages Generated</div>
           </div>
