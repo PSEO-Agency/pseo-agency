@@ -1,5 +1,6 @@
 
 
+
 export const TrustedToolsSection = () => {
   const tools = [
     {
@@ -9,7 +10,7 @@ export const TrustedToolsSection = () => {
     },
     {
       name: "OpenAI",
-      image: "/lovable-uploads/17d3db48-1aec-4c5-b92d-88f98d05b57f.png",
+      image: "/lovable-uploads/5d1e9eac-202a-4a61-98b0-dadf91e52b45.png",
       alt: "OpenAI logo"
     },
     {
@@ -29,7 +30,7 @@ export const TrustedToolsSection = () => {
     },
     {
       name: "Ahrefs",
-      image: "/lovable-uploads/6d1bbc9b-7982-47e0-96cc-6916119aa54a.png",
+      image: "/lovable-uploads/af3bd7d9-e2fe-4e23-98b5-486f85f51534.png",
       alt: "Ahrefs logo"
     },
     {
@@ -74,4 +75,5 @@ export const TrustedToolsSection = () => {
     </section>
   );
 };
+
 
