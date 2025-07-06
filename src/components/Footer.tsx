@@ -1,4 +1,3 @@
-
 import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
@@ -58,7 +57,9 @@ export const Footer = () => {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="mb-6">
-                <h2 className="text-3xl font-bold text-white">#1 Programmatic SEO Agency</h2>
+                <p className="text-lg text-blue-200 leading-relaxed">
+                  <strong>#1 Programmatic SEO Agency</strong>
+                </p>
               </div>
               <p className="text-blue-200 mb-8 max-w-md leading-relaxed text-lg">
                 Leading programmatic SEO agency helping businesses scale their organic traffic 
