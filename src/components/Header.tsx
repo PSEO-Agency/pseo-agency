@@ -51,11 +51,13 @@ export const Header = () => {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className={`grid gap-6 p-8 bg-white shadow-2xl rounded-3xl border border-gray-100 ${serviceColumns.length === 1 ? 'w-[400px] grid-cols-1' : serviceColumns.length === 2 ? 'w-[700px] grid-cols-2' : 'w-[900px] grid-cols-3'}`}>
+                    {/* Header row */}
+                    <div className="col-span-full mb-2">
+                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
+                    </div>
+                    
                     {serviceColumns.map((column, columnIndex) => (
                       <div key={columnIndex} className="space-y-4">
-                        {columnIndex === 0 && (
-                          <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
-                        )}
                         {column.map((service) => (
                           <Link 
                             key={service.id}
