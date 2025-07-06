@@ -1,13 +1,7 @@
 
-export const TeamSection = () => {
-  const teamMembers = [
-    { name: "Sarah Johnson", role: "Head of SEO Strategy", image: "/api/placeholder/150/150" },
-    { name: "Mike Chen", role: "Technical SEO Lead", image: "/api/placeholder/150/150" },
-    { name: "Emily Rodriguez", role: "Content Operations Manager", image: "/api/placeholder/150/150" },
-    { name: "David Kim", role: "Data Analytics Director", image: "/api/placeholder/150/150" },
-    { name: "Lisa Thompson", role: "Client Success Manager", image: "/api/placeholder/150/150" }
-  ];
+import { Link } from "react-router-dom";
 
+export const TeamSection = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -45,7 +39,6 @@ export const TeamSection = () => {
             </div>
           </div>
           <div className="bg-blue-100 rounded-lg p-8 text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
             <div className="text-lg font-semibold text-gray-900 mb-4">SEO Experts</div>
             <p className="text-gray-600">
               Our diverse team brings expertise from top agencies and in-house roles, 
@@ -54,24 +47,12 @@ export const TeamSection = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center space-x-8 mb-8">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="text-center">
-              <div className="w-16 h-16 bg-gray-300 rounded-full mb-2 mx-auto"></div>
-              <div className="text-sm font-semibold text-gray-900">{member.name}</div>
-              <div className="text-xs text-gray-600">{member.role}</div>
-            </div>
-          ))}
-        </div>
-
         <div className="text-center">
-          <p className="text-lg text-gray-600 mb-6">
-            Your world-class team, hand-curated ranking agency with 
-            over <strong>2,500 happy client partners</strong>
-          </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-            Meet Your Team
-          </button>
+          <Link to="/jobs">
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+              Jobs
+            </button>
+          </Link>
         </div>
       </div>
     </section>
