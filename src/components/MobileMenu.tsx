@@ -30,6 +30,12 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
     onAuditModalOpen();
   };
 
+  const handleCloseClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(false);
+  };
+
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
@@ -41,7 +47,7 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
         <DrawerHeader className="text-left border-b">
           <DrawerTitle className="flex items-center justify-between">
             <span>Navigation</span>
-            <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
+            <Button variant="ghost" size="sm" onClick={handleCloseClick}>
               <X className="h-5 w-5" />
             </Button>
           </DrawerTitle>
@@ -174,20 +180,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
           <Link to="/contact" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
             Contact
           </Link>
-
-          {/* Contact Info */}
-          <div className="pt-4 border-t border-gray-100">
-            <div className="flex items-center space-x-3 bg-blue-50 rounded-lg p-3">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <Phone className="h-4 w-4 text-blue-600" />
-              </div>
-              <div>
-                <div className="text-xs text-gray-600 font-medium">Call Now:</div>
-                <div className="font-bold text-gray-900 text-sm">+31 (0) 85 060 1065</div>
-              </div>
-            </div>
-          </div>
 
           {/* CTA Button */}
           <Button 
