@@ -15,6 +15,19 @@ export const Header = () => {
   const { data: industries } = useIndustries();
   const { data: resources } = useResources();
 
+  // Helper function to chunk services into columns of max 4 items
+  const chunkServices = (services: any[], maxPerColumn: number = 4) => {
+    if (!services || services.length === 0) return [];
+    
+    const chunks = [];
+    for (let i = 0; i < services.length; i += maxPerColumn) {
+      chunks.push(services.slice(i, i + maxPerColumn));
+    }
+    return chunks;
+  };
+
+  const serviceColumns = chunkServices(services?.filter(service => service.slug) || []);
+
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-6">
@@ -37,22 +50,26 @@ export const Header = () => {
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-6 p-8 w-[700px] grid-cols-1 bg-white shadow-2xl rounded-3xl border border-gray-100">
-                    <div className="space-y-4">
-                      <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
-                      {services?.filter(service => service.slug).map((service) => (
-                        <Link 
-                          key={service.id}
-                          to={`/services/${service.slug}`} 
-                          className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
-                        >
-                          <div className="flex items-center">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:bg-blue-600"></div>
-                            {service.title}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                  <div className={`grid gap-6 p-8 bg-white shadow-2xl rounded-3xl border border-gray-100 ${serviceColumns.length === 1 ? 'w-[400px] grid-cols-1' : serviceColumns.length === 2 ? 'w-[700px] grid-cols-2' : 'w-[900px] grid-cols-3'}`}>
+                    {serviceColumns.map((column, columnIndex) => (
+                      <div key={columnIndex} className="space-y-4">
+                        {columnIndex === 0 && (
+                          <h4 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-2">pSEO Services</h4>
+                        )}
+                        {column.map((service) => (
+                          <Link 
+                            key={service.id}
+                            to={`/services/${service.slug}`} 
+                            className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-xl transition-all duration-200 font-medium group"
+                          >
+                            <div className="flex items-center">
+                              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:bg-blue-600"></div>
+                              {service.title}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
