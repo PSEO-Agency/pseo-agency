@@ -257,42 +257,6 @@ const Contact = () => {
                     </CardContent>
                   </Card>
                 </div>
-                
-                {/* CTA Card */}
-                <Card className="bg-gradient-to-br from-blue-600 to-purple-700 text-white border-0 shadow-2xl">
-                  <CardContent className="p-8">
-                    <div className="text-center">
-                      <Clock className="h-12 w-12 mx-auto mb-4 opacity-90" />
-                      <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
-                      <p className="mb-6 opacity-90">
-                        Book a free 30-minute strategy call with our team to discuss how programmatic SEO can transform your business.
-                      </p>
-                      <Button 
-                        className="bg-white text-blue-600 hover:bg-gray-100 w-full font-semibold"
-                        onClick={() => navigate('/free-strategy')}
-                      >
-                        Schedule Free Call
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Trust Indicators */}
-                <Card className="bg-gray-50 border-0">
-                  <CardContent className="p-6">
-                    <div className="text-center">
-                      <h4 className="font-semibold text-gray-900 mb-3">Trusted by 500+ Businesses</h4>
-                      <div className="flex justify-center space-x-2 mb-3">
-                        {[...Array(5)].map((_, i) => (
-                          <div key={i} className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                        ))}
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Average response time: 1.5 hours
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
               </div>
             </div>
           </div>
