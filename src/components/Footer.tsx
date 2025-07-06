@@ -1,11 +1,13 @@
 import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useServices } from "@/hooks/useNavigation";
+import { AuditModal } from "./AuditModal";
 
 export const Footer = () => {
   const { data: services } = useServices();
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
   // Load the chat widget script when the footer component mounts
   useEffect(() => {
@@ -42,12 +44,13 @@ export const Footer = () => {
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               Join thousands of businesses that trust our programmatic SEO expertise to drive their growth.
             </p>
-            <Link to="/free-strategy">
-              <Button className="webfx-button-primary text-lg px-10 py-6 h-auto">
-                Get Started Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button 
+              className="webfx-button-primary text-lg px-10 py-6 h-auto"
+              onClick={() => setIsAuditModalOpen(true)}
+            >
+              Get Started Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
 
@@ -151,15 +154,21 @@ export const Footer = () => {
               © 2024 Programmatic SEO B.V. All rights reserved.
             </div>
             <div className="text-right">
-              <Link to="/free-strategy">
-                <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                  Get Started Today
-                </Button>
-              </Link>
+              <Button 
+                className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={() => setIsAuditModalOpen(true)}
+              >
+                Get Started Today
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      
+      <AuditModal 
+        isOpen={isAuditModalOpen} 
+        onClose={() => setIsAuditModalOpen(false)} 
+      />
     </footer>
   );
 };
