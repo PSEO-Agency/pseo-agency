@@ -48,7 +48,7 @@ export const Hero = () => {
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight mb-3 sm:mb-4 lg:mb-6 text-balance">
-              10x Your Traffic Through
+              Drive More Revenue Through
               <span className="block webfx-text-gradient mt-1 sm:mt-2">Programmatic SEO</span>
             </h1>
             
