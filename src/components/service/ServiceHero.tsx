@@ -69,17 +69,21 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
                 </p>
               )}
 
-              {/* Key benefits */}
-              {features.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                  {features.slice(0, 4).map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
-                      <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
-                      <span className="text-sm font-medium text-white">{feature}</span>
-                    </div>
-                  ))}
+              {/* Key benefits - Updated to match homepage */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+                <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
+                  <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-white">800% Traffic Growth</span>
                 </div>
-              )}
+                <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20">
+                  <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-white">45K+ Keywords</span>
+                </div>
+                <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20 sm:col-span-2 lg:col-span-1">
+                  <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm font-medium text-white">$2.4B+ Revenue</span>
+                </div>
+              </div>
               
               {/* CTA Form */}
               <form onSubmit={handleSubmit} className="mb-6">
@@ -103,7 +107,7 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
                 </div>
                 <p className="text-blue-200 text-sm mt-3 flex items-center justify-center">
                   <CheckCircle2 className="h-4 w-4 mr-2 text-green-400" />
-                  Free consultation • No commitment • Results in 24 hours
+                  Free audit • No commitment • Report in 24 hours
                 </p>
               </form>
             </div>
