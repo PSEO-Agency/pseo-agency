@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { Phone, Settings } from "lucide-react";
+import { Phone } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
@@ -184,12 +183,6 @@ export const Header = () => {
 
           {/* CTA Section */}
           <div className="flex items-center space-x-2 lg:space-x-3">
-            {/* Admin Access Button - Hidden on mobile */}
-            <Button variant="ghost" size="sm" onClick={() => navigate('/admin/login')} className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600">
-              <Settings className="h-4 w-4" />
-              <span className="text-xs">Admin</span>
-            </Button>
-
             {/* Phone section - Responsive */}
             <div className="hidden lg:flex items-center space-x-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl px-3 py-2 border border-gray-200 shadow-sm">
               <div className="flex items-center space-x-2">
