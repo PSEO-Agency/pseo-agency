@@ -39,7 +39,7 @@ export const TeamSection = () => {
             </div>
           </div>
           <div className="bg-blue-100 rounded-lg p-8 text-center">
-            <div className="text-lg font-semibold text-gray-900 mb-4">SEO Experts</div>
+            <div className="text-lg font-semibold text-gray-900 mb-4">SEO Automation Experts</div>
             <p className="text-gray-600">
               Our diverse team brings expertise from top agencies and in-house roles, 
               ensuring your campaigns benefit from the latest industry insights.
