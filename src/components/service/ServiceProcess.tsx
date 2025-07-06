@@ -1,5 +1,5 @@
 
-import { Search, Palette, Database, Target } from "lucide-react";
+import { Search, Palette, Database, Target, Zap, Users, BarChart3, Globe } from "lucide-react";
 import { Json } from "@/integrations/supabase/types";
 
 interface ServiceProcessProps {
@@ -34,16 +34,41 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
     }
   ];
 
-  // Safely convert Json to array
-  const steps = Array.isArray(service.process_steps) && service.process_steps.length > 0
-    ? service.process_steps.slice(0, 4)
-    : defaultSteps;
+  // Parse process steps from database
+  let processSteps;
+  if (Array.isArray(service.process_steps) && service.process_steps.length > 0) {
+    processSteps = service.process_steps.map((step: string, index: number) => {
+      // Split step into title and description
+      const colonIndex = step.indexOf(':');
+      if (colonIndex > 0) {
+        const title = step.substring(0, colonIndex).trim();
+        const description = step.substring(colonIndex + 1).trim();
+        return { title, description, icon: getIconForIndex(index) };
+      }
+      return { 
+        title: step, 
+        description: "Professional implementation of this step with attention to detail and best practices.",
+        icon: getIconForIndex(index)
+      };
+    });
+  } else {
+    processSteps = defaultSteps;
+  }
+
+  function getIconForIndex(index: number) {
+    const icons = [Search, Zap, Users, Target, BarChart3, Database, Globe, Palette];
+    return icons[index % icons.length];
+  }
 
   const stepColors = [
     "from-blue-500 to-blue-600",
     "from-purple-500 to-purple-600",
     "from-green-500 to-green-600",
-    "from-orange-500 to-red-500"
+    "from-orange-500 to-red-500",
+    "from-indigo-500 to-indigo-600",
+    "from-pink-500 to-pink-600",
+    "from-teal-500 to-teal-600",
+    "from-yellow-500 to-orange-500"
   ];
 
   return (
@@ -71,13 +96,15 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-8">
-            {steps.map((step, index) => {
-              const IconComponent = step.icon || Search;
+            {processSteps.map((step, index) => {
+              const IconComponent = step.icon;
+              const colorClass = stepColors[index % stepColors.length];
+              
               return (
                 <div key={index} className="flex items-start space-x-6 group">
-                  <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${stepColors[index]} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative`}>
+                  <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${colorClass} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative`}>
                     <IconComponent className="h-8 w-8 text-white" />
                     <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">
                       {index + 1}
@@ -85,8 +112,8 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
                   </div>
                   <div className="flex-1">
                     <div className="webfx-card p-6">
-                      <h4 className="font-bold text-gray-900 mb-2 text-xl">{step.title}</h4>
-                      <p className="text-gray-600">{step.description}</p>
+                      <h4 className="font-bold text-gray-900 mb-3 text-xl">{step.title}</h4>
+                      <p className="text-gray-600 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
                 </div>
@@ -114,6 +141,28 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
                   <span className="text-gray-600">Success Rate:</span>
                   <span className="font-bold text-green-600 text-xl">95%+</span>
                 </div>
+              </div>
+              
+              <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                <h4 className="font-bold text-gray-900 mb-2">What's Included:</h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    Dedicated project manager
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    Regular progress meetings
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    Detailed documentation
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    Post-launch support
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
