@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Phone, Calendar } from "lucide-react";
 import { useState } from "react";
@@ -66,15 +65,6 @@ export const IndustryCTA = ({ industry }: IndustryCTAProps) => {
                 <Calendar className="mr-2 h-5 w-5" />
                 Get Free {industry.name} Analysis
               </Button>
-              
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <Phone className="h-5 w-5 text-white" />
-                <div>
-                  <div className="text-sm text-blue-200">Call Now:</div>
-                  <div className="font-bold text-white">(555) 123-4567</div>
-                </div>
-              </div>
             </div>
             
             <div className="flex items-center justify-center sm:justify-start space-x-3 text-blue-200 mt-4">
