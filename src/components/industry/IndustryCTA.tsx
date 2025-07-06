@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Phone, Calendar } from "lucide-react";
 import { useState } from "react";
@@ -35,28 +36,6 @@ export const IndustryCTA = ({ industry }: IndustryCTAProps) => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 mb-8">
-              <h3 className="text-2xl font-bold mb-6">What You'll Get:</h3>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-6 w-6 text-green-400 mr-4 flex-shrink-0" />
-                  <span>Free {industry.name.toLowerCase()} SEO audit and strategy session</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-6 w-6 text-green-400 mr-4 flex-shrink-0" />
-                  <span>Custom {industry.name.toLowerCase()} keyword research report</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-6 w-6 text-green-400 mr-4 flex-shrink-0" />
-                  <span>Personalized {industry.name.toLowerCase()} growth roadmap</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-6 w-6 text-green-400 mr-4 flex-shrink-0" />
-                  <span>Competitive analysis for your {industry.name.toLowerCase()} market</span>
-                </div>
-              </div>
-            </div>
-
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
               <Button 
                 className="webfx-button-primary text-lg px-8 py-6 h-auto"
