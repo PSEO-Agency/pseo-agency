@@ -46,6 +46,138 @@ export const IndustryKeywords = ({ industry }: IndustryKeywordsProps) => {
           "[software category] ROI calculator"
         ]
       };
+    } else if (industryName === 'e-commerce') {
+      return {
+        primary: [
+          "best [product category]",
+          "[product name] reviews",
+          "buy [product name] online",
+          "[product category] deals",
+          "cheap [product name]",
+          "[brand name] [product]",
+          "[product name] price comparison",
+          "[product category] sale"
+        ],
+        secondary: [
+          "[product name] discount code",
+          "[product category] free shipping",
+          "[product name] customer reviews",
+          "best [product category] brands",
+          "[product name] specifications",
+          "[product category] buying guide",
+          "[product name] warranty",
+          "[product category] return policy"
+        ],
+        longTail: [
+          "best [product name] under $[price]",
+          "[product name] vs [competitor product]",
+          "[product category] for [specific use case]",
+          "where to buy [product name] online",
+          "[product name] black friday deals",
+          "[brand] [product] customer service",
+          "[product category] with free returns",
+          "authentic [brand] [product] store"
+        ]
+      };
+    } else if (industryName === 'real estate') {
+      return {
+        primary: [
+          "homes for sale [city]",
+          "real estate [city]",
+          "[city] property listings",
+          "houses for sale near me",
+          "[neighborhood] homes",
+          "real estate agent [city]",
+          "property values [city]",
+          "[city] housing market"
+        ],
+        secondary: [
+          "luxury homes [city]",
+          "first time home buyer [city]",
+          "real estate investment [city]",
+          "commercial real estate [city]",
+          "property management [city]",
+          "home appraisal [city]",
+          "mortgage rates [city]",
+          "rent vs buy [city]"
+        ],
+        longTail: [
+          "best neighborhoods in [city] for families",
+          "[city] real estate market trends 2024",
+          "how much house can I afford in [city]",
+          "top rated real estate agent [neighborhood]",
+          "[city] property tax rates by neighborhood",
+          "new construction homes [city] [price range]",
+          "condos for sale [city] under [price]",
+          "[city] real estate forecast next 5 years"
+        ]
+      };
+    } else if (industryName === 'healthcare') {
+      return {
+        primary: [
+          "[medical condition] treatment",
+          "[specialist] near me",
+          "[medical procedure] cost",
+          "best [medical specialty] [city]",
+          "[symptom] causes",
+          "[medical test] preparation",
+          "[condition] symptoms",
+          "emergency [medical service]"
+        ],
+        secondary: [
+          "[medical condition] prevention",
+          "[treatment] side effects",
+          "[medical procedure] recovery time",
+          "telemedicine [specialty]",
+          "[condition] diet plan",
+          "[medical device] reviews",
+          "health insurance [procedure]",
+          "[specialty] clinic [city]"
+        ],
+        longTail: [
+          "best [specialist] for [condition] in [city]",
+          "how to prepare for [medical procedure]",
+          "[condition] treatment options without surgery",
+          "cost of [medical procedure] with insurance",
+          "[symptom] when to see a doctor",
+          "[medical condition] natural treatment options",
+          "recovery timeline for [medical procedure]",
+          "[specialty] second opinion [city]"
+        ]
+      };
+    } else if (industryName === 'finance') {
+      return {
+        primary: [
+          "best [financial product]",
+          "[loan type] rates",
+          "financial advisor near me",
+          "[investment type] returns",
+          "credit score improvement",
+          "retirement planning",
+          "mortgage calculator",
+          "personal loan approval"
+        ],
+        secondary: [
+          "[financial product] comparison",
+          "how to invest in [asset]",
+          "tax planning strategies",
+          "[insurance type] quotes",
+          "debt consolidation options",
+          "emergency fund calculator",
+          "401k rollover guide",
+          "[financial service] fees"
+        ],
+        longTail: [
+          "best [financial product] for [specific situation]",
+          "how much should I save for retirement at [age]",
+          "[loan type] approval with [credit score]",
+          "[investment strategy] for beginners guide",
+          "cost of [financial service] in [city]",
+          "[financial product] requirements and qualifications",
+          "difference between [product A] and [product B]",
+          "[financial goal] planning calculator"
+        ]
+      };
     } else if (industryName === 'local business') {
       return {
         primary: [
@@ -145,9 +277,42 @@ export const IndustryKeywords = ({ industry }: IndustryKeywordsProps) => {
           "[practice area] attorney [city] results"
         ]
       };
+    } else if (industryName === 'automotive') {
+      return {
+        primary: [
+          "[car make model] for sale",
+          "used cars [city]",
+          "car dealership near me",
+          "[service type] [city]",
+          "auto repair shop",
+          "[car part] replacement",
+          "car maintenance [city]",
+          "automotive service center"
+        ],
+        secondary: [
+          "[car make] certified pre-owned",
+          "car financing options",
+          "auto insurance quotes",
+          "[service] cost estimate",
+          "brake repair [city]",
+          "oil change near me",
+          "transmission repair",
+          "car inspection services"
+        ],
+        longTail: [
+          "best [car make] dealer in [city]",
+          "reliable used cars under [price]",
+          "[specific car problem] repair cost",
+          "automotive service [city] reviews",
+          "[car make model] maintenance schedule",
+          "certified mechanic [city] area",
+          "[service type] near me open now",
+          "car parts [make model] [year]"
+        ]
+      };
     }
     
-    // Default keywords for other industries
+    // Fallback for any other industries
     return {
       primary: [
         "[industry] solutions",
