@@ -5,39 +5,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useServices } from "@/hooks/useNavigation";
 import { AuditModal } from "./AuditModal";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 
 export const Footer = () => {
   const { data: services } = useServices();
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
-  // Fetch featured blog posts for Resources section
-  const { data: featuredBlogPosts } = useQuery({
-    queryKey: ['featured-blog-posts-footer'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('is_published', true)
-        .eq('is_featured', true)
-        .order('created_at', { ascending: false })
-        .limit(3);
-      
-      if (error) throw error;
-      return data;
-    },
-  });
-
-  // Manual entry for Programmatic SEO Guide
+  // Manual entry for Programmatic SEO Guide (only one featured item)
   const programmaticSeoGuide = {
     id: 'programmatic-seo-guide',
     title: 'The Complete Programmatic SEO Guide',
     slug: 'programmatic-seo-guide',
   };
 
-  // Combine manual guide with database posts
-  const allFeaturedPosts = [programmaticSeoGuide, ...(featuredBlogPosts || [])].slice(0, 3);
+  // Only show the Programmatic SEO Guide
+  const featuredResource = [programmaticSeoGuide];
 
   // Load the chat widget script when the footer component mounts
   useEffect(() => {
@@ -155,10 +136,10 @@ export const Footer = () => {
             <div>
               <h4 className="text-xl font-bold mb-6 text-white">Resources</h4>
               <ul className="space-y-3">
-                {allFeaturedPosts.map((post) => (
+                {featuredResource.map((post) => (
                   <li key={post.id}>
                     <Link 
-                      to={post.id === 'programmatic-seo-guide' ? '/programmatic-seo-guide' : `/blog/${post.slug}`}
+                      to={`/programmatic-seo-guide`}
                       className="text-blue-200 hover:text-white transition-colors duration-200 text-lg"
                     >
                       {post.title}
