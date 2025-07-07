@@ -6,44 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, Users, DollarSign, Target, BarChart, Globe, Zap, Award } from "lucide-react";
+import { AuditModal } from "@/components/AuditModal";
+import { useState } from "react";
 
 const Results = () => {
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
+
   const heroStats = [
     { number: "500%+", label: "Average Traffic Increase" },
-    { number: "$50M+", label: "Revenue Generated" },
-    { number: "200+", label: "Happy Clients" },
-    { number: "10M+", label: "Pages Created" }
-  ];
-
-  const detailedStats = [
-    {
-      icon: <TrendingUp className="h-8 w-8 text-blue-600" />,
-      number: "500%+",
-      label: "Average Traffic Increase",
-      description: "Our clients see an average of 500% increase in organic traffic within 12 months",
-      gradient: "from-blue-500 to-blue-600"
-    },
-    {
-      icon: <DollarSign className="h-8 w-8 text-green-600" />,
-      number: "$50M+",
-      label: "Revenue Generated",
-      description: "Total additional revenue generated for our clients through programmatic SEO",
-      gradient: "from-green-500 to-green-600"
-    },
-    {
-      icon: <Users className="h-8 w-8 text-purple-600" />,
-      number: "200+",
-      label: "Happy Clients",
-      description: "Businesses across various industries trust us with their SEO growth",
-      gradient: "from-purple-500 to-purple-600"
-    },
-    {
-      icon: <Target className="h-8 w-8 text-red-600" />,
-      number: "10M+",
-      label: "Pages Created",
-      description: "High-quality, SEO-optimized pages created through our programmatic approach",
-      gradient: "from-red-500 to-red-600"
-    }
+    { number: "100+", label: "pSEO Projects" },
+    { number: "1M+", label: "Pages Created" }
   ];
 
   const caseStudies = [
@@ -77,7 +49,7 @@ const Results = () => {
   ];
 
   const achievements = [
-    { icon: <Award className="h-6 w-6" />, text: "Top 1% SEO Agency" },
+    { icon: <Award className="h-6 w-6" />, text: "#1 pSEO Agency" },
     { icon: <Globe className="h-6 w-6" />, text: "Global Client Base" },
     { icon: <Zap className="h-6 w-6" />, text: "Lightning Fast Results" },
     { icon: <BarChart className="h-6 w-6" />, text: "Data-Driven Approach" }
@@ -122,7 +94,7 @@ const Results = () => {
             </p>
             
             {/* Hero Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
               {heroStats.map((stat, index) => (
                 <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
                   <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
@@ -131,14 +103,18 @@ const Results = () => {
               ))}
             </div>
             
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold">
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold"
+              onClick={() => setIsAuditModalOpen(true)}
+            >
               Get Similar Results
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Detailed Stats Section */}
+      {/* Real Project Example Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -149,26 +125,44 @@ const Results = () => {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
-              {detailedStats.map((stat, index) => (
-                <Card key={index} className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-                  <div className={`h-1 bg-gradient-to-r ${stat.gradient}`}></div>
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="group-hover:scale-110 transition-transform duration-300">
-                        {stat.icon}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-gray-900">{stat.number}</div>
-                        <div className="text-sm text-gray-500">{stat.label}</div>
-                      </div>
+            {/* Case Study Preview */}
+            <div className="bg-white p-8 lg:p-12 text-center mb-12 rounded-xl shadow-xl">
+              <div className="max-w-4xl mx-auto">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
+                  Real Results from Real Businesses
+                </h3>
+                <div className="grid md:grid-cols-3 gap-8 text-left mb-12">
+                  <div className="border-l-4 border-green-500 pl-6">
+                    <div className="text-3xl font-bold text-green-600 mb-2">1,200%</div>
+                    <div className="text-gray-700 font-medium mb-2">Traffic Increase</div>
+                    <div className="text-sm text-gray-600">E-commerce client in 6 months</div>
+                  </div>
+                  <div className="border-l-4 border-blue-500 pl-6">
+                    <div className="text-3xl font-bold text-blue-600 mb-2">25K</div>
+                    <div className="text-gray-700 font-medium mb-2">Pages Created</div>
+                    <div className="text-sm text-gray-600">SaaS platform expansion</div>
+                  </div>
+                  <div className="border-l-4 border-purple-500 pl-6">
+                    <div className="text-3xl font-bold text-purple-600 mb-2">$500K</div>
+                    <div className="text-gray-700 font-medium mb-2">Monthly Revenue</div>
+                    <div className="text-sm text-gray-600">Local service business</div>
+                  </div>
+                </div>
+
+                {/* Real Project Example Image */}
+                <div className="relative max-w-6xl mx-auto">
+                  <div className="relative overflow-hidden rounded-xl shadow-2xl">
+                    <img 
+                      src="/lovable-uploads/704ca633-1198-4152-87f0-dc67bd7139a4.png" 
+                      alt="Real project analytics dashboard showing traffic growth"
+                      className="w-full h-auto"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                      <div className="text-white text-xl font-bold">Real project example</div>
                     </div>
-                    <CardDescription className="text-gray-600 leading-relaxed">
-                      {stat.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -244,7 +238,7 @@ const Results = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Join the Success Stories</h2>
             <p className="text-lg text-gray-600 mb-12">
-              Over 200 businesses have chosen our programmatic SEO solutions to scale their organic growth
+              With experience in over 100 Programmatic SEO projects, know how to scale your organic growth
             </p>
             
             <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -274,10 +268,19 @@ const Results = () => {
             with our proven programmatic SEO strategies.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+              onClick={() => setIsAuditModalOpen(true)}
+            >
               Start Your Success Story
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
+              onClick={() => setIsAuditModalOpen(true)}
+            >
               Schedule Free Consultation
             </Button>
           </div>
@@ -285,6 +288,11 @@ const Results = () => {
       </section>
       
       <Footer />
+      
+      <AuditModal 
+        isOpen={isAuditModalOpen} 
+        onClose={() => setIsAuditModalOpen(false)} 
+      />
     </div>
   );
 };
