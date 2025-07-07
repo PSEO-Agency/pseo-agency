@@ -252,34 +252,6 @@ const Results = () => {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to See Similar Results?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Join hundreds of businesses that have transformed their online presence 
-            with our proven programmatic SEO strategies.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-              onClick={() => setIsAuditModalOpen(true)}
-            >
-              Start Your Success Story
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-              onClick={() => setIsAuditModalOpen(true)}
-            >
-              Schedule Free Consultation
-            </Button>
-          </div>
-        </div>
-      </section>
       
       <Footer />
       
