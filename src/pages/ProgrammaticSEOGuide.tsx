@@ -32,6 +32,7 @@ import {
   Briefcase
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProgrammaticSEOGuide = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
@@ -65,59 +66,51 @@ const ProgrammaticSEOGuide = () => {
     },
   });
 
-  const { data: software } = useQuery({
-    queryKey: ['software-guide'],
+  const { data: allSoftware } = useQuery({
+    queryKey: ['all-software-guide'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('software')
         .select('*')
         .eq('is_published', true)
-        .order('popularity_score', { ascending: false })
-        .limit(8);
+        .order('popularity_score', { ascending: false });
       if (error) throw error;
       return data;
     },
   });
 
-  const heroStats = [
-    { number: "45K+", label: "Keywords Optimized" },
-    { number: "$2.4B+", label: "Revenue Generated" },
-    { number: "800%", label: "Average Traffic Growth" }
-  ];
+  // Separate software and tools
+  const software = allSoftware?.filter(item => item.type === 'software') || [];
+  const tools = allSoftware?.filter(item => item.type === 'tool') || [];
 
   const implementationSteps = [
     {
       step: 1,
       title: "Audit & Research Phase",
-      duration: "2-4 weeks",
       description: "Comprehensive keyword research, competitor analysis, and technical SEO audit",
       icon: <Search className="h-6 w-6" />
     },
     {
       step: 2,
-      title: "Data Architecture Setup",
-      duration: "3-5 weeks", 
+      title: "Data Architecture Setup", 
       description: "Database design, content structure planning, and data source integration",
       icon: <Database className="h-6 w-6" />
     },
     {
       step: 3,
       title: "Template Development",
-      duration: "4-6 weeks",
       description: "Custom page templates, dynamic content mapping, and responsive design",
       icon: <Code className="h-6 w-6" />
     },
     {
       step: 4,
       title: "Content Automation",
-      duration: "2-3 weeks",
       description: "Automated content generation, quality assurance, and bulk publishing",
       icon: <Zap className="h-6 w-6" />
     },
     {
       step: 5,
       title: "Launch & Monitoring",
-      duration: "Ongoing",
       description: "Performance tracking, optimization, and continuous improvement",
       icon: <TrendingUp className="h-6 w-6" />
     }
@@ -178,7 +171,7 @@ const ProgrammaticSEOGuide = () => {
   // Scroll spy effect
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['introduction', 'services', 'industries', 'tools', 'implementation'];
+      const sections = ['introduction', 'services', 'industries', 'software', 'tools', 'implementation'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -233,240 +226,211 @@ const ProgrammaticSEOGuide = () => {
               Learn the strategies that generated $2.4B+ in revenue and 800% traffic growth.
             </p>
             
-            {/* Hero Stats */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-              {heroStats.map((stat, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                  <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
-                  <div className="text-sm text-blue-200">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold"
-              >
-                <Download className="h-5 w-5 mr-2" />
-                Download Complete Guide
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-                onClick={() => setIsAuditModalOpen(true)}
-              >
-                Get Free SEO Audit
-              </Button>
+            {/* Table of Contents - Moved to Hero */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 mt-16">
+              <h3 className="text-2xl font-bold text-white mb-6">Table of Contents</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  { id: 'introduction', label: 'What is Programmatic SEO?' },
+                  { id: 'services', label: 'Services & Implementation' },
+                  { id: 'industries', label: 'Industry Applications' },
+                  { id: 'software', label: 'Essential Software' },
+                  { id: 'tools', label: 'SEO Tools' },
+                  { id: 'implementation', label: 'Step-by-Step Guide' }
+                ].map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`block px-4 py-3 rounded-lg text-sm transition-colors ${
+                      activeSection === item.id 
+                        ? 'bg-white text-blue-700 font-medium' 
+                        : 'text-white hover:bg-white/20'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Table of Contents - Sticky Sidebar */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sticky Navigation */}
-          <div className="lg:w-1/4">
-            <div className="sticky top-24">
-              <Card className="p-6">
-                <h3 className="font-bold text-lg mb-4">Table of Contents</h3>
-                <nav className="space-y-2">
-                  {[
-                    { id: 'introduction', label: 'What is Programmatic SEO?' },
-                    { id: 'services', label: 'Services & Implementation' },
-                    { id: 'industries', label: 'Industry Applications' },
-                    { id: 'tools', label: 'Essential Tools & Software' },
-                    { id: 'implementation', label: 'Step-by-Step Guide' },
-                    { id: 'faq', label: 'FAQ Section' }
-                  ].map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                        activeSection === item.id 
-                          ? 'bg-blue-100 text-blue-700 font-medium' 
-                          : 'text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </nav>
-              </Card>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16 space-y-24">
+        
+        {/* Introduction Section */}
+        <section id="introduction" className="scroll-mt-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">What is Programmatic SEO?</h2>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Programmatic SEO is the process of creating hundreds or thousands of landing pages 
+                automatically using templates, data sets, and automation tools. Instead of manually 
+                creating each page, you build systems that generate SEO-optimized content at scale.
+              </p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                This approach allows businesses to target long-tail keywords, capture more organic 
+                traffic, and dominate search results across multiple keyword variations - all while 
+                maintaining content quality and user experience.
+              </p>
+              <div className="space-y-3">
+                {[
+                  "Scale content creation from 10s to 10,000s of pages",
+                  "Target long-tail keywords with high conversion potential", 
+                  "Automate repetitive SEO tasks and content generation",
+                  "Achieve 500-800% traffic growth in 6-12 months"
+                ].map((benefit, index) => (
+                  <div key={index} className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
+                    <span className="text-gray-700">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-2xl">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Programmatic SEO Process</h3>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { icon: <Search className="h-6 w-6" />, label: "Data Analysis", color: "bg-blue-100 text-blue-600" },
+                  { icon: <Code className="h-6 w-6" />, label: "Template Development", color: "bg-purple-100 text-purple-600" },
+                  { icon: <Database className="h-6 w-6" />, label: "Content Setup", color: "bg-green-100 text-green-600" },
+                  { icon: <TrendingUp className="h-6 w-6" />, label: "Scale & Growth", color: "bg-orange-100 text-orange-600" }
+                ].map((step, index) => (
+                  <div key={index} className="flex items-center">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${step.color}`}>
+                      {step.icon}
+                    </div>
+                    <span className="font-medium text-gray-900">{step.label}</span>
+                    {index < 3 && <ArrowRight className="h-4 w-4 text-gray-400 ml-auto" />}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="lg:w-3/4 space-y-16">
-            
-            {/* Introduction Section */}
-            <section id="introduction" className="scroll-mt-24">
-              <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-                <div>
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">What is Programmatic SEO?</h2>
-                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                    Programmatic SEO is the process of creating hundreds or thousands of landing pages 
-                    automatically using templates, data sets, and automation tools. Instead of manually 
-                    creating each page, you build systems that generate SEO-optimized content at scale.
-                  </p>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    This approach allows businesses to target long-tail keywords, capture more organic 
-                    traffic, and dominate search results across multiple keyword variations - all while 
-                    maintaining content quality and user experience.
-                  </p>
-                  <div className="space-y-3">
-                    {[
-                      "Scale content creation from 10s to 10,000s of pages",
-                      "Target long-tail keywords with high conversion potential", 
-                      "Automate repetitive SEO tasks and content generation",
-                      "Achieve 500-800% traffic growth in 6-12 months"
-                    ].map((benefit, index) => (
-                      <div key={index} className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                        <span className="text-gray-700">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-2xl">
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Programmatic SEO Process</h3>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { icon: <Search className="h-6 w-6" />, label: "Data Analysis", color: "bg-blue-100 text-blue-600" },
-                      { icon: <Code className="h-6 w-6" />, label: "Template Development", color: "bg-purple-100 text-purple-600" },
-                      { icon: <Database className="h-6 w-6" />, label: "Content Setup", color: "bg-green-100 text-green-600" },
-                      { icon: <TrendingUp className="h-6 w-6" />, label: "Scale & Growth", color: "bg-orange-100 text-orange-600" }
-                    ].map((step, index) => (
-                      <div key={index} className="flex items-center">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${step.color}`}>
-                          {step.icon}
-                        </div>
-                        <span className="font-medium text-gray-900">{step.label}</span>
-                        {index < 3 && <ArrowRight className="h-4 w-4 text-gray-400 ml-auto" />}
-                      </div>
-                    ))}
-                  </div>
+          {/* Real Project Example */}
+          <div className="bg-white p-8 rounded-xl shadow-xl mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Real Project Example</h3>
+              <p className="text-gray-600">Analytics dashboard showing 500% traffic increase from programmatic SEO implementation</p>
+            </div>
+            <div className="relative overflow-hidden rounded-xl shadow-2xl">
+              <img 
+                src="/lovable-uploads/704ca633-1198-4152-87f0-dc67bd7139a4.png" 
+                alt="Real project analytics dashboard showing traffic growth"
+                className="w-full h-auto"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <div className="text-white">
+                  <div className="text-2xl font-bold">500% Traffic Increase</div>
+                  <div className="text-lg opacity-90">Local Business client in 6 months</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Real Project Example */}
-              <div className="bg-white p-8 rounded-xl shadow-xl mb-16">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Real Project Example</h3>
-                  <p className="text-gray-600">Analytics dashboard showing 500% traffic increase from programmatic SEO implementation</p>
-                </div>
-                <div className="relative overflow-hidden rounded-xl shadow-2xl">
-                  <img 
-                    src="/lovable-uploads/704ca633-1198-4152-87f0-dc67bd7139a4.png" 
-                    alt="Real project analytics dashboard showing traffic growth"
-                    className="w-full h-auto"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                    <div className="text-white">
-                      <div className="text-2xl font-bold">500% Traffic Increase</div>
-                      <div className="text-lg opacity-90">Local Business client in 6 months</div>
+        {/* Services Section */}
+        <section id="services" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Programmatic SEO Services</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Comprehensive programmatic SEO solutions tailored to your business needs and industry requirements.
+            </p>
+          </div>
+
+          {services && services.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map((service) => (
+                <Card key={service.id} className="h-full hover:shadow-xl transition-all duration-300 group">
+                  <CardHeader>
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Briefcase className="h-8 w-8 text-white" />
                     </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+                    <CardTitle className="group-hover:text-blue-600 transition-colors duration-200">
+                      {service.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 mb-4">{service.description}</p>
+                    <Link to={`/services/${service.slug}`}>
+                      <Button variant="outline" className="w-full group-hover:bg-blue-50 group-hover:border-blue-300">
+                        Learn More
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Services content loading...</p>
+            </div>
+          )}
+        </section>
 
-            {/* Services Section */}
-            <section id="services" className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Programmatic SEO Services</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Comprehensive programmatic SEO solutions tailored to your business needs and industry requirements.
-                </p>
-              </div>
+        {/* Industries Section */}
+        <section id="industries" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Programmatic SEO by Industry</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Industry-specific programmatic SEO strategies that deliver results across various verticals.
+            </p>
+          </div>
 
-              {services && services.length > 0 ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {services.map((service) => (
-                    <Card key={service.id} className="h-full hover:shadow-xl transition-all duration-300 group">
-                      <CardHeader>
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Briefcase className="h-8 w-8 text-white" />
-                        </div>
-                        <CardTitle className="group-hover:text-blue-600 transition-colors duration-200">
-                          {service.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 mb-4">{service.description}</p>
-                        <Button variant="outline" className="w-full group-hover:bg-blue-50 group-hover:border-blue-300">
-                          Learn More
-                          <ArrowRight className="h-4 w-4 ml-2" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Services content loading...</p>
-                </div>
-              )}
-            </section>
+          {industries && industries.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {industries.map((industry) => (
+                <Link key={industry.id} to={`/industries/${industry.slug}`}>
+                  <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                    <CardHeader className="text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        {getIndustryIcon(industry.name)}
+                      </div>
+                      <CardTitle className="group-hover:text-blue-600 transition-colors duration-200">
+                        {industry.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 text-center mb-4">{industry.description}</p>
+                      <div className="text-center">
+                        <Badge variant="outline" className="group-hover:bg-blue-50 group-hover:border-blue-300">
+                          View
+                        </Badge>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Building2 className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Industries content loading...</p>
+            </div>
+          )}
+        </section>
 
-            {/* Industries Section */}
-            <section id="industries" className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Programmatic SEO by Industry</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Industry-specific programmatic SEO strategies that deliver results across various verticals.
-                </p>
-              </div>
+        {/* Software Section */}
+        <section id="software" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Essential SEO Software</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Professional SEO software platforms we use to deliver exceptional programmatic SEO results.
+            </p>
+          </div>
 
-              {industries && industries.length > 0 ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {industries.map((industry) => (
-                    <Card key={industry.id} className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                      <CardHeader className="text-center">
-                        <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                          {getIndustryIcon(industry.name)}
-                        </div>
-                        <CardTitle className="group-hover:text-blue-600 transition-colors duration-200">
-                          {industry.name}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 text-center mb-4">{industry.description}</p>
-                        <div className="text-center">
-                          <Badge variant="outline" className="group-hover:bg-blue-50 group-hover:border-blue-300">
-                            View Case Studies
-                          </Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Building2 className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Industries content loading...</p>
-                </div>
-              )}
-            </section>
-
-            {/* Tools & Software Section */}
-            <section id="tools" className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">2025 Programmatic SEO Tech Stack</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Essential tools and software platforms we use to deliver exceptional programmatic SEO results.
-                </p>
-              </div>
-
-              {software && software.length > 0 ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {software.map((tool) => (
-                    <Card key={tool.id} className="h-full hover:shadow-xl transition-all duration-300 group text-center">
+          {software && software.length > 0 ? (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {software.map((tool) => (
+                  <Link key={tool.id} to={`/software/${tool.slug}`}>
+                    <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
                       <CardHeader>
                         <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                           <Code className="h-8 w-8 text-white" />
@@ -482,142 +446,196 @@ const ProgrammaticSEOGuide = () => {
                             {tool.category}
                           </Badge>
                         )}
-                        {tool.user_rating && (
-                          <div className="text-sm text-gray-500">
-                            ⭐ {tool.user_rating}/5.0
-                          </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+              <div className="text-center">
+                <Link to="/software">
+                  <Button size="lg" className="px-8 py-4">
+                    View All Software
+                    <ArrowRight className="h-5 w-5 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <Code className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Software content loading...</p>
+            </div>
+          )}
+        </section>
+
+        {/* Tools Section */}
+        <section id="tools" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">SEO Tools & Utilities</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Specialized SEO tools and utilities for programmatic content creation and optimization.
+            </p>
+          </div>
+
+          {tools && tools.length > 0 ? (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {tools.map((tool) => (
+                  <Link key={tool.id} to={`/tools/${tool.slug}`}>
+                    <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
+                      <CardHeader>
+                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Target className="h-8 w-8 text-white" />
+                        </div>
+                        <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-200">
+                          {tool.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
+                        {tool.category && (
+                          <Badge variant="secondary" className="mb-3">
+                            {tool.category}
+                          </Badge>
                         )}
                       </CardContent>
                     </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Code className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Tools content loading...</p>
-                </div>
-              )}
-            </section>
-
-            {/* Implementation Guide */}
-            <section id="implementation" className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Step-by-Step Implementation Guide</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Our proven 5-phase methodology for implementing programmatic SEO that delivers results.
-                </p>
+                  </Link>
+                ))}
               </div>
+              <div className="text-center">
+                <Link to="/tools">
+                  <Button size="lg" className="px-8 py-4">
+                    View All Tools
+                    <ArrowRight className="h-5 w-5 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <Target className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Tools content loading...</p>
+            </div>
+          )}
+        </section>
 
-              <div className="space-y-8">
-                {implementationSteps.map((step, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl mr-6">
-                      {step.step}
+        {/* Implementation Guide */}
+        <section id="implementation" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Step-by-Step Implementation Guide</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Our proven 5-phase methodology for implementing programmatic SEO that delivers results.
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {implementationSteps.map((step, index) => (
+              <div key={index} className="flex items-start">
+                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl mr-6">
+                  {step.step}
+                </div>
+                <div className="flex-1">
+                  <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                        {step.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                      </div>
+                    </div>
+                    <p className="text-gray-600">{step.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Everything you need to know about programmatic SEO implementation and strategy.
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqData.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white border border-gray-200 rounded-lg px-6">
+                <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+
+        {/* Related Blog Posts */}
+        <section className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Related Articles</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Explore more programmatic SEO strategies and case studies to accelerate your growth.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {relatedBlogs.map((blog, index) => (
+              <Card key={index} className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                <CardContent className="p-6">
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <BarChart3 className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-                        <div className="flex items-center mb-4">
-                          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
-                            {step.icon}
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-                            <Badge variant="outline">{step.duration}</Badge>
-                          </div>
-                        </div>
-                        <p className="text-gray-600">{step.description}</p>
+                      <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
+                        {blog}
+                      </h3>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <span>Read Article</span>
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/* FAQ Section */}
-            <section id="faq" className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Everything you need to know about programmatic SEO implementation and strategy.
-                </p>
-              </div>
-
-              <Accordion type="single" collapsible className="space-y-4">
-                {faqData.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-white border border-gray-200 rounded-lg px-6">
-                    <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </section>
-
-            {/* Related Blog Posts */}
-            <section className="scroll-mt-24">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Related Articles</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Explore more programmatic SEO strategies and case studies to accelerate your growth.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {relatedBlogs.map((blog, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                    <CardContent className="p-6">
-                      <div className="flex items-start">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                          <BarChart3 className="h-6 w-6 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
-                            {blog}
-                          </h3>
-                          <div className="flex items-center text-sm text-gray-500">
-                            <span>Read Article</span>
-                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Final CTA */}
-            <section className="scroll-mt-24">
-              <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-12 rounded-2xl text-center">
-                <h2 className="text-3xl lg:text-4xl font-bold mb-6">Ready to Scale Your SEO?</h2>
-                <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-                  Join hundreds of businesses that have transformed their online presence 
-                  with our proven programmatic SEO strategies.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-                    onClick={() => setIsAuditModalOpen(true)}
-                  >
-                    Get Free SEO Strategy Session
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-                  >
-                    <Download className="h-5 w-5 mr-2" />
-                    Download Case Studies
-                  </Button>
-                </div>
-              </div>
-            </section>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="scroll-mt-24">
+          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-12 rounded-2xl text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">Ready to Scale Your SEO?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+              Join hundreds of businesses that have transformed their online presence 
+              with our proven programmatic SEO strategies.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                onClick={() => setIsAuditModalOpen(true)}
+              >
+                Get Free SEO Strategy Session
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
+              >
+                <Download className="h-5 w-5 mr-2" />
+                Download Case Studies
+              </Button>
+            </div>
+          </div>
+        </section>
       </div>
 
       <TrustedToolsSection />
