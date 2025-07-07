@@ -2,18 +2,23 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
 import { Json } from "@/integrations/supabase/types";
+import { getServiceFAQs } from "@/data/serviceFAQs";
 
 interface ServiceFAQProps {
   service: {
     title: string;
+    slug?: string;
     faq_ids?: Json;
     [key: string]: any;
   };
 }
 
 export const ServiceFAQ = ({ service }: ServiceFAQProps) => {
-  // Default FAQs for demonstration
-  const faqs = [
+  // Get service-specific FAQs
+  const serviceFAQs = getServiceFAQs(service.title, service.slug);
+  
+  // Default FAQs as fallback
+  const defaultFAQs = [
     {
       question: `How long does it take to see results from ${service.title}?`,
       answer: "Most clients see initial improvements within 30-60 days, with significant results typically visible within 3-6 months. The exact timeline depends on your current situation and industry competitiveness."
@@ -40,6 +45,9 @@ export const ServiceFAQ = ({ service }: ServiceFAQProps) => {
     }
   ];
 
+  // Use service-specific FAQs if available, otherwise use default FAQs
+  const faqs = serviceFAQs || defaultFAQs;
+
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       {/* Background decoration */}
@@ -61,7 +69,7 @@ export const ServiceFAQ = ({ service }: ServiceFAQProps) => {
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Get answers to the most common questions about our service and process.
+            Get answers to the most common questions about our {service.title.toLowerCase()} service and process.
           </p>
         </div>
 
