@@ -1,3 +1,4 @@
+
 import { Facebook, Twitter, Linkedin, Youtube, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -27,7 +28,7 @@ export const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>

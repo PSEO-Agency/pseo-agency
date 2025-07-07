@@ -1,4 +1,5 @@
 
+
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { AutomationSection } from "@/components/AutomationSection";
@@ -22,7 +23,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white m-0 p-0">
+    <div className="bg-white">
       <Header />
       <Hero />
       <AutomationSection />
@@ -42,3 +43,4 @@ const Index = () => {
 };
 
 export default Index;
+
