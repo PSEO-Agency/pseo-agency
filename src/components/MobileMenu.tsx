@@ -5,9 +5,11 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from 
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Link } from "react-router-dom";
-import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
+import { useServices, useIndustries } from "@/hooks/useNavigation";
 import { useSoftware } from "@/hooks/useSoftware";
 import { useTools } from "@/hooks/useTools";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 interface MobileMenuProps {
   onAuditModalOpen: () => void;
@@ -23,7 +25,33 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const { data: industries } = useIndustries();
   const { data: software } = useSoftware();
   const { data: tools } = useTools();
-  const { data: resources } = useResources();
+
+  // Fetch featured blog posts for Resources section
+  const { data: featuredBlogPosts } = useQuery({
+    queryKey: ['featured-blog-posts-mobile'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('is_published', true)
+        .eq('is_featured', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Manual entry for Programmatic SEO Guide
+  const programmaticSeoGuide = {
+    id: 'programmatic-seo-guide',
+    title: 'The Complete Programmatic SEO Guide',
+    slug: 'programmatic-seo-guide',
+  };
+
+  // Combine manual guide with database posts
+  const allFeaturedPosts = [programmaticSeoGuide, ...(featuredBlogPosts || [])].slice(0, 3);
 
   const handleAuditClick = () => {
     setIsOpen(false);
@@ -112,20 +140,19 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
               {/* Content & Guides */}
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-900 text-sm">Content & Guides</h4>
-                <Link to="/blog" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                  Blog
-                </Link>
-                <a href="#" className="block text-gray-600 py-2 text-sm hover:text-blue-600">Case Studies</a>
-                {resources?.map((resource) => (
+                {allFeaturedPosts.map((post) => (
                   <Link 
-                    key={resource.id}
-                    to={`/resources/${resource.slug}`} 
+                    key={post.id}
+                    to={post.id === 'programmatic-seo-guide' ? '/programmatic-seo-guide' : `/blog/${post.slug}`}
                     className="block text-gray-600 py-2 text-sm hover:text-blue-600"
                     onClick={() => setIsOpen(false)}
                   >
-                    {resource.title}
+                    {post.title}
                   </Link>
                 ))}
+                <Link to="/blog" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  Blog
+                </Link>
               </div>
 
               {/* Software & Tools */}
@@ -136,35 +163,15 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" 
                   onClick={() => setIsOpen(false)}
                 >
-                  All Software
+                  Software Platforms
                 </Link>
-                {software?.slice(0, 3).map((item) => (
-                  <Link 
-                    key={item.id}
-                    to={`/software/${item.slug}`} 
-                    className="block text-gray-600 py-2 text-sm hover:text-blue-600"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
                 <Link 
                   to="/tools" 
                   className="block text-gray-600 py-2 text-sm hover:text-emerald-600 font-medium" 
                   onClick={() => setIsOpen(false)}
                 >
-                  All Tools
+                  SEO Tools
                 </Link>
-                {tools?.slice(0, 3).map((item) => (
-                  <Link 
-                    key={item.id}
-                    to={`/tools/${item.slug}`} 
-                    className="block text-gray-600 py-2 text-sm hover:text-emerald-600"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
               </div>
             </CollapsibleContent>
           </Collapsible>

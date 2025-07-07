@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
@@ -5,7 +6,9 @@ import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { MobileMenu } from "./MobileMenu";
 import { useNavigate, Link } from "react-router-dom";
-import { useServices, useIndustries, useResources } from "@/hooks/useNavigation";
+import { useServices, useIndustries } from "@/hooks/useNavigation";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Header = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
@@ -13,7 +16,35 @@ export const Header = () => {
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
-  const { data: resources } = useResources();
+
+  // Fetch featured blog posts for Resources dropdown
+  const { data: featuredBlogPosts } = useQuery({
+    queryKey: ['featured-blog-posts-nav'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('is_published', true)
+        .eq('is_featured', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Manual entry for Programmatic SEO Guide
+  const programmaticSeoGuide = {
+    id: 'programmatic-seo-guide',
+    title: 'The Complete Programmatic SEO Guide',
+    slug: 'programmatic-seo-guide',
+    excerpt: 'Master programmatic SEO with our comprehensive guide.',
+    is_featured: true,
+  };
+
+  // Combine manual guide with database posts for Resources dropdown
+  const allFeaturedPosts = [programmaticSeoGuide, ...(featuredBlogPosts || [])].slice(0, 3);
 
   // Helper function to chunk services into columns of max 4 items
   const chunkServices = (services: any[], maxPerColumn: number = 4) => {
@@ -117,31 +148,24 @@ export const Header = () => {
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-4 p-6 w-[500px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
+                  <div className="grid gap-6 p-6 w-[600px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
                     <div className="space-y-3">
                       <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">Content & Guides</h4>
-                      <Link 
-                        to="/free-strategy"
-                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                      >
-                        Free SEO Strategy
-                      </Link>
+                      {allFeaturedPosts.map((post) => (
+                        <Link 
+                          key={post.id}
+                          to={post.id === 'programmatic-seo-guide' ? '/programmatic-seo-guide' : `/blog/${post.slug}`}
+                          className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium text-sm"
+                        >
+                          {post.title}
+                        </Link>
+                      ))}
                       <Link 
                         to="/blog" 
                         className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
                       >
                         Blog
                       </Link>
-                      <a href="#" className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium">Case Studies</a>
-                      {resources?.slice(0, 2).map((resource) => (
-                        <Link 
-                          key={resource.id}
-                          to={`/resources/${resource.slug}`} 
-                          className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                        >
-                          {resource.title}
-                        </Link>
-                      ))}
                     </div>
                     <div className="space-y-3">
                       <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">Software & Tools</h4>
