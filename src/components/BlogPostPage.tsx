@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -251,7 +250,7 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <style jsx>{`
+              <style>{`
                 .programmatic-seo-content {
                   line-height: 1.8;
                 }
@@ -498,7 +497,7 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
         onClose={() => setIsAuditModalOpen(false)} 
       />
 
-      <style jsx>{`
+      <style>{`
         .bg-grid-pattern {
           background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0);
           background-size: 20px 20px;
