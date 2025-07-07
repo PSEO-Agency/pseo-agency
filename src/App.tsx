@@ -41,6 +41,7 @@ import { SiteSettingsManager } from "./pages/admin/SiteSettingsManager";
 import SocialMediaVisualsManager from "./pages/admin/SocialMediaVisualsManager";
 import JobsManager from "./pages/admin/JobsManager";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
+import BlogVerificationPage from "./pages/BlogVerificationPage";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPostDynamic />} />
+              <Route path="/blog-verification" element={<BlogVerificationPage />} />
               <Route path="/services" element={<ServicesCollection />} />
               <Route path="/services/:slug" element={<ServicePage />} />
               <Route path="/industries" element={<IndustriesCollection />} />
