@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
@@ -131,21 +130,16 @@ const Results = () => {
                 <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
                   Real Results from Real Businesses
                 </h3>
-                <div className="grid md:grid-cols-3 gap-8 text-left mb-12">
+                <div className="grid md:grid-cols-2 gap-8 text-left mb-12">
                   <div className="border-l-4 border-green-500 pl-6">
-                    <div className="text-3xl font-bold text-green-600 mb-2">1,200%</div>
+                    <div className="text-3xl font-bold text-green-600 mb-2">500%</div>
                     <div className="text-gray-700 font-medium mb-2">Traffic Increase</div>
-                    <div className="text-sm text-gray-600">E-commerce client in 6 months</div>
+                    <div className="text-sm text-gray-600">Local Business client in 6 months</div>
                   </div>
                   <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">25K</div>
+                    <div className="text-3xl font-bold text-blue-600 mb-2">2K</div>
                     <div className="text-gray-700 font-medium mb-2">Pages Created</div>
-                    <div className="text-sm text-gray-600">SaaS platform expansion</div>
-                  </div>
-                  <div className="border-l-4 border-purple-500 pl-6">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">$500K</div>
-                    <div className="text-gray-700 font-medium mb-2">Monthly Revenue</div>
-                    <div className="text-sm text-gray-600">Local service business</div>
+                    <div className="text-sm text-gray-600">Long-tail keyword scaling</div>
                   </div>
                 </div>
 
