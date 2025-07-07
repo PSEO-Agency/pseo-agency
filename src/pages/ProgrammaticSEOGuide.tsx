@@ -223,7 +223,7 @@ const ProgrammaticSEOGuide = () => {
             
             <p className="text-xl lg:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed">
               The complete guide to creating thousands of SEO-optimized pages automatically. 
-              Learn the strategies that generated $2.4B+ in revenue and 800% traffic growth.
+              Learn the strategies that generated 500-800% traffic growth on average.
             </p>
             
             {/* Table of Contents - Moved to Hero */}
