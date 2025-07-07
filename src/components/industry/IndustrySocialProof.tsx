@@ -34,27 +34,6 @@ export const IndustrySocialProof = ({ industry }: IndustrySocialProofProps) => {
     }
   ];
 
-  const industryMetrics = [
-    {
-      icon: Building,
-      value: "150+",
-      label: `${industry.name} Clients Served`,
-      color: "text-blue-600"
-    },
-    {
-      icon: TrendingUp,
-      value: "89%",
-      label: `${industry.name} Success Rate`,
-      color: "text-green-600"
-    },
-    {
-      icon: Star,
-      value: "4.9/5",
-      label: `${industry.name} Client Rating`,
-      color: "text-yellow-600"
-    }
-  ];
-
   return (
     <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decoration */}
@@ -79,7 +58,7 @@ export const IndustrySocialProof = ({ industry }: IndustrySocialProofProps) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="webfx-card p-8 group hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
@@ -102,29 +81,6 @@ export const IndustrySocialProof = ({ industry }: IndustrySocialProofProps) => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Industry-specific trust indicators */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{industry.name} Industry Recognition</h3>
-            <p className="text-gray-600">Our proven track record in the {industry.name.toLowerCase()} sector</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {industryMetrics.map((metric, index) => {
-              const IconComponent = metric.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <IconComponent className={`h-8 w-8 ${metric.color}`} />
-                  </div>
-                  <div className="text-3xl font-black text-gray-900 mb-2">{metric.value}</div>
-                  <div className="text-gray-600 font-medium">{metric.label}</div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>
