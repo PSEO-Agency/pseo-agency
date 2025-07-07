@@ -58,7 +58,7 @@ export const ServiceSocialProof = ({ service }: ServiceSocialProofProps) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="webfx-card p-8 group hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
@@ -78,28 +78,6 @@ export const ServiceSocialProof = ({ service }: ServiceSocialProofProps) => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Trust indicators */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-black text-blue-600 mb-2">98%</div>
-              <div className="text-gray-600 font-medium">Client Retention</div>
-            </div>
-            <div>
-              <div className="text-3xl font-black text-purple-600 mb-2">5.0</div>
-              <div className="text-gray-600 font-medium">Average Rating</div>
-            </div>
-            <div>
-              <div className="text-3xl font-black text-green-600 mb-2">2500+</div>
-              <div className="text-gray-600 font-medium">Happy Clients</div>
-            </div>
-            <div>
-              <div className="text-3xl font-black text-orange-600 mb-2">8+</div>
-              <div className="text-gray-600 font-medium">Years Experience</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
