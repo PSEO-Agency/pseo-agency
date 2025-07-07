@@ -17,7 +17,7 @@ import { IndustryTemplates } from "@/components/industry/IndustryTemplates";
 import { IndustryImpact } from "@/components/industry/IndustryImpact";
 import { IndustrySocialProof } from "@/components/industry/IndustrySocialProof";
 import { IndustryFAQ } from "@/components/industry/IndustryFAQ";
-import { IndustryCTA } from "@/components/industry/IndustryCTA";
+import { ServiceCTA } from "@/components/service/ServiceCTA";
 
 const IndustryPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -64,6 +64,11 @@ const IndustryPage = () => {
     { label: industry.name }
   ];
 
+  // Adapt industry data to match ServiceCTA's expected interface
+  const adaptedService = {
+    title: `${industry.name} SEO Services`
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
@@ -84,7 +89,7 @@ const IndustryPage = () => {
         <IndustryImpact industry={industry} />
         <IndustrySocialProof industry={industry} />
         <IndustryFAQ industry={industry} />
-        <IndustryCTA industry={industry} />
+        <ServiceCTA service={adaptedService} />
       </main>
       
       <TrustedToolsSection />
