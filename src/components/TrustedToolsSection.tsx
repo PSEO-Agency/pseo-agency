@@ -1,6 +1,3 @@
-
-
-
 export const TrustedToolsSection = () => {
   const tools = [
     {
@@ -68,7 +65,7 @@ export const TrustedToolsSection = () => {
                 alt={tool.alt}
                 className="object-contain transition-all duration-300"
                 style={{ 
-                  maxHeight: '28px', 
+                  maxHeight: '50px', 
                   maxWidth: '90px',
                   width: 'auto',
                   height: 'auto'
@@ -81,4 +78,3 @@ export const TrustedToolsSection = () => {
     </section>
   );
 };
-
