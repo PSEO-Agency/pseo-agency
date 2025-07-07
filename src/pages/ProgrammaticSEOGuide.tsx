@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -29,7 +28,9 @@ import {
   Home,
   Heart,
   Building2,
-  Briefcase
+  Briefcase,
+  Brain,
+  Scale
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -144,16 +145,42 @@ const ProgrammaticSEOGuide = () => {
   ];
 
   const relatedBlogs = [
-    "10 Programmatic SEO Case Studies That Generated $50M+ Revenue",
-    "SAAS Programmatic SEO: How to Create 10,000+ Landing Pages", 
-    "E-commerce Programmatic SEO: Scale Product Pages Automatically",
-    "Local Business Programmatic SEO: Dominate Every City",
-    "Technical SEO for Programmatic Content: Core Web Vitals Guide",
-    "AI Content Automation: The Future of Programmatic SEO",
-    "Programmatic SEO Tools Comparison: Ahrefs vs SEMrush vs Custom Solutions",
-    "Real Estate Programmatic SEO: Location-Based Content Strategy",
-    "From 0 to 45,000 Keywords: Complete Programmatic SEO Implementation",
-    "Healthcare Programmatic SEO: Compliant Content at Scale"
+    {
+      title: "SAAS Programmatic SEO: How to Create 10,000+ Landing Pages",
+      slug: "saas-programmatic-seo-10000-landing-pages",
+      icon: <Cloud className="h-6 w-6" />,
+      category: "SAAS"
+    },
+    {
+      title: "E-commerce Programmatic SEO: Scale Product Pages Automatically", 
+      slug: "ecommerce-programmatic-seo-scale-product-pages",
+      icon: <ShoppingCart className="h-6 w-6" />,
+      category: "E-commerce"
+    },
+    {
+      title: "Local Business Programmatic SEO: Dominate Every City",
+      slug: "local-business-programmatic-seo-dominate-every-city",
+      icon: <Building2 className="h-6 w-6" />,
+      category: "Local Business"
+    },
+    {
+      title: "AI Content Automation: The Future of Programmatic SEO",
+      slug: "ai-content-automation-future-programmatic-seo",
+      icon: <Brain className="h-6 w-6" />,
+      category: "AI & Technology"
+    },
+    {
+      title: "Real Estate Programmatic SEO: Location-Based Content Strategy",
+      slug: "real-estate-programmatic-seo-location-strategy",
+      icon: <Home className="h-6 w-6" />,
+      category: "Real Estate"
+    },
+    {
+      title: "Law Firm Programmatic SEO: Generate Leads at Scale",
+      slug: "law-firm-programmatic-seo-generate-leads",
+      icon: <Scale className="h-6 w-6" />,
+      category: "Legal Services"
+    }
   ];
 
   const getIndustryIcon = (name: string) => {
@@ -576,35 +603,42 @@ const ProgrammaticSEOGuide = () => {
           </Accordion>
         </section>
 
-        {/* Related Blog Posts */}
+        {/* Related Blog Posts - Updated to show only 6 comprehensive articles */}
         <section className="scroll-mt-24">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Related Articles</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Industry-Specific Guides</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Explore more programmatic SEO strategies and case studies to accelerate your growth.
+              Deep-dive into programmatic SEO strategies tailored for specific industries. Each guide provides comprehensive, actionable strategies for scaling your content at industry level.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {relatedBlogs.map((blog, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <BarChart3 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
-                        {blog}
-                      </h3>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <span>Read Article</span>
-                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
+              <Link key={index} to={`/blog/${blog.slug}`}>
+                <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer border-l-4 border-l-blue-500">
+                  <CardContent className="p-8">
+                    <div className="flex items-start mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                        <div className="text-white">
+                          {blog.icon}
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <Badge variant="outline" className="mb-3 text-xs">
+                          {blog.category}
+                        </Badge>
+                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-3 leading-tight">
+                          {blog.title}
+                        </h3>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-2 transition-transform duration-200">
+                      <span>Read Complete Guide</span>
+                      <ArrowRight className="h-5 w-5 ml-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
