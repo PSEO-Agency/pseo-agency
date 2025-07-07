@@ -21,7 +21,7 @@ export const RevenueProof = () => {
         </div>
 
         {/* Statistics Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
             <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
               <TrendingUp className="h-8 w-8 text-white" />
@@ -44,14 +44,6 @@ export const RevenueProof = () => {
             </div>
             <div className="text-4xl font-black text-gray-900 mb-2">500%</div>
             <div className="text-gray-600 font-medium">Average Traffic Growth</div>
-          </div>
-
-          <div className="text-center webfx-card p-8 group hover:shadow-xl transition-all duration-300">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <Users className="h-8 w-8 text-white" />
-            </div>
-            <div className="text-4xl font-black text-gray-900 mb-2">10M+</div>
-            <div className="text-gray-600 font-medium">Total Pages Created</div>
           </div>
         </div>
 
