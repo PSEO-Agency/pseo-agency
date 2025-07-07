@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -43,6 +42,23 @@ const Blog = () => {
       return data;
     },
   });
+
+  // Manual entry for Programmatic SEO Guide
+  const programmaticSeoGuide = {
+    id: 'programmatic-seo-guide',
+    title: 'The Complete Programmatic SEO Guide',
+    slug: 'programmatic-seo-guide',
+    excerpt: 'Master programmatic SEO with our comprehensive guide. Learn strategies, tools, and implementation techniques to scale your organic traffic exponentially.',
+    category: 'Guide',
+    read_time: '25 min read',
+    image_url: null,
+    featured_image_alt: null,
+    is_featured: true,
+    is_published: true
+  };
+
+  // Combine manual guide with database posts for featured section
+  const allFeaturedPosts = [programmaticSeoGuide, ...(featuredPosts || [])].slice(0, 3);
 
   if (isLoading) {
     return (
@@ -107,7 +123,7 @@ const Blog = () => {
       </section>
 
       {/* Featured Posts */}
-      {featuredPosts && featuredPosts.length > 0 && (
+      {allFeaturedPosts && allFeaturedPosts.length > 0 && (
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -116,8 +132,8 @@ const Blog = () => {
                 <p className="text-lg text-gray-600">Our most popular and impactful programmatic SEO strategies</p>
               </div>
               <div className="grid lg:grid-cols-3 gap-8">
-                {featuredPosts.map((post) => (
-                  <Link key={post.id} to={`/blog/${post.slug}`}>
+                {allFeaturedPosts.map((post) => (
+                  <Link key={post.id} to={post.id === 'programmatic-seo-guide' ? `/programmatic-seo-guide` : `/blog/${post.slug}`}>
                     <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100 overflow-hidden hover:-translate-y-1">
                       <div className="p-8">
                         <div className="flex items-center justify-between mb-4">

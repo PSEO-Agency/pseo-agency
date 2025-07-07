@@ -21,6 +21,20 @@ export const BlogSection = () => {
     },
   });
 
+  // Manual entry for Programmatic SEO Guide
+  const programmaticSeoGuide = {
+    id: 'programmatic-seo-guide',
+    title: 'The Complete Programmatic SEO Guide',
+    slug: 'programmatic-seo-guide',
+    excerpt: 'Master programmatic SEO with our comprehensive guide. Learn strategies, tools, and implementation techniques to scale your organic traffic exponentially.',
+    category: 'Guide',
+    read_time: '25 min read',
+    image_url: null,
+    featured_image_alt: null,
+    is_featured: true,
+    is_published: true
+  };
+
   if (isLoading) {
     return (
       <section className="py-20 bg-white">
@@ -33,7 +47,10 @@ export const BlogSection = () => {
     );
   }
 
-  if (!blogPosts || blogPosts.length === 0) {
+  // Combine manual guide with database posts, limiting to 3 total
+  const allFeaturedPosts = [programmaticSeoGuide, ...(blogPosts || [])].slice(0, 3);
+
+  if (allFeaturedPosts.length === 0) {
     return (
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -69,7 +86,7 @@ export const BlogSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
+          {allFeaturedPosts.map((post) => (
             <article key={post.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden border border-gray-100">
               {post.image_url && (
                 <div className="h-48 bg-gray-200 mb-4 overflow-hidden">
@@ -100,7 +117,7 @@ export const BlogSection = () => {
                   </p>
                 )}
                 <Link 
-                  to={`/blog/${post.slug}`}
+                  to={post.id === 'programmatic-seo-guide' ? `/programmatic-seo-guide` : `/blog/${post.slug}`}
                   className="text-blue-600 font-semibold hover:text-blue-700 flex items-center"
                 >
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
