@@ -229,7 +229,7 @@ const ProgrammaticSEOGuide = () => {
             {/* Table of Contents - Moved to Hero */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 mt-16">
               <h3 className="text-2xl font-bold text-white mb-6">Table of Contents</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="space-y-3">
                 {[
                   { id: 'introduction', label: 'What is Programmatic SEO?' },
                   { id: 'services', label: 'Services & Implementation' },
@@ -241,7 +241,7 @@ const ProgrammaticSEOGuide = () => {
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`block px-4 py-3 rounded-lg text-sm transition-colors ${
+                    className={`block px-6 py-4 rounded-lg text-lg transition-colors ${
                       activeSection === item.id 
                         ? 'bg-white text-blue-700 font-medium' 
                         : 'text-white hover:bg-white/20'
