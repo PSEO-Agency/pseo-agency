@@ -1,4 +1,5 @@
 
+
 export const TrustedToolsSection = () => {
   const tools = [
     {
@@ -64,8 +65,13 @@ export const TrustedToolsSection = () => {
               <img
                 src={tool.image}
                 alt={tool.alt}
-                className="h-10 w-auto max-w-full object-contain transition-all duration-300"
-                style={{ maxHeight: '40px' }}
+                className="object-contain transition-all duration-300"
+                style={{ 
+                  maxHeight: '32px', 
+                  maxWidth: '100px',
+                  width: 'auto',
+                  height: 'auto'
+                }}
               />
             </div>
           ))}
