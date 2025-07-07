@@ -1,5 +1,5 @@
 
-import { TrendingUp, Target, DollarSign, Users, CheckCircle2 } from "lucide-react";
+import { TrendingUp, Target, Users, Database, CheckCircle2 } from "lucide-react";
 
 interface ServiceImpactProps {
   service: {
@@ -10,30 +10,30 @@ interface ServiceImpactProps {
 export const ServiceImpact = ({ service }: ServiceImpactProps) => {
   const stats = [
     {
-      number: "300%",
-      label: "Average improvement",
+      number: "500%",
+      label: "Average traffic growth",
       subtext: "within 6 months",
       icon: TrendingUp,
       color: "from-blue-500 to-blue-600"
     },
     {
-      number: "95%",
-      label: "Client satisfaction rate",
-      subtext: "based on reviews",
+      number: "100+",
+      label: "Projects completed",
+      subtext: "successfully delivered",
       icon: Target,
       color: "from-green-500 to-green-600"
     },
     {
-      number: "$500K+",
-      label: "Average revenue increase",
-      subtext: "per client annually",
-      icon: DollarSign,
+      number: "1M+",
+      label: "Pages generated",
+      subtext: "across all projects",
+      icon: Database,
       color: "from-purple-500 to-purple-600"
     },
     {
-      number: "1000+",
-      label: "Successful projects",
-      subtext: "completed",
+      number: "95%",
+      label: "Client satisfaction rate",
+      subtext: "based on reviews",
       icon: Users,
       color: "from-orange-500 to-red-500"
     }
