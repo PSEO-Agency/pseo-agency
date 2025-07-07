@@ -166,31 +166,31 @@ export const AutomationSection = () => {
               {/* Top section - largest */}
               <div className="w-full h-28 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-3xl">
                 <div className="text-center">
-                  <div className="text-3xl font-black">10,000+</div>
-                  <div className="text-sm opacity-90">Pages Generated</div>
+                  <div className="text-3xl font-black">10,000</div>
+                  <div className="text-sm opacity-90">Programmatic SEO Pages</div>
                 </div>
               </div>
               
               {/* Second section */}
               <div className="w-4/5 h-24 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-lg mx-auto shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-3xl">
                 <div className="text-center">
-                  <div className="text-2xl font-black">800%</div>
-                  <div className="text-sm opacity-90">Traffic Increase</div>
+                  <div className="text-2xl font-black">45K</div>
+                  <div className="text-sm opacity-90">Keywords Ranking</div>
                 </div>
               </div>
               
               {/* Third section */}
               <div className="w-3/5 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold mx-auto shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-3xl">
                 <div className="text-center">
-                  <div className="text-xl font-black">45K+</div>
-                  <div className="text-xs opacity-90">Keywords Ranking</div>
+                  <div className="text-xl font-black">500%</div>
+                  <div className="text-xs opacity-90">Traffic Increase</div>
                 </div>
               </div>
               
               {/* Bottom section - smallest */}
               <div className="w-2/5 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white font-bold mx-auto shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-3xl">
                 <div className="text-center">
-                  <div className="text-lg font-black">$2.4B+</div>
+                  <div className="text-lg font-black">250K+</div>
                   <div className="text-xs opacity-90">Revenue</div>
                 </div>
               </div>
