@@ -19,46 +19,6 @@ interface IndustryHeroProps {
 export const IndustryHero = ({ industry }: IndustryHeroProps) => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   
-  // Safely convert Json to object with stats
-  const stats = industry.stats && typeof industry.stats === 'object' ? industry.stats as Record<string, any> : {};
-  
-  // Industry-specific default stats
-  const getDefaultStats = () => {
-    const industryName = industry.name.toLowerCase();
-    if (industryName === 'saas') {
-      return {
-        "saas_companies_served": "200+",
-        "mrr_generated": "$10M+",
-        "user_acquisition_growth": "400%"
-      };
-    } else if (industryName === 'local business') {
-      return {
-        "businesses_served": "1000+",
-        "local_rankings_improved": "85%",
-        "average_visibility_increase": "250%"
-      };
-    } else if (industryName === 'accounting firm') {
-      return {
-        "firms_served": "300+",
-        "client_inquiries_increased": "400%",
-        "tax_season_traffic": "600%"
-      };
-    } else if (industryName === 'law firm') {
-      return {
-        "law_firms_served": "250+",
-        "case_inquiries_increased": "350%",
-        "practice_area_rankings": "90%"
-      };
-    }
-    return {
-      "companies_served": "500+",
-      "revenue_generated": "$50M+",
-      "average_growth": "300%"
-    };
-  };
-
-  const displayStats = Object.keys(stats).length > 0 ? stats : getDefaultStats();
-
   // Industry-specific process steps
   const getProcessSteps = () => {
     const industryName = industry.name.toLowerCase();
@@ -125,7 +85,7 @@ export const IndustryHero = ({ industry }: IndustryHeroProps) => {
               {industry.description || `Specialized programmatic SEO strategies designed specifically for ${industry.name.toLowerCase()} businesses. Scale your organic presence with industry-specific content automation and targeted keyword strategies.`}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 className="webfx-button-primary text-lg px-8 py-6 h-auto"
                 onClick={() => setIsAuditModalOpen(true)}
@@ -137,20 +97,6 @@ export const IndustryHero = ({ industry }: IndustryHeroProps) => {
                 <CheckCircle className="h-5 w-5 text-green-400" />
                 <span className="text-sm">Tailored to {industry.name} • Free consultation</span>
               </div>
-            </div>
-
-            {/* Industry Stats */}
-            <div className="grid grid-cols-3 gap-6">
-              {Object.entries(displayStats).slice(0, 3).map(([key, value], index) => (
-                <div key={index} className="text-center">
-                  <div className="text-2xl sm:text-3xl font-black text-green-300 mb-2">
-                    {String(value)}
-                  </div>
-                  <div className="text-sm text-blue-200 capitalize">
-                    {key.replace(/_/g, ' ')}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
