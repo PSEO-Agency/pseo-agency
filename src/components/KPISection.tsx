@@ -50,14 +50,14 @@ export const KPISection = () => {
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
                 <TrendingUp className="h-12 w-12 text-green-400 mx-auto mb-4" />
-                <div className="text-3xl font-black text-white mb-2">800%</div>
+                <div className="text-3xl font-black text-white mb-2">500%</div>
                 <div className="text-blue-200 font-medium">Traffic Growth</div>
               </div>
               
               <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
                 <Target className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-                <div className="text-3xl font-black text-white mb-2">45K+</div>
-                <div className="text-blue-200 font-medium">Keywords</div>
+                <div className="text-3xl font-black text-white mb-2">100+</div>
+                <div className="text-blue-200 font-medium">Projects</div>
               </div>
               
               <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
@@ -68,8 +68,8 @@ export const KPISection = () => {
               
               <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
                 <Users className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-                <div className="text-3xl font-black text-white mb-2">$2.4B+</div>
-                <div className="text-blue-200 font-medium">Revenue</div>
+                <div className="text-3xl font-black text-white mb-2">1M+</div>
+                <div className="text-blue-200 font-medium">Pages Generated</div>
               </div>
             </div>
           </div>

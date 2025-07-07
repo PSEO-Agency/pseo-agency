@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
@@ -15,10 +14,10 @@ const About = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
   const stats = [
-    { number: "$2.4B+", label: "Revenue Generated", icon: <TrendingUp className="h-6 w-6" />, color: "text-green-600" },
-    { number: "45K+", label: "Keywords Ranking", icon: <Target className="h-6 w-6" />, color: "text-blue-600" },
-    { number: "10M+", label: "Pages Generated", icon: <Globe className="h-6 w-6" />, color: "text-purple-600" },
-    { number: "800%", label: "Avg Traffic Growth", icon: <Rocket className="h-6 w-6" />, color: "text-orange-600" }
+    { number: "1M+", label: "Pages Generated", icon: <TrendingUp className="h-6 w-6" />, color: "text-green-600" },
+    { number: "100+", label: "Projects Completed", icon: <Target className="h-6 w-6" />, color: "text-blue-600" },
+    { number: "10M+", label: "Total Pages Created", icon: <Globe className="h-6 w-6" />, color: "text-purple-600" },
+    { number: "500%", label: "Avg Traffic Growth", icon: <Rocket className="h-6 w-6" />, color: "text-orange-600" }
   ];
 
   const coreValues = [
@@ -101,7 +100,7 @@ const About = () => {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>About pSEO - #1 Programmatic SEO Agency | Automate & Scale Your SEO</title>
-        <meta name="description" content="The leading programmatic SEO agency helping businesses automate SEO operations and scale organic traffic. 15+ years expertise, $2.4B+ revenue generated, 10M+ pages created." />
+        <meta name="description" content="The leading programmatic SEO agency helping businesses automate SEO operations and scale organic traffic. 15+ years expertise, 1M+ pages generated, 100+ projects completed." />
       </Helmet>
       
       <Header />
