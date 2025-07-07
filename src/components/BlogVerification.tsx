@@ -17,7 +17,7 @@ export const BlogVerification = () => {
     },
   });
 
-  if (isLoadng) return <div>Loading blog posts...</div>;
+  if (isLoading) return <div>Loading blog posts...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
