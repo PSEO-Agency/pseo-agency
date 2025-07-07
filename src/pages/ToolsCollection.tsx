@@ -149,34 +149,6 @@ const ToolsCollection = () => {
             </div>
           </div>
         </section>
-
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-emerald-600 to-blue-700 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            <div className="w-full h-full bg-gradient-to-r from-emerald-500/10 to-blue-500/10"></div>
-          </div>
-          
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
-                Ready to Optimize Your SEO?
-              </h2>
-              
-              <p className="text-xl text-emerald-100 mb-8 leading-relaxed">
-                Start using professional SEO tools and see how data-driven optimization can transform your search performance.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-white text-emerald-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-50 transition-colors duration-200 shadow-lg">
-                  Start Free Analysis
-                </button>
-                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-emerald-600 transition-colors duration-200">
-                  Compare Tools
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
       
       <TrustedToolsSection />
