@@ -1,17 +1,22 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { getIndustryFAQs } from "@/data/industryFAQs";
 
 interface IndustryFAQProps {
   industry: {
     name: string;
+    slug: string;
     [key: string]: any;
   };
 }
 
 export const IndustryFAQ = ({ industry }: IndustryFAQProps) => {
-  // Generate industry-specific FAQs
-  const faqs = [
+  // Get industry-specific FAQs
+  const industryFAQs = getIndustryFAQs(industry.name, industry.slug);
+  
+  // Fallback FAQs if no specific ones are found
+  const defaultFAQs = [
     {
       question: `How long does it take to see results from programmatic SEO for ${industry.name.toLowerCase()} businesses?`,
       answer: `Most ${industry.name.toLowerCase()} clients see initial improvements within 30-60 days, with significant results typically visible within 3-6 months. The exact timeline depends on your current ${industry.name.toLowerCase()} market position and competition level.`
@@ -31,12 +36,11 @@ export const IndustryFAQ = ({ industry }: IndustryFAQProps) => {
     {
       question: `How do you measure success for ${industry.name.toLowerCase()} SEO campaigns?`,
       answer: `We track ${industry.name.toLowerCase()}-specific KPIs including organic traffic growth, keyword rankings for industry terms, lead quality, conversion rates, and revenue impact. You'll receive detailed monthly reports with actionable insights.`
-    },
-    {
-      question: `What's included in your ${industry.name.toLowerCase()} SEO service package?`,
-      answer: `Our service includes ${industry.name.toLowerCase()}-specific keyword research, content strategy development, programmatic content creation, technical SEO optimization, ongoing monitoring, and dedicated account management with industry expertise.`
     }
   ];
+
+  // Use industry-specific FAQs if available, otherwise use default FAQs
+  const faqs = industryFAQs || defaultFAQs;
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
