@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
@@ -86,15 +85,15 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-3 sm:mb-4 lg:mb-6">
               <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 border border-white/20">
                 <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-white">800% Traffic Growth</span>
+                <span className="text-xs sm:text-sm font-medium text-white">500% Traffic Growth</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 border border-white/20">
                 <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-white">45K+ Keywords</span>
+                <span className="text-xs sm:text-sm font-medium text-white">100+ Projects</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 border border-white/20 sm:col-span-2 lg:col-span-1">
                 <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-white">$2.4B+ Revenue</span>
+                <span className="text-xs sm:text-sm font-medium text-white">1M+ Pages Generated</span>
               </div>
             </div>
             
