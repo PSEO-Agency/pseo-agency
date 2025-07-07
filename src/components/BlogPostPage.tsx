@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -38,10 +39,14 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
 
+  console.log('BlogPostPage: slug =', slug);
+
   const { data: post, isLoading, error } = useQuery({
     queryKey: ['blog-post', slug],
     queryFn: async () => {
       if (!slug) throw new Error('No slug provided');
+      
+      console.log('Fetching blog post with slug:', slug);
       
       const { data, error } = await supabase
         .from('blog_posts')
@@ -50,7 +55,12 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
         .eq('is_published', true)
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching blog post:', error);
+        throw error;
+      }
+      
+      console.log('Fetched blog post:', data);
       return data;
     },
     enabled: !!slug,
@@ -108,6 +118,7 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
   }
 
   if (error || !post) {
+    console.log('Error or no post found:', { error, post, slug });
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -185,9 +196,11 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
             </Link>
             
             <div className="flex items-center justify-center gap-4 mb-6">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-blue-200">
-                {post.category}
-              </Badge>
+              {post.category && (
+                <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-blue-200">
+                  {post.category}
+                </Badge>
+              )}
               {post.is_featured && (
                 <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0">
                   <Star className="h-3 w-3 mr-1" />
@@ -200,23 +213,29 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
               {post.title}
             </h1>
             
-            <p className="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
-              {post.excerpt}
-            </p>
+            {post.excerpt && (
+              <p className="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+                {post.excerpt}
+              </p>
+            )}
             
             <div className="flex flex-wrap items-center justify-center gap-8 text-gray-500 mb-8">
-              <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Calendar className="h-5 w-5 mr-2 text-blue-600" />
-                <span>{new Date(post.published_at).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}</span>
-              </div>
-              <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Clock className="h-5 w-5 mr-2 text-green-600" />
-                <span>{post.read_time}</span>
-              </div>
+              {post.published_at && (
+                <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full">
+                  <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+                  <span>{new Date(post.published_at).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}</span>
+                </div>
+              )}
+              {post.read_time && (
+                <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full">
+                  <Clock className="h-5 w-5 mr-2 text-green-600" />
+                  <span>{post.read_time}</span>
+                </div>
+              )}
               <button 
                 onClick={handleShare}
                 className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/90 transition-colors"
@@ -246,128 +265,17 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
       </section>
 
       {/* Content Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <style>{`
-                .programmatic-seo-content {
-                  line-height: 1.8;
-                }
-                .programmatic-seo-content h2 {
-                  font-size: 2.25rem;
-                  font-weight: 700;
-                  color: #1f2937;
-                  margin: 3rem 0 1.5rem 0;
-                  position: relative;
-                  padding-left: 1rem;
-                  border-left: 4px solid #3b82f6;
-                }
-                .programmatic-seo-content h3 {
-                  font-size: 1.75rem;
-                  font-weight: 600;
-                  color: #374151;
-                  margin: 2.5rem 0 1rem 0;
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                }
-                .programmatic-seo-content h3::before {
-                  content: "→";
-                  color: #3b82f6;
-                  font-weight: 700;
-                }
-                .programmatic-seo-content h4 {
-                  font-size: 1.25rem;
-                  font-weight: 600;
-                  color: #4b5563;
-                  margin: 2rem 0 1rem 0;
-                  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-                  padding: 0.75rem 1rem;
-                  border-radius: 0.5rem;
-                  border-left: 3px solid #10b981;
-                }
-                .programmatic-seo-content p {
-                  font-size: 1.125rem;
-                  line-height: 1.8;
-                  color: #374151;
-                  margin: 1.5rem 0;
-                }
-                .programmatic-seo-content ul {
-                  margin: 1.5rem 0;
-                }
-                .programmatic-seo-content li {
-                  font-size: 1.125rem;
-                  line-height: 1.7;
-                  color: #374151;
-                  margin: 0.75rem 0;
-                  position: relative;
-                  padding-left: 1.5rem;
-                }
-                .programmatic-seo-content li::before {
-                  content: "✓";
-                  position: absolute;
-                  left: 0;
-                  color: #10b981;
-                  font-weight: 700;
-                }
-                .programmatic-seo-content strong {
-                  color: #1f2937;
-                  font-weight: 600;
-                }
-                .stats-highlight {
-                  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-                  border: 2px solid #3b82f6;
-                  border-radius: 1rem;
-                  padding: 2rem;
-                  margin: 2rem 0;
-                  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
-                }
-                .stats-highlight h3 {
-                  color: #1e40af;
-                  margin-top: 0;
-                  font-size: 1.5rem;
-                  display: flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                }
-                .stats-highlight h3::before {
-                  content: "";
-                }
-                .template-structure, .category-structure, .data-structure, .matrix-example, .url-examples, .ai-capabilities, .pipeline-steps, .legal-matrix, .property-page-elements, .neighborhood-content, .legal-page-structure {
-                  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-                  border: 1px solid #e2e8f0;
-                  border-radius: 1rem;
-                  padding: 2rem;
-                  margin: 2rem 0;
-                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                }
-                .cta-section {
-                  background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
-                  color: white;
-                  border-radius: 1rem;
-                  padding: 3rem 2rem;
-                  margin: 3rem 0;
-                  text-align: center;
-                  box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
-                }
-                .cta-section h2 {
-                  color: white;
-                  border: none;
-                  padding-left: 0;
-                  margin-bottom: 1rem;
-                }
-                .cta-section p {
-                  color: rgba(255, 255, 255, 0.9);
-                  font-size: 1.25rem;
-                  margin-bottom: 0;
-                }
-              `}</style>
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      {post.content && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="prose prose-lg max-w-none programmatic-seo-content">
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Key Takeaways Section */}
       <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -456,9 +364,11 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
                     <Card className="h-full hover:shadow-xl transition-all duration-300 group border-0 shadow-lg hover:-translate-y-1">
                       <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
-                          <Badge variant="outline" className="border-blue-200 text-blue-700">
-                            {relatedPost.category}
-                          </Badge>
+                          {relatedPost.category && (
+                            <Badge variant="outline" className="border-blue-200 text-blue-700">
+                              {relatedPost.category}
+                            </Badge>
+                          )}
                           {relatedPost.is_featured && (
                             <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
                               <Star className="h-3 w-3 mr-1" />
@@ -507,6 +417,70 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
+        }
+        .programmatic-seo-content {
+          line-height: 1.8;
+        }
+        .programmatic-seo-content h2 {
+          font-size: 2.25rem;
+          font-weight: 700;
+          color: #1f2937;
+          margin: 3rem 0 1.5rem 0;
+          position: relative;
+          padding-left: 1rem;
+          border-left: 4px solid #3b82f6;
+        }
+        .programmatic-seo-content h3 {
+          font-size: 1.75rem;
+          font-weight: 600;
+          color: #374151;
+          margin: 2.5rem 0 1rem 0;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .programmatic-seo-content h3::before {
+          content: "→";
+          color: #3b82f6;
+          font-weight: 700;
+        }
+        .programmatic-seo-content h4 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #4b5563;
+          margin: 2rem 0 1rem 0;
+          background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          border-left: 3px solid #10b981;
+        }
+        .programmatic-seo-content p {
+          font-size: 1.125rem;
+          line-height: 1.8;
+          color: #374151;
+          margin: 1.5rem 0;
+        }
+        .programmatic-seo-content ul {
+          margin: 1.5rem 0;
+        }
+        .programmatic-seo-content li {
+          font-size: 1.125rem;
+          line-height: 1.7;
+          color: #374151;
+          margin: 0.75rem 0;
+          position: relative;
+          padding-left: 1.5rem;
+        }
+        .programmatic-seo-content li::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          color: #10b981;
+          font-weight: 700;
+        }
+        .programmatic-seo-content strong {
+          color: #1f2937;
+          font-weight: 600;
         }
       `}</style>
     </div>
