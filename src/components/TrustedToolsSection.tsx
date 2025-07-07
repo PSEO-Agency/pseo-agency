@@ -67,8 +67,8 @@ export const TrustedToolsSection = () => {
                 alt={tool.alt}
                 className="object-contain transition-all duration-300"
                 style={{ 
-                  maxHeight: '32px', 
-                  maxWidth: '100px',
+                  maxHeight: '24px', 
+                  maxWidth: '80px',
                   width: 'auto',
                   height: 'auto'
                 }}
