@@ -116,11 +116,15 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
     }
   };
 
+  // Use fallbacks for meta_title and meta_description if they don't exist
+  const metaTitle = (post as any).meta_title || post.title;
+  const metaDescription = (post as any).meta_description || post.excerpt;
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{post.meta_title || post.title}</title>
-        <meta name="description" content={post.meta_description || post.excerpt} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />

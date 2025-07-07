@@ -1,10 +1,11 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import ScrollToTop from "@/components/ScrollToTop";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -28,20 +29,20 @@ import FreeStrategy from "./pages/FreeStrategy";
 import ProgrammaticSEOGuide from "./pages/ProgrammaticSEOGuide";
 import DynamicPage from "./pages/DynamicPage";
 import NotFound from "./pages/NotFound";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
-import ServicesManager from "./pages/admin/ServicesManager";
-import IndustriesManager from "./pages/admin/IndustriesManager";
-import BlogManager from "./pages/admin/BlogManager";
-import TeamManager from "./pages/admin/TeamManager";
-import CaseStudiesManager from "./pages/admin/CaseStudiesManager";
-import FAQsManager from "./pages/admin/FAQsManager";
-import ResourcesManager from "./pages/admin/ResourcesManager";
-import PageManager from "./pages/admin/PageManager";
-import SiteSettingsManager from "./pages/admin/SiteSettingsManager";
+import { AdminLogin } from "./pages/AdminLogin";
+import { AdminDashboard } from "./pages/AdminDashboard";
+import { ServicesManager } from "./pages/admin/ServicesManager";
+import { IndustriesManager } from "./pages/admin/IndustriesManager";
+import { BlogManager } from "./pages/admin/BlogManager";
+import { TeamManager } from "./pages/admin/TeamManager";
+import { CaseStudiesManager } from "./pages/admin/CaseStudiesManager";
+import { FAQsManager } from "./pages/admin/FAQsManager";
+import { ResourcesManager } from "./pages/admin/ResourcesManager";
+import { PageManager } from "./pages/admin/PageManager";
+import { SiteSettingsManager } from "./pages/admin/SiteSettingsManager";
 import SocialMediaVisualsManager from "./pages/admin/SocialMediaVisualsManager";
 import JobsManager from "./pages/admin/JobsManager";
-import ProtectedRoute from "./components/admin/ProtectedRoute";
+import { ProtectedRoute } from "./components/admin/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
