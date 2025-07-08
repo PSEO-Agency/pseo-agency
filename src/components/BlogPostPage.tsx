@@ -315,39 +315,6 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div className="container mx-auto px-4 text-center relative">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Implement These Strategies?</h2>
-            <p className="text-xl lg:text-2xl mb-10 opacity-90 leading-relaxed">
-              Get a free consultation and see how programmatic SEO can transform your business with our proven strategies.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4"
-                onClick={() => setIsAuditModalOpen(true)}
-              >
-                Get Free Strategy Session
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 text-lg px-8 py-4"
-                asChild
-              >
-                <Link to="/blog">
-                  Read More Articles
-                  <BookOpen className="h-5 w-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Related Posts */}
       {relatedPosts && relatedPosts.length > 0 && (
