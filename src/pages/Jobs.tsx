@@ -176,14 +176,14 @@ const Jobs = () => {
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {featuredJobs.map((job) => (
                   <Card key={job.id} className="border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative group overflow-hidden min-h-[400px] flex flex-col">
-                    <div className="absolute -top-3 left-6">
+                    <div className="absolute top-3 left-6">
                       <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 flex items-center gap-1 shadow-lg">
                         <Star className="h-3 w-3" />
                         Featured
                       </Badge>
                     </div>
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-bl-full"></div>
-                    <CardHeader className="pb-4 pt-8 flex-1">
+                    <CardHeader className="pb-4 pt-12 flex-1">
                       <CardTitle className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                         {job.title}
                       </CardTitle>
