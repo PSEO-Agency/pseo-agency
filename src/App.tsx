@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import ThankYou from "./pages/ThankYou";
 import Blog from "./pages/Blog";
 import BlogPostDynamic from "./pages/BlogPostDynamic";
 import ServicesCollection from "./pages/ServicesCollection";
@@ -58,6 +59,7 @@ function App() {
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/thank-you" element={<ThankYou />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPostDynamic />} />
               <Route path="/blog-verification" element={<BlogVerificationPage />} />

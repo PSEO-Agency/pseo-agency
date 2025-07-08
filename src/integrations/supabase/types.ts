@@ -38,6 +38,27 @@ export type Database = {
         }
         Relationships: []
       }
+      blabla_testing: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          value?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string | null
