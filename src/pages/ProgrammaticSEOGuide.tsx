@@ -42,6 +42,7 @@ import ahrefsLogo from "/lovable-uploads/0f066707-7e1a-4e4c-b05c-b214c23387de.pn
 import nextjsLogo from "/lovable-uploads/4d23c728-c369-4186-929c-28700ba2da22.png";
 import screamingFrogLogo from "/lovable-uploads/c6810a8c-a409-44c8-86c1-faa8d94ffaf1.png";
 import googleSearchConsoleLogo from "/lovable-uploads/a8963a99-1d15-4a97-9b9b-23233418627e.png";
+import semrushLogo from "/lovable-uploads/40d526b8-0676-4044-9ef4-3111c6f880d7.png";
 
 const ProgrammaticSEOGuide = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
@@ -188,6 +189,7 @@ const ProgrammaticSEOGuide = () => {
       'nextjs': nextjsLogo,
       'screaming-frog': screamingFrogLogo,
       'google-search-console': googleSearchConsoleLogo,
+      'semrush': semrushLogo,
     };
     return logoMap[slug];
   };
