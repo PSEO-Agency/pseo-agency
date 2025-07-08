@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -176,14 +175,14 @@ const Jobs = () => {
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {featuredJobs.map((job) => (
                   <Card key={job.id} className="border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative group overflow-hidden min-h-[400px] flex flex-col">
-                    <div className="absolute top-3 left-6">
+                    <div className="absolute top-5 left-6">
                       <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 flex items-center gap-1 shadow-lg">
                         <Star className="h-3 w-3" />
                         Featured
                       </Badge>
                     </div>
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-bl-full"></div>
-                    <CardHeader className="pb-4 pt-12 flex-1">
+                    <CardHeader className="pb-4 pt-14 flex-1">
                       <CardTitle className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                         {job.title}
                       </CardTitle>
@@ -344,36 +343,6 @@ const Jobs = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Make an Impact?</h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Join a team that's transforming how businesses approach SEO at scale. 
-              Your expertise could be the key to unlocking exponential growth for our clients.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-                onClick={() => navigate('/contact')}
-              >
-                Apply Now
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-                onClick={() => navigate('/about')}
-              >
-                Learn More About Us
-              </Button>
             </div>
           </div>
         </div>
