@@ -9,6 +9,7 @@ import webflowLogo from "/lovable-uploads/fa25f460-907e-4f70-8915-7562025914b9.p
 import ahrefsLogo from "/lovable-uploads/0f066707-7e1a-4e4c-b05c-b214c23387de.png";
 import nextjsLogo from "/lovable-uploads/4d23c728-c369-4186-929c-28700ba2da22.png";
 import screamingFrogLogo from "/lovable-uploads/c6810a8c-a409-44c8-86c1-faa8d94ffaf1.png";
+import googleSearchConsoleLogo from "/lovable-uploads/a8963a99-1d15-4a97-9b9b-23233418627e.png";
 
 interface SoftwareHeroProps {
   software: {
@@ -30,7 +31,7 @@ interface SoftwareHeroProps {
 }
 
 export const SoftwareHero = ({ software }: SoftwareHeroProps) => {
-  // Map software slugs to brand logos
+  // Map software slugs to official brand logos
   const getBrandLogo = (slug?: string) => {
     const logoMap: Record<string, string> = {
       'wordpress': wordpressLogo,
@@ -38,6 +39,7 @@ export const SoftwareHero = ({ software }: SoftwareHeroProps) => {
       'ahrefs': ahrefsLogo,
       'nextjs': nextjsLogo,
       'screaming-frog': screamingFrogLogo,
+      'google-search-console': googleSearchConsoleLogo,
     };
     return logoMap[slug || ''] || software.image_url;
   };
