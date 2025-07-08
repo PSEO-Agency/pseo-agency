@@ -8,7 +8,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import NotFound from "./NotFound";
 import { SoftwareHero } from "@/components/software/SoftwareHero";
 import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
-import { SoftwarePricing } from "@/components/software/SoftwarePricing";
+
 import { SoftwareSpecs } from "@/components/software/SoftwareSpecs";
 import { RelatedSoftware } from "@/components/software/RelatedSoftware";
 import { Badge } from "@/components/ui/badge";
@@ -109,7 +109,7 @@ const ToolPage = () => {
           </section>
         )}
 
-        <SoftwarePricing pricingInfo={pricingInfo} />
+        
 
         {/* Related Tools */}
         {relatedTools && relatedTools.length > 0 && (

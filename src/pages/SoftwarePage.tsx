@@ -9,7 +9,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import NotFound from "./NotFound";
 import { SoftwareHero } from "@/components/software/SoftwareHero";
 import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
-import { SoftwarePricing } from "@/components/software/SoftwarePricing";
+
 import { SoftwareSpecs } from "@/components/software/SoftwareSpecs";
 import { RelatedSoftware } from "@/components/software/RelatedSoftware";
 import { SoftwareScreenshots } from "@/components/software/SoftwareScreenshots";
@@ -157,7 +157,7 @@ const SoftwarePage = () => {
           </section>
         )}
 
-        <SoftwarePricing pricingInfo={pricingInfo} />
+        
 
         {/* Implementation Guide */}
         {(software.setup_guide || implementationExamples.length > 0) && (
