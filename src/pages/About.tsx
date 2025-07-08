@@ -383,32 +383,6 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Automate Your SEO Operations?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-            Join hundreds of businesses that have transformed their organic growth with our 
-            programmatic SEO strategies and automated scaling solutions.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-              onClick={() => setIsAuditModalOpen(true)}
-            >
-              Get Free Strategy Call
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-              onClick={() => navigate('/results')}
-            >
-              View Case Studies
-            </Button>
-          </div>
-        </div>
-      </section>
       
       <Footer />
       
