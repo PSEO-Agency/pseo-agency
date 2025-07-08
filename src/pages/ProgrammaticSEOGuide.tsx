@@ -35,12 +35,12 @@ import {
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// Import brand logos
-import wordpressLogo from "@/assets/logos/wordpress-logo.png";
-import webflowLogo from "@/assets/logos/webflow-logo.png";
-import ahrefsLogo from "@/assets/logos/ahrefs-logo.png";
-import nextjsLogo from "@/assets/logos/nextjs-logo.png";
-import screamingFrogLogo from "@/assets/logos/screaming-frog-logo.png";
+// Import official brand logos
+import wordpressLogo from "/lovable-uploads/b4f410f1-af20-4b7e-ae16-8101508b404c.png";
+import webflowLogo from "/lovable-uploads/fa25f460-907e-4f70-8915-7562025914b9.png";
+import ahrefsLogo from "/lovable-uploads/0f066707-7e1a-4e4c-b05c-b214c23387de.png";
+import nextjsLogo from "/lovable-uploads/4d23c728-c369-4186-929c-28700ba2da22.png";
+import screamingFrogLogo from "/lovable-uploads/c6810a8c-a409-44c8-86c1-faa8d94ffaf1.png";
 
 const ProgrammaticSEOGuide = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
