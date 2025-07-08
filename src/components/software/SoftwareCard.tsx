@@ -4,6 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Star, Users, Clock, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Import brand logos
+import wordpressLogo from "@/assets/logos/wordpress-logo.png";
+import webflowLogo from "@/assets/logos/webflow-logo.png";
+import ahrefsLogo from "@/assets/logos/ahrefs-logo.png";
+import nextjsLogo from "@/assets/logos/nextjs-logo.png";
+import screamingFrogLogo from "@/assets/logos/screaming-frog-logo.png";
+
 interface SoftwareCardProps {
   software: {
     id: string;
@@ -25,6 +32,20 @@ interface SoftwareCardProps {
 export const SoftwareCard = ({ software, featured = false }: SoftwareCardProps) => {
   const tags = Array.isArray(software.tags) ? software.tags : [];
   
+  // Map software slugs to brand logos
+  const getBrandLogo = (slug: string) => {
+    const logoMap: Record<string, string> = {
+      'wordpress': wordpressLogo,
+      'webflow': webflowLogo,
+      'ahrefs': ahrefsLogo,
+      'nextjs': nextjsLogo,
+      'screaming-frog': screamingFrogLogo,
+    };
+    return logoMap[slug] || software.image_url;
+  };
+
+  const brandLogo = getBrandLogo(software.slug);
+  
   // Determine the correct URL based on the type
   const getItemUrl = () => {
     if (software.type === 'tool') {
@@ -39,12 +60,14 @@ export const SoftwareCard = ({ software, featured = false }: SoftwareCardProps) 
         <Link to={getItemUrl()} className="block">
           {/* Image */}
           <div className="relative overflow-hidden rounded-t-lg bg-gradient-to-br from-blue-50 to-purple-50 h-48">
-            {software.image_url ? (
-              <img 
-                src={software.image_url} 
-                alt={software.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+            {brandLogo ? (
+              <div className="w-full h-full flex items-center justify-center p-8">
+                <img 
+                  src={brandLogo} 
+                  alt={`${software.title} logo`}
+                  className="max-w-24 max-h-24 object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">

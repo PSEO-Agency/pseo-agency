@@ -35,6 +35,13 @@ import {
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Import brand logos
+import wordpressLogo from "@/assets/logos/wordpress-logo.png";
+import webflowLogo from "@/assets/logos/webflow-logo.png";
+import ahrefsLogo from "@/assets/logos/ahrefs-logo.png";
+import nextjsLogo from "@/assets/logos/nextjs-logo.png";
+import screamingFrogLogo from "@/assets/logos/screaming-frog-logo.png";
+
 const ProgrammaticSEOGuide = () => {
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("introduction");
@@ -169,6 +176,18 @@ const ProgrammaticSEOGuide = () => {
       'Local Business': <Building2 className="h-8 w-8" />
     };
     return iconMap[name] || <Briefcase className="h-8 w-8" />;
+  };
+
+  // Map software slugs to brand logos
+  const getBrandLogo = (slug: string) => {
+    const logoMap: Record<string, string> = {
+      'wordpress': wordpressLogo,
+      'webflow': webflowLogo,
+      'ahrefs': ahrefsLogo,
+      'nextjs': nextjsLogo,
+      'screaming-frog': screamingFrogLogo,
+    };
+    return logoMap[slug];
   };
 
   // Scroll spy effect
@@ -431,28 +450,39 @@ const ProgrammaticSEOGuide = () => {
           {software && software.length > 0 ? (
             <>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {software.map((tool) => (
-                  <Link key={tool.id} to={`/software/${tool.slug}`}>
-                    <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
-                      <CardHeader>
-                        <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Code className="h-8 w-8 text-white" />
-                        </div>
-                        <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-200">
-                          {tool.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
-                        {tool.category && (
-                          <Badge variant="secondary" className="mb-3">
-                            {tool.category}
-                          </Badge>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
+                {software.map((tool) => {
+                  const brandLogo = getBrandLogo(tool.slug);
+                  return (
+                    <Link key={tool.id} to={`/software/${tool.slug}`}>
+                      <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
+                        <CardHeader>
+                          <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 border border-gray-100">
+                            {brandLogo ? (
+                              <img
+                                src={brandLogo}
+                                alt={`${tool.title} logo`}
+                                className="w-10 h-10 object-contain"
+                              />
+                            ) : (
+                              <Code className="h-8 w-8 text-orange-500" />
+                            )}
+                          </div>
+                          <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-200">
+                            {tool.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
+                          {tool.category && (
+                            <Badge variant="secondary" className="mb-3">
+                              {tool.category}
+                            </Badge>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
               </div>
               <div className="text-center">
                 <Link to="/software">
@@ -483,28 +513,39 @@ const ProgrammaticSEOGuide = () => {
           {tools && tools.length > 0 ? (
             <>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {tools.map((tool) => (
-                  <Link key={tool.id} to={`/tools/${tool.slug}`}>
-                    <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
-                      <CardHeader>
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Target className="h-8 w-8 text-white" />
-                        </div>
-                        <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-200">
-                          {tool.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
-                        {tool.category && (
-                          <Badge variant="secondary" className="mb-3">
-                            {tool.category}
-                          </Badge>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
+                {tools.map((tool) => {
+                  const brandLogo = getBrandLogo(tool.slug);
+                  return (
+                    <Link key={tool.id} to={`/tools/${tool.slug}`}>
+                      <Card className="h-full hover:shadow-xl transition-all duration-300 group text-center cursor-pointer">
+                        <CardHeader>
+                          <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 border border-gray-100">
+                            {brandLogo ? (
+                              <img
+                                src={brandLogo}
+                                alt={`${tool.title} logo`}
+                                className="w-10 h-10 object-contain"
+                              />
+                            ) : (
+                              <Target className="h-8 w-8 text-purple-500" />
+                            )}
+                          </div>
+                          <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-200">
+                            {tool.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
+                          {tool.category && (
+                            <Badge variant="secondary" className="mb-3">
+                              {tool.category}
+                            </Badge>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
               </div>
               <div className="text-center">
                 <Link to="/tools">
