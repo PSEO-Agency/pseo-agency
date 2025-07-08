@@ -99,7 +99,8 @@ export const Footer = () => {
                 </div>
               </div>
               
-              <div className="flex space-x-4">
+              {/* Social media icons temporarily hidden */}
+              {/* <div className="flex space-x-4">
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
                   <Facebook className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
                 </div>
@@ -112,7 +113,7 @@ export const Footer = () => {
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
                   <Youtube className="h-6 w-6 text-blue-300 group-hover:text-white transition-colors duration-200" />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Services */}
