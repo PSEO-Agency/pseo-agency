@@ -115,7 +115,7 @@ const About = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="bg-yellow-100 text-yellow-800 mb-6 px-4 py-2 text-sm font-semibold">
-              #1 Programmatic SEO Agency Since 2019
+              #1 Programmatic SEO Agency
             </Badge>
             <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
               Automate & Scale Your
