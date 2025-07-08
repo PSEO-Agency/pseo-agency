@@ -643,33 +643,6 @@ const ProgrammaticSEOGuide = () => {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="scroll-mt-24">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-12 rounded-2xl text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">Ready to Scale Your SEO?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Join hundreds of businesses that have transformed their online presence 
-              with our proven programmatic SEO strategies.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-                onClick={() => setIsAuditModalOpen(true)}
-              >
-                Get Free SEO Strategy Session
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold"
-              >
-                <Download className="h-5 w-5 mr-2" />
-                Download Case Studies
-              </Button>
-            </div>
-          </div>
-        </section>
       </div>
 
       <TrustedToolsSection />
