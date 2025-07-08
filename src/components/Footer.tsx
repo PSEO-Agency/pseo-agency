@@ -170,7 +170,7 @@ export const Footer = () => {
             <div className="text-blue-200 text-lg">
               © 2024-2025 Programmatic SEO B.V. All rights reserved.
             </div>
-            <div className="text-right">
+            <div className="text-right hidden md:block">
               <Button 
                 className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={() => setIsAuditModalOpen(true)}
