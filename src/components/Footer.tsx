@@ -168,7 +168,7 @@ export const Footer = () => {
         <div className="border-t border-white/20 py-8">
           <div className="grid md:grid-cols-2 gap-4 items-center">
             <div className="text-blue-200 text-lg">
-              © 2024 Programmatic SEO B.V. All rights reserved.
+              © 2024-2025 Programmatic SEO B.V. All rights reserved.
             </div>
             <div className="text-right">
               <Button 
