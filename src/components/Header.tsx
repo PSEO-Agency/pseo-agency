@@ -62,13 +62,13 @@ export const Header = () => {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between h-14 lg:h-16">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img 
               src="/lovable-uploads/6354214b-6403-4365-974c-fc958fe64e4e.png" 
               alt="Programmatic SEO Agency" 
-              className="h-5 lg:h-7 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
+              className="h-8 lg:h-10 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
               onClick={() => navigate('/')}
             />
           </div>
