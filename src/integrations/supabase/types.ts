@@ -708,6 +708,8 @@ export type Database = {
       software: {
         Row: {
           category: string | null
+          changelog: Json | null
+          comparison_features: Json | null
           content: string | null
           created_at: string | null
           demo_url: string | null
@@ -718,17 +720,23 @@ export type Database = {
           github_url: string | null
           id: string
           image_url: string | null
+          implementation_examples: Json | null
           integration_capabilities: Json | null
           is_featured: boolean | null
           is_published: boolean | null
           meta_description: string | null
           meta_title: string | null
+          migration_guide: string | null
           popularity_score: number | null
           pricing_info: Json | null
           review_count: number | null
+          roi_calculator_data: Json | null
+          screenshots: Json | null
+          setup_guide: string | null
           setup_time: string | null
           slug: string
           sort_order: number | null
+          support_resources: Json | null
           tags: Json | null
           target_audience: string | null
           technical_specs: Json | null
@@ -737,9 +745,12 @@ export type Database = {
           updated_at: string | null
           use_cases: Json | null
           user_rating: number | null
+          video_urls: Json | null
         }
         Insert: {
           category?: string | null
+          changelog?: Json | null
+          comparison_features?: Json | null
           content?: string | null
           created_at?: string | null
           demo_url?: string | null
@@ -750,17 +761,23 @@ export type Database = {
           github_url?: string | null
           id?: string
           image_url?: string | null
+          implementation_examples?: Json | null
           integration_capabilities?: Json | null
           is_featured?: boolean | null
           is_published?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
+          migration_guide?: string | null
           popularity_score?: number | null
           pricing_info?: Json | null
           review_count?: number | null
+          roi_calculator_data?: Json | null
+          screenshots?: Json | null
+          setup_guide?: string | null
           setup_time?: string | null
           slug: string
           sort_order?: number | null
+          support_resources?: Json | null
           tags?: Json | null
           target_audience?: string | null
           technical_specs?: Json | null
@@ -769,9 +786,12 @@ export type Database = {
           updated_at?: string | null
           use_cases?: Json | null
           user_rating?: number | null
+          video_urls?: Json | null
         }
         Update: {
           category?: string | null
+          changelog?: Json | null
+          comparison_features?: Json | null
           content?: string | null
           created_at?: string | null
           demo_url?: string | null
@@ -782,17 +802,23 @@ export type Database = {
           github_url?: string | null
           id?: string
           image_url?: string | null
+          implementation_examples?: Json | null
           integration_capabilities?: Json | null
           is_featured?: boolean | null
           is_published?: boolean | null
           meta_description?: string | null
           meta_title?: string | null
+          migration_guide?: string | null
           popularity_score?: number | null
           pricing_info?: Json | null
           review_count?: number | null
+          roi_calculator_data?: Json | null
+          screenshots?: Json | null
+          setup_guide?: string | null
           setup_time?: string | null
           slug?: string
           sort_order?: number | null
+          support_resources?: Json | null
           tags?: Json | null
           target_audience?: string | null
           technical_specs?: Json | null
@@ -801,6 +827,7 @@ export type Database = {
           updated_at?: string | null
           use_cases?: Json | null
           user_rating?: number | null
+          video_urls?: Json | null
         }
         Relationships: []
       }

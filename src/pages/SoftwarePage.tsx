@@ -12,6 +12,8 @@ import { SoftwareFeatures } from "@/components/software/SoftwareFeatures";
 import { SoftwarePricing } from "@/components/software/SoftwarePricing";
 import { SoftwareSpecs } from "@/components/software/SoftwareSpecs";
 import { RelatedSoftware } from "@/components/software/RelatedSoftware";
+import { SoftwareScreenshots } from "@/components/software/SoftwareScreenshots";
+import { SoftwareImplementation } from "@/components/software/SoftwareImplementation";
 import { useSoftwareBySlug, useRelatedSoftware } from "@/hooks/useSoftware";
 import { useRelatedTools } from "@/hooks/useTools";
 
@@ -75,6 +77,46 @@ const SoftwarePage = () => {
       : {},
   };
 
+  // Transform screenshots data with proper type checking
+  const screenshots = Array.isArray(software.screenshots) 
+    ? software.screenshots.filter((screenshot): screenshot is {
+        url: string;
+        title: string;
+        description: string;
+        category: string;
+      } => 
+        typeof screenshot === 'object' && 
+        screenshot !== null && 
+        typeof (screenshot as any).url === 'string' &&
+        typeof (screenshot as any).title === 'string' &&
+        typeof (screenshot as any).description === 'string' &&
+        typeof (screenshot as any).category === 'string'
+      )
+    : [];
+  
+  // Transform implementation data with proper type checking
+  const implementationExamples = Array.isArray(software.implementation_examples) 
+    ? software.implementation_examples.filter((example): example is {
+        title: string;
+        description: string;
+        code: string;
+        complexity: 'Beginner' | 'Intermediate' | 'Advanced';
+        timeEstimate: string;
+      } => 
+        typeof example === 'object' && 
+        example !== null && 
+        typeof (example as any).title === 'string' &&
+        typeof (example as any).description === 'string' &&
+        typeof (example as any).code === 'string' &&
+        ['Beginner', 'Intermediate', 'Advanced'].includes((example as any).complexity) &&
+        typeof (example as any).timeEstimate === 'string'
+      )
+    : [];
+    
+  const supportResources = software.support_resources && typeof software.support_resources === 'object' && !Array.isArray(software.support_resources)
+    ? software.support_resources as Record<string, any>
+    : {};
+
   const breadcrumbItems = [
     { label: "Software", href: "/software" },
     { label: software.title }
@@ -93,6 +135,12 @@ const SoftwarePage = () => {
       <main>
         <SoftwareHero software={software} />
         <SoftwareFeatures features={features} />
+        
+        {/* Screenshots Section */}
+        {screenshots.length > 0 && (
+          <SoftwareScreenshots screenshots={screenshots} title={software.title} />
+        )}
+        
         <SoftwareSpecs software={softwareSpecsData} />
 
         {/* Content Section */}
@@ -110,6 +158,16 @@ const SoftwarePage = () => {
         )}
 
         <SoftwarePricing pricingInfo={pricingInfo} />
+
+        {/* Implementation Guide */}
+        {(software.setup_guide || implementationExamples.length > 0) && (
+          <SoftwareImplementation 
+            setupGuide={software.setup_guide || "Setup guide coming soon..."}
+            implementationExamples={implementationExamples}
+            migrationGuide={software.migration_guide}
+            supportResources={supportResources}
+          />
+        )}
 
         {/* Related Software */}
         {relatedSoftware && relatedSoftware.length > 0 && (
