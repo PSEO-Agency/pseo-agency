@@ -214,11 +214,6 @@ export const Header = () => {
               </div>
             </div>
 
-            {/* Mobile phone display */}
-            <div className="flex lg:hidden items-center space-x-2 bg-blue-50 rounded-lg px-2 py-1">
-              <Phone className="h-4 w-4 text-blue-600" />
-              <span className="text-blue-700 font-bold text-xs">Call</span>
-            </div>
 
             <Button className="hidden sm:flex webfx-button-primary px-3 lg:px-6 py-2 text-xs lg:text-sm font-bold shadow-lg hover:shadow-xl" onClick={() => setIsAuditModalOpen(true)}>
               <span className="hidden md:inline">Get Free Strategy Call</span>
