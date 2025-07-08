@@ -127,23 +127,6 @@ const About = () => {
               We help businesses automate their SEO operations and scale organic traffic exponentially 
               through advanced programmatic strategies that generate thousands of high-converting pages.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold"
-                onClick={() => setIsAuditModalOpen(true)}
-              >
-                Get Free SEO Strategy
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold"
-                onClick={() => navigate('/results')}
-              >
-                View Case Studies
-              </Button>
-            </div>
           </div>
         </div>
       </section>
