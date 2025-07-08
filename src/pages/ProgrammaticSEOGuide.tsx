@@ -80,6 +80,20 @@ const ProgrammaticSEOGuide = () => {
     },
   });
 
+  const { data: actualBlogPosts } = useQuery({
+    queryKey: ['actual-blog-posts-guide'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('is_published', true)
+        .order('created_at', { ascending: false })
+        .limit(6);
+      if (error) throw error;
+      return data;
+    },
+  });
+
   // Separate software and tools
   const software = allSoftware?.filter(item => item.type === 'software') || [];
   const tools = allSoftware?.filter(item => item.type === 'tool') || [];
@@ -144,44 +158,6 @@ const ProgrammaticSEOGuide = () => {
     }
   ];
 
-  const relatedBlogs = [
-    {
-      title: "SAAS Programmatic SEO: How to Create 10,000+ Landing Pages",
-      slug: "saas-programmatic-seo-10000-landing-pages",
-      icon: <Cloud className="h-6 w-6" />,
-      category: "SAAS"
-    },
-    {
-      title: "E-commerce Programmatic SEO: Scale Product Pages Automatically", 
-      slug: "ecommerce-programmatic-seo-scale-product-pages",
-      icon: <ShoppingCart className="h-6 w-6" />,
-      category: "E-commerce"
-    },
-    {
-      title: "Local Business Programmatic SEO: Dominate Every City",
-      slug: "local-business-programmatic-seo-dominate-every-city",
-      icon: <Building2 className="h-6 w-6" />,
-      category: "Local Business"
-    },
-    {
-      title: "AI Content Automation: The Future of Programmatic SEO",
-      slug: "ai-content-automation-future-programmatic-seo",
-      icon: <Brain className="h-6 w-6" />,
-      category: "AI & Technology"
-    },
-    {
-      title: "Real Estate Programmatic SEO: Location-Based Content Strategy",
-      slug: "real-estate-programmatic-seo-location-strategy",
-      icon: <Home className="h-6 w-6" />,
-      category: "Real Estate"
-    },
-    {
-      title: "Law Firm Programmatic SEO: Generate Leads at Scale",
-      slug: "law-firm-programmatic-seo-generate-leads",
-      icon: <Scale className="h-6 w-6" />,
-      category: "Legal Services"
-    }
-  ];
 
   const getIndustryIcon = (name: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
@@ -612,35 +588,49 @@ const ProgrammaticSEOGuide = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {relatedBlogs.map((blog, index) => (
-              <Link key={index} to={`/blog/${blog.slug}`}>
-                <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer border-l-4 border-l-blue-500">
-                  <CardContent className="p-8">
-                    <div className="flex items-start mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                        <div className="text-white">
-                          {blog.icon}
+          {actualBlogPosts && actualBlogPosts.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {actualBlogPosts.map((blog) => (
+                <Link key={blog.id} to={`/blog/${blog.slug}`}>
+                  <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer border-l-4 border-l-blue-500">
+                    <CardContent className="p-8">
+                      <div className="flex items-start mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                          <div className="text-white">
+                            <Briefcase className="h-6 w-6" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          {blog.category && (
+                            <Badge variant="outline" className="mb-3 text-xs">
+                              {blog.category}
+                            </Badge>
+                          )}
+                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-3 leading-tight">
+                            {blog.title}
+                          </h3>
+                          {blog.excerpt && (
+                            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                              {blog.excerpt}
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <div className="flex-1">
-                        <Badge variant="outline" className="mb-3 text-xs">
-                          {blog.category}
-                        </Badge>
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-3 leading-tight">
-                          {blog.title}
-                        </h3>
+                      <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-2 transition-transform duration-200">
+                        <span>Read Complete Guide</span>
+                        <ArrowRight className="h-5 w-5 ml-2" />
                       </div>
-                    </div>
-                    <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-2 transition-transform duration-200">
-                      <span>Read Complete Guide</span>
-                      <ArrowRight className="h-5 w-5 ml-2" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Blog posts loading...</p>
+            </div>
+          )}
         </section>
 
       </div>
