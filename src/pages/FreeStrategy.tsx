@@ -143,87 +143,26 @@ const FreeStrategy = () => {
             <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Get Started Today</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                  <Input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="h-12"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="h-12"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Domain *</label>
-                  <Input
-                    type="text"
-                    name="domain"
-                    placeholder="e.g., example.com"
-                    value={formData.domain}
-                    onChange={handleInputChange}
-                    className="h-12"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
-                  <Input
-                    type="text"
-                    name="industry"
-                    placeholder="e.g., E-commerce, SaaS, Healthcare"
-                    value={formData.industry}
-                    onChange={handleInputChange}
-                    className="h-12"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Current Monthly Traffic</label>
-                  <Input
-                    type="text"
-                    name="currentTraffic"
-                    placeholder="e.g., 10,000 visitors/month"
-                    value={formData.currentTraffic}
-                    onChange={handleInputChange}
-                    className="h-12"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Business Goals</label>
-                  <Textarea
-                    name="goals"
-                    placeholder="Tell us about your main business objectives and what you hope to achieve..."
-                    value={formData.goals}
-                    onChange={handleInputChange}
-                    rows={4}
-                  />
-                </div>
-                
-                <Button 
-                  type="submit"
-                  className="w-full webfx-button-primary h-12 text-lg font-bold"
-                >
-                  Get My Free Strategy
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </form>
+              <div className="space-y-6">
+                <iframe
+                  src="https://link.wellplan.io/widget/form/WczCC8B7OrZF7PQKMQR9"
+                  style={{width: '100%', height: '944px', border: 'none', borderRadius: '4px'}}
+                  id="inline-WczCC8B7OrZF7PQKMQR9" 
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name="B-011-LM. Opt in-1"
+                  data-height="944"
+                  data-layout-iframe-id="inline-WczCC8B7OrZF7PQKMQR9"
+                  data-form-id="WczCC8B7OrZF7PQKMQR9"
+                  title="B-011-LM. Opt in-1"
+                />
+                <script src="https://link.wellplan.io/js/form_embed.js"></script>
+              </div>
               
               <p className="text-sm text-gray-500 mt-4 text-center">
                 We respect your privacy. Your information will never be shared.
