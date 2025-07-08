@@ -72,8 +72,15 @@ const IndustryPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{industry.meta_title || `${industry.title} - Programmatic SEO Services`}</title>
-        <meta name="description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence with industry-specific strategies.`} />
+        <title>{industry.meta_title || `${industry.name} pSEO Services | Scale Traffic 10x | Industry Experts`}</title>
+        <meta name="description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence 10x faster with industry-specific pSEO strategies and proven results.`} />
+        <meta property="og:title" content={industry.meta_title || `${industry.name} pSEO Services | Scale Traffic 10x | Industry Experts`} />
+        <meta property="og:description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence 10x faster with industry-specific pSEO strategies.`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={industry.meta_title || `${industry.name} pSEO Services | Scale Traffic 10x`} />
+        <meta name="twitter:description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence 10x faster.`} />
+        <link rel="canonical" href={`https://yourdomain.com/industries/${industry.slug}`} />
       </Helmet>
       
       <Header />

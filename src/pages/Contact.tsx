@@ -74,8 +74,15 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Contact Us - Programmatic SEO | Get Your Free SEO Strategy Call</title>
-        <meta name="description" content="Ready to scale with programmatic SEO? Contact Programmatic SEO B.V. for a free consultation. Expert team, fast response, proven results." />
+        <title>Contact pSEO Agency | Get Free Strategy Call | Scale Traffic 10x</title>
+        <meta name="description" content="Ready to scale your organic traffic 10x? Contact pSEO Agency for a free consultation. Expert team, 2-hour response time, proven results across 100+ projects." />
+        <meta property="og:title" content="Contact pSEO Agency | Get Free Strategy Call | Scale Traffic 10x" />
+        <meta property="og:description" content="Ready to scale your organic traffic 10x? Contact pSEO Agency for a free consultation. Expert team, 2-hour response time, proven results." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact pSEO Agency | Get Free Strategy Call" />
+        <meta name="twitter:description" content="Ready to scale your organic traffic 10x? Contact pSEO Agency for a free consultation. Expert team, 2-hour response time." />
+        <link rel="canonical" href="https://yourdomain.com/contact" />
       </Helmet>
       
       <Header />

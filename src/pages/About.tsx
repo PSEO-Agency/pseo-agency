@@ -99,8 +99,15 @@ const About = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>About pSEO - #1 Programmatic SEO Agency | Automate & Scale Your SEO</title>
-        <meta name="description" content="The leading programmatic SEO agency helping businesses automate SEO operations and scale organic traffic. 15+ years expertise, 1M+ pages generated, 100+ projects completed." />
+        <title>About pSEO | 15+ Years Scaling Organic Traffic 10x | #1 Agency Results</title>
+        <meta name="description" content="Leading pSEO agency with 15+ years expertise helping businesses scale organic traffic 10x faster. 1M+ pages generated, 100+ projects completed, proven automation strategies that deliver results." />
+        <meta property="og:title" content="About pSEO | 15+ Years Scaling Organic Traffic 10x | #1 Agency Results" />
+        <meta property="og:description" content="Leading pSEO agency with 15+ years expertise helping businesses scale organic traffic 10x faster. 1M+ pages generated, 100+ projects completed." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About pSEO | 15+ Years Scaling Organic Traffic 10x" />
+        <meta name="twitter:description" content="Leading pSEO agency with 15+ years expertise helping businesses scale organic traffic 10x faster. 1M+ pages generated, 100+ projects completed." />
+        <link rel="canonical" href="https://yourdomain.com/about" />
       </Helmet>
       
       <Header />

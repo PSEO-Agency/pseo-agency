@@ -51,8 +51,15 @@ const SoftwareCollection = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Programmatic SEO Software & Platforms - Scale Your Content Strategy</title>
-        <meta name="description" content="Discover powerful programmatic SEO software platforms and frameworks. WordPress, Webflow, Next.js and more tools to scale your content generation." />
+        <title>pSEO Software & Platforms | Scale Content 10x | Expert Reviews</title>
+        <meta name="description" content="Discover powerful programmatic SEO software platforms and frameworks. WordPress, Webflow, Next.js and more tools to scale your content generation 10x faster with expert insights." />
+        <meta property="og:title" content="pSEO Software & Platforms | Scale Content 10x | Expert Reviews" />
+        <meta property="og:description" content="Discover powerful programmatic SEO software platforms and frameworks. WordPress, Webflow, Next.js and more tools to scale your content generation 10x faster." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="pSEO Software & Platforms | Scale Content 10x" />
+        <meta name="twitter:description" content="Discover powerful programmatic SEO software platforms and frameworks to scale your content generation 10x faster." />
+        <link rel="canonical" href="https://yourdomain.com/software" />
       </Helmet>
       
       <Header />

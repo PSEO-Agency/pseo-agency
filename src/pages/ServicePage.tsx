@@ -63,8 +63,15 @@ const ServicePage = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{service.title} | pSEO Services</title>
-        <meta name="description" content={service.description || `Learn about our ${service.title} service`} />
+        <title>{service.title} | Drive 10x Traffic Growth | pSEO Agency</title>
+        <meta name="description" content={service.description || `Boost your organic traffic with our ${service.title} service. Expert pSEO strategies that deliver measurable results and exponential growth.`} />
+        <meta property="og:title" content={`${service.title} | Drive 10x Traffic Growth | pSEO Agency`} />
+        <meta property="og:description" content={service.description || `Boost your organic traffic with our ${service.title} service. Expert pSEO strategies that deliver measurable results and exponential growth.`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${service.title} | Drive 10x Traffic Growth | pSEO Agency`} />
+        <meta name="twitter:description" content={service.description || `Boost your organic traffic with our ${service.title} service. Expert pSEO strategies that deliver measurable results.`} />
+        <link rel="canonical" href={`https://yourdomain.com/services/${service.slug}`} />
       </Helmet>
       
       <Header />

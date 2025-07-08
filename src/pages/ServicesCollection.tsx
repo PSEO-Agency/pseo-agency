@@ -48,8 +48,15 @@ const ServicesCollection = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Our SEO Services - Programmatic SEO Agency</title>
-        <meta name="description" content="Explore our comprehensive range of SEO services designed to boost your online presence and drive organic growth." />
+        <title>pSEO Services | Scale Organic Traffic 10x | Complete Service Suite</title>
+        <meta name="description" content="Comprehensive programmatic SEO services to scale your organic traffic 10x faster. Expert strategies, proven results, and data-driven approaches across all industries." />
+        <meta property="og:title" content="pSEO Services | Scale Organic Traffic 10x | Complete Service Suite" />
+        <meta property="og:description" content="Comprehensive programmatic SEO services to scale your organic traffic 10x faster. Expert strategies, proven results, and data-driven approaches." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="pSEO Services | Scale Organic Traffic 10x" />
+        <meta name="twitter:description" content="Comprehensive programmatic SEO services to scale your organic traffic 10x faster. Expert strategies, proven results." />
+        <link rel="canonical" href="https://yourdomain.com/services" />
       </Helmet>
       
       <Header />

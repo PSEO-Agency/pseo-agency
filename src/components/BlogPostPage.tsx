@@ -162,14 +162,17 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
+        <title>{metaTitle || `${post.title} | pSEO Insights & Strategies`}</title>
+        <meta name="description" content={metaDescription || post.excerpt} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={post.published_at} />
+        {post.category && <meta property="article:section" content={post.category} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
+        <link rel="canonical" href={`https://yourdomain.com/blog/${slug}`} />
       </Helmet>
 
       {/* Reading Progress Bar */}

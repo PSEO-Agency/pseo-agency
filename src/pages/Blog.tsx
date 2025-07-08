@@ -83,12 +83,15 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>Programmatic SEO Blog - Expert Strategies & Case Studies</title>
-        <meta name="description" content="Learn programmatic SEO strategies, case studies, and expert insights to scale your organic traffic and revenue." />
-        <meta property="og:title" content="Programmatic SEO Blog - Expert Strategies & Case Studies" />
-        <meta property="og:description" content="Learn programmatic SEO strategies, case studies, and expert insights to scale your organic traffic and revenue." />
+        <title>pSEO Blog | Expert Strategies & Case Studies | Scale Traffic 10x</title>
+        <meta name="description" content="Learn proven programmatic SEO strategies, real case studies, and expert insights to scale your organic traffic 10x faster. Updated weekly with actionable tactics." />
+        <meta property="og:title" content="pSEO Blog | Expert Strategies & Case Studies | Scale Traffic 10x" />
+        <meta property="og:description" content="Learn proven programmatic SEO strategies, real case studies, and expert insights to scale your organic traffic 10x faster." />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="pSEO Blog | Expert Strategies & Case Studies" />
+        <meta name="twitter:description" content="Learn proven programmatic SEO strategies, real case studies, and expert insights to scale your organic traffic 10x faster." />
+        <link rel="canonical" href="https://yourdomain.com/blog" />
       </Helmet>
       
       <Header />

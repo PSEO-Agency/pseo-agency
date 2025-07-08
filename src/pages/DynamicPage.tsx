@@ -56,8 +56,13 @@ const DynamicPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{page.meta_title || page.title}</title>
-        <meta name="description" content={page.meta_description || `${page.title} page`} />
+        <title>{page.meta_title || `${page.title} | pSEO Agency`}</title>
+        <meta name="description" content={page.meta_description || `${page.title} - Expert programmatic SEO services and insights from pSEO Agency.`} />
+        <meta property="og:title" content={page.meta_title || `${page.title} | pSEO Agency`} />
+        <meta property="og:description" content={page.meta_description || `${page.title} - Expert programmatic SEO services and insights from pSEO Agency.`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={`https://yourdomain.com/${page.slug}`} />
       </Helmet>
       
       <Header />
