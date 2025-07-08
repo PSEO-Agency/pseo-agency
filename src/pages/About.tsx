@@ -194,7 +194,7 @@ const About = () => {
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg">
-                  <div className="text-2xl font-bold text-blue-600">10M+</div>
+                  <div className="text-2xl font-bold text-blue-600">1M+</div>
                   <div className="text-sm text-gray-600">Pages Generated</div>
                 </div>
               </div>
