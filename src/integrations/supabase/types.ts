@@ -38,7 +38,7 @@ export type Database = {
         }
         Relationships: []
       }
-      blabla_testing: {
+      blabla_testing_master: {
         Row: {
           created_at: string
           id: number
