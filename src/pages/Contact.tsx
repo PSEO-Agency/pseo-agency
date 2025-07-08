@@ -142,75 +142,26 @@ const Contact = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
-                            Full Name *
-                          </label>
-                          <Input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                            className="h-12"
-                            placeholder="John Doe"
-                          />
-                        </div>
-                        
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                            Email Address *
-                          </label>
-                          <Input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                            className="h-12"
-                            placeholder="john@company.com"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
-                          Company Name
-                        </label>
-                        <Input
-                          type="text"
-                          id="company"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleInputChange}
-                          className="h-12"
-                          placeholder="Your Company"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                          Project Details *
-                        </label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          required
-                          rows={6}
-                          placeholder="Tell us about your business, current SEO challenges, and goals..."
-                        />
-                      </div>
-                      
-                      <Button type="submit" className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg font-semibold">
-                        Send Message & Get Free Consultation
-                      </Button>
-                    </form>
+                    <div className="space-y-6">
+                      <iframe
+                        src="https://link.wellplan.io/widget/form/WczCC8B7OrZF7PQKMQR9"
+                        style={{width: '100%', height: '600px', border: 'none', borderRadius: '4px'}}
+                        id="inline-WczCC8B7OrZF7PQKMQR9" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="B-011-LM. Opt in-1"
+                        data-height="undefined"
+                        data-layout-iframe-id="inline-WczCC8B7OrZF7PQKMQR9"
+                        data-form-id="WczCC8B7OrZF7PQKMQR9"
+                        title="B-011-LM. Opt in-1"
+                      />
+                      <script src="https://link.wellplan.io/js/form_embed.js"></script>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
