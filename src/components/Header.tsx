@@ -215,13 +215,13 @@ export const Header = () => {
             </div>
 
 
-            <Button className="hidden sm:flex webfx-button-primary px-3 lg:px-6 py-2 text-xs lg:text-sm font-bold shadow-lg hover:shadow-xl" onClick={() => setIsAuditModalOpen(true)}>
+            <Button className="hidden sm:flex webfx-button-primary px-3 lg:px-6 py-2 text-xs lg:text-sm font-bold shadow-lg hover:shadow-xl" onClick={() => navigate('/strategy-call')}>
               <span className="hidden md:inline">Get Free Strategy Call</span>
               <span className="md:hidden">Free Call</span>
             </Button>
             
             {/* Mobile CTA - Only visible on mobile */}
-            <Button className="sm:hidden webfx-button-primary px-2 py-2 text-xs font-bold" onClick={() => setIsAuditModalOpen(true)}>
+            <Button className="sm:hidden webfx-button-primary px-2 py-2 text-xs font-bold" onClick={() => navigate('/strategy-call')}>
               Free Call
             </Button>
             
