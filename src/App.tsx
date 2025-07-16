@@ -25,6 +25,7 @@ import CaseStudy from "./pages/CaseStudy";
 import Results from "./pages/Results";
 import Jobs from "./pages/Jobs";
 import FreeStrategy from "./pages/FreeStrategy";
+import { StrategyCall } from "./pages/StrategyCall";
 import ProgrammaticSEOGuide from "./pages/ProgrammaticSEOGuide";
 import DynamicPage from "./pages/DynamicPage";
 import NotFound from "./pages/NotFound";
@@ -77,6 +78,7 @@ function App() {
               <Route path="/results" element={<Results />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/free-strategy" element={<FreeStrategy />} />
+              <Route path="/strategy-call" element={<StrategyCall />} />
               <Route path="/programmatic-seo-guide" element={<ProgrammaticSEOGuide />} />
               
               {/* Admin Routes */}
