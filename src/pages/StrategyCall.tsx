@@ -36,7 +36,7 @@ export const StrategyCall = () => {
             </div>
             
             <div className="bg-card rounded-lg border p-6 shadow-sm">
-              <div className="h-[600px] md:h-[700px]">
+              <div className="h-[700px] md:h-[800px]">
                 <iframe 
                   src="https://link.wellplan.io/widget/booking/s1GbtEZEDEXUXu4tzp6v" 
                   style={{ 
