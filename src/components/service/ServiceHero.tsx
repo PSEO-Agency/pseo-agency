@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
+import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award, Brain, MessageSquare, Link, TestTube, Phone, Mic, GitBranch, Settings, Volume2, BarChart3 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Json } from "@/integrations/supabase/types";
@@ -11,6 +11,7 @@ interface ServiceHeroProps {
     description?: string | null;
     hero_image_url?: string | null;
     features?: Json;
+    process_steps?: Json;
     [key: string]: any;
   };
 }
@@ -39,6 +40,46 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
     }
     return service.description || `Scale your organic traffic exponentially with our data-driven ${service.title} strategies. We create thousands of high-converting pages that rank on page 1 and drive qualified leads to your business.`;
   };
+
+  // Get icon component from string name
+  const getIconComponent = (iconName: string) => {
+    const iconMap: { [key: string]: any } = {
+      Target, Brain, MessageSquare, Link, TestTube, TrendingUp,
+      Phone, Mic, GitBranch, Settings, Volume2, BarChart3,
+      Search, Palette, Database
+    };
+    return iconMap[iconName] || Target;
+  };
+
+  // Get process steps (dynamic for AI agents, fallback for others)
+  const getProcessSteps = () => {
+    // Check if service has custom process_steps (AI agents)
+    if (service.process_steps && Array.isArray(service.process_steps) && service.process_steps.length > 0) {
+      return service.process_steps.map((step: any) => ({
+        title: step.title,
+        description: step.description,
+        icon: getIconComponent(step.icon)
+      }));
+    }
+
+    // Fallback to generic programmatic SEO process
+    return [
+      { title: "Data Analysis & Research", description: "Identify high-volume keywords, dynamic data sources and analyze competitors for maximum impact.", icon: Search },
+      { title: "Template Development", description: "Create scalable, SEO-optimized templates for mass page generation.", icon: Palette },
+      { title: "Database & Content Setup", description: "Build structured data foundations to power thousands of unique pages.", icon: Database },
+      { title: "Scale & Traffic Growth", description: "Launch thousands of optimized pages and track performance for maximum traffic growth.", icon: TrendingUp }
+    ];
+  };
+
+  const processSteps = getProcessSteps();
+  const stepColors = [
+    "from-blue-500 to-blue-600",
+    "from-purple-500 to-purple-600", 
+    "from-green-500 to-green-600",
+    "from-orange-500 to-red-500",
+    "from-pink-500 to-pink-600",
+    "from-indigo-500 to-indigo-600"
+  ];
 
   return (
     <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
@@ -135,58 +176,23 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
             </div>
             
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-              {/* Steps - Mobile optimized with visible labels */}
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Search className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">1</div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="webfx-card p-3 sm:p-4 lg:p-6">
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Data Analysis & Research</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Identify high-volume keywords, dynamic data sources and analyze competitors for maximum impact.</p>
+              {processSteps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <div key={index} className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
+                    <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br ${stepColors[index] || stepColors[0]} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative`}>
+                      <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
+                      <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">{index + 1}</div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="webfx-card p-3 sm:p-4 lg:p-6">
+                        <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">{step.title}</h4>
+                        <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{step.description}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Palette className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">2</div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="webfx-card p-3 sm:p-4 lg:p-6">
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Template Development</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Create scalable, SEO-optimized templates for mass page generation.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <Database className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">3</div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="webfx-card p-3 sm:p-4 lg:p-6">
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Database & Content Setup</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Build structured data foundations to power thousands of unique pages.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
-                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 lg:h-8 lg:w-8 text-white" />
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full flex items-center justify-center text-xs font-bold text-green-900">4</div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="webfx-card p-3 sm:p-4 lg:p-6">
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg lg:text-xl">Scale & Traffic Growth</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Launch thousands of optimized pages and track performance for maximum traffic growth.</p>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
