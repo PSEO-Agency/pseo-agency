@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award, Brain, MessageSquare, Link, TestTube, Phone, Mic, GitBranch, Settings, Volume2, BarChart3 } from "lucide-react";
+import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award, Brain, MessageSquare, Link, TestTube, Phone, Mic, GitBranch, Settings, Volume2, BarChart3, Monitor, PieChart, Network } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Json } from "@/integrations/supabase/types";
@@ -46,7 +46,8 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
     const iconMap: { [key: string]: any } = {
       Target, Brain, MessageSquare, Link, TestTube, TrendingUp,
       Phone, Mic, GitBranch, Settings, Volume2, BarChart3,
-      Search, Palette, Database
+      Search, Palette, Database, Monitor, PieChart, Network,
+      Users, CheckCircle2
     };
     return iconMap[iconName] || Target;
   };
