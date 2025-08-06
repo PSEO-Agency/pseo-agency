@@ -1,5 +1,8 @@
 
-import { Search, Palette, Database, Target, Zap, Users, BarChart3, Globe } from "lucide-react";
+import { 
+  Search, Palette, Database, Target, Zap, Users, BarChart3, Globe,
+  Brain, Bot, Rocket, Mic, PhoneCall, MessageCircle, CheckCircle, Activity
+} from "lucide-react";
 import { Json } from "@/integrations/supabase/types";
 
 interface ServiceProcessProps {
@@ -37,17 +40,61 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
   // Parse process steps from database
   let processSteps;
   if (Array.isArray(service.process_steps) && service.process_steps.length > 0) {
-    processSteps = service.process_steps.map((step: string, index: number) => {
-      // Split step into title and description
-      const colonIndex = step.indexOf(':');
-      if (colonIndex > 0) {
-        const title = step.substring(0, colonIndex).trim();
-        const description = step.substring(colonIndex + 1).trim();
-        return { title, description, icon: getIconForIndex(index) };
+    processSteps = service.process_steps.map((step: any, index: number) => {
+      // Check if step is already an object with title, description, icon
+      if (typeof step === 'object' && step.title && step.description) {
+        // Get the icon component based on the icon name
+        const iconName = step.icon;
+        let IconComponent;
+        
+        // Map icon names to components
+        const iconMap: { [key: string]: any } = {
+          Brain: Brain,
+          Bot: Bot,
+          Zap: Zap,
+          Target: Target,
+          Rocket: Rocket,
+          Mic: Mic,
+          PhoneCall: PhoneCall,
+          MessageCircle: MessageCircle,
+          CheckCircle: CheckCircle,
+          Activity: Activity,
+          Search: Search,
+          Database: Database,
+          Users: Users,
+          BarChart3: BarChart3,
+          Globe: Globe,
+          Palette: Palette
+        };
+        
+        IconComponent = iconMap[iconName] || getIconForIndex(index);
+        
+        return {
+          title: step.title,
+          description: step.description,
+          icon: IconComponent
+        };
       }
-      return { 
-        title: step, 
-        description: "Professional implementation of this step with attention to detail and best practices.",
+      
+      // Legacy format: step is a string
+      if (typeof step === 'string') {
+        const colonIndex = step.indexOf(':');
+        if (colonIndex > 0) {
+          const title = step.substring(0, colonIndex).trim();
+          const description = step.substring(colonIndex + 1).trim();
+          return { title, description, icon: getIconForIndex(index) };
+        }
+        return { 
+          title: step, 
+          description: "Professional implementation of this step with attention to detail and best practices.",
+          icon: getIconForIndex(index)
+        };
+      }
+      
+      // Fallback
+      return {
+        title: "Step " + (index + 1),
+        description: "Professional implementation with attention to detail and best practices.",
         icon: getIconForIndex(index)
       };
     });
