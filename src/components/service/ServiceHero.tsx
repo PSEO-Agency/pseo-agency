@@ -61,16 +61,16 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
       return service.process_steps.map((step: any) => ({
         title: step.title,
         description: step.description,
-        icon: getIconComponent(step.icon)
+        iconName: step.icon // Store icon name instead of component
       }));
     }
 
     // Fallback to generic programmatic SEO process
     return [
-      { title: "Data Analysis & Research", description: "Identify high-volume keywords, dynamic data sources and analyze competitors for maximum impact.", icon: Search },
-      { title: "Template Development", description: "Create scalable, SEO-optimized templates for mass page generation.", icon: Palette },
-      { title: "Database & Content Setup", description: "Build structured data foundations to power thousands of unique pages.", icon: Database },
-      { title: "Scale & Traffic Growth", description: "Launch thousands of optimized pages and track performance for maximum traffic growth.", icon: TrendingUp }
+      { title: "Data Analysis & Research", description: "Identify high-volume keywords, dynamic data sources and analyze competitors for maximum impact.", iconName: "Search" },
+      { title: "Template Development", description: "Create scalable, SEO-optimized templates for mass page generation.", iconName: "Palette" },
+      { title: "Database & Content Setup", description: "Build structured data foundations to power thousands of unique pages.", iconName: "Database" },
+      { title: "Scale & Traffic Growth", description: "Launch thousands of optimized pages and track performance for maximum traffic growth.", iconName: "TrendingUp" }
     ];
   };
 
@@ -180,7 +180,7 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
             
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
               {processSteps.map((step, index) => {
-                const IconComponent = step.icon;
+                const IconComponent = getIconComponent(step.iconName);
                 return (
                   <div key={index} className="flex items-start space-x-3 sm:space-x-4 lg:space-x-6 group">
                     <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br ${stepColors[index] || stepColors[0]} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative`}>
