@@ -19,9 +19,20 @@ export const ServiceOverview = ({ service }: ServiceOverviewProps) => {
     "Detailed reporting and insights"
   ];
 
-  // Safely convert Json to string array
+  // Safely convert Json to string array - handle both string arrays and object arrays
   const features = Array.isArray(service.features) && service.features.length > 0 
-    ? service.features as string[] 
+    ? service.features.map((feature: any) => {
+        // If feature is an object with title property, use title
+        if (typeof feature === 'object' && feature.title) {
+          return feature.title;
+        }
+        // If feature is a string, use it directly
+        if (typeof feature === 'string') {
+          return feature;
+        }
+        // Fallback for other types
+        return String(feature);
+      })
     : defaultFeatures;
 
   const serviceIcons = [Target, Zap, TrendingUp, CheckCircle, Shield, Globe, Users, BarChart3];
