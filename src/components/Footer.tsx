@@ -38,7 +38,13 @@ export const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative">
+    <>
+      {/* Google Tag Manager (noscript) */}
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJNFPQ9J"
+      height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript>
+      {/* End Google Tag Manager (noscript) */}
+      
+      <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
@@ -188,5 +194,6 @@ export const Footer = () => {
         onClose={() => setIsAuditModalOpen(false)} 
       />
     </footer>
+    </>
   );
 };
