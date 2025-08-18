@@ -6,7 +6,7 @@ export default async (req: Request, context: Context) => {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const siteUrl = "https://pseoagency.netlify.app";
+  const siteUrl = "http://programmaticseo.agency";
 
   // Static routes with priorities and change frequencies
   const staticRoutes = [
