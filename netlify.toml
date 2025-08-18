@@ -10,3 +10,11 @@
 [[edge_functions]]
   path = "/*"
   function = "seo"
+
+# Sitemap plugin
+[[plugins]]
+package = "@netlify/plugin-sitemap"
+
+  [plugins.inputs]
+  buildDir = "public"
+
