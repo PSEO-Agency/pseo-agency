@@ -57,7 +57,7 @@ Allow: /case-studies/
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pseoagency.netlify.app/sitemap.xml`;
+Sitemap: https://programmaticseo.agency/sitemap.xml`;
 
   return new Response(robots, {
     headers: {
