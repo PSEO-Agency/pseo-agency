@@ -1,7 +1,4 @@
-
-# This file is now dynamically generated at /robots.txt
-# Please visit /robots.txt for the current robots directives
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://programmaticseo.agency/sitemap.xml
