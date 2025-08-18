@@ -31,15 +31,19 @@ const botUserAgents = [
 
 export default async (req: Request, context: Context) => {
   const userAgent = req.headers.get("user-agent") || "";
+  const accept = req.headers.get("accept") || "";
   const isBot = botUserAgents.some((regex) => regex.test(userAgent));
   const url = new URL(req.url);
   const urlPath = url.pathname;
   const fullUrl = req.url;
+  const wantsHTML = accept.includes("text/html");
 
-  console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}`);
+  console.log("Edge Function Triggered");
+  console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}, WantsHTML: ${wantsHTML}`);
+  console.log("Pathname:", urlPath);
 
-  // Handle bot traffic with Prerender.io
-  if (isBot) {
+  // Handle bot traffic with Prerender.io (for HTML requests only)
+  if (isBot && wantsHTML) {
     // Construct proper Prerender.io URL with the full site URL
     const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
     const prerenderToken = "iCYcttsrVusf8Vlp8emm";
@@ -52,10 +56,9 @@ export default async (req: Request, context: Context) => {
           "User-Agent": userAgent,
           "X-Prerender-Token": prerenderToken,
           "X-Forwarded-For": req.headers.get("x-forwarded-for") || "",
-          "Accept": req.headers.get("accept") || "text/html",
+          "Accept": accept || "text/html",
           "Accept-Language": req.headers.get("accept-language") || "en",
         },
-        timeout: 30000, // 30 second timeout
       });
 
       console.log(`Prerender response status: ${prerendered.status}`);
@@ -112,6 +115,22 @@ export default async (req: Request, context: Context) => {
         console.error("Fallback also failed:", fallbackErr);
       }
     }
+
+    // Final minimal fallback for bots: serve simple HTML for any path
+    const html = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bot Pre-rendered Page</title>
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="${fullUrl}" />
+  </head>
+  <body>
+    <h1>Bot content for ${urlPath}</h1>
+    <p>This is a minimal fallback served by the edge function.</p>
+  </body>
+</html>`;
+    return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
   }
 
   // Handle static assets - let them pass through normally
