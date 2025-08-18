@@ -4,10 +4,10 @@ export const SEOCastSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-            CEO guest on SEOCast
+            CEO Guest on SEOCast
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Listen to our CEO on the #1 Dutch SEO Podcast: SEOCast
+            Listen to our CEO discuss the future of SEO on the #1 Dutch podcast.
           </p>
         </div>
 
