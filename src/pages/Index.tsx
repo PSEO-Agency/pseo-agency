@@ -11,6 +11,7 @@ import { IndustriesSection } from "@/components/IndustriesSection";
 import { KPISection } from "@/components/KPISection";
 import { TeamSection } from "@/components/TeamSection";
 import { BlogSection } from "@/components/BlogSection";
+import { SEOCastSection } from "@/components/SEOCastSection";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { ServiceSocialProof } from "@/components/service/ServiceSocialProof";
 import { Footer } from "@/components/Footer";
@@ -36,6 +37,7 @@ const Index = () => {
       <KPISection />
       <TeamSection />
       <BlogSection />
+      <SEOCastSection />
       <TrustedToolsSection />
       <Footer />
     </div>
