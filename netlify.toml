@@ -4,10 +4,6 @@
   publish = "dist"
 
 [[edge_functions]]
-  path = "/sitemap.xml"
-  function = "sitemap"
-
-[[edge_functions]]
   path = "/robots.txt"
   function = "robots"
 
