@@ -2,8 +2,24 @@
 import { Context } from "https://edge.netlify.com";
 
 export default async (req: Request, context: Context) => {
+  const headers = {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=86400, s-maxage=86400'
+  } as const;
+
+  // Minimal logging
+  console.log('[sitemap]', { method: req.method, url: req.url });
+
+  // Support HEAD/OPTIONS for validators and crawlers
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers });
+  }
+  if (req.method === 'HEAD') {
+    return new Response(null, { headers });
+  }
+
   if (req.method !== 'GET') {
-    return new Response('Method not allowed', { status: 405 });
+    return new Response('Method not allowed', { status: 405, headers });
   }
 
   const siteUrl = "https://programmaticseo.agency";
@@ -126,9 +142,6 @@ ${staticRoutes.map(route => `  <url>
 </urlset>`;
 
   return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400'
-    }
+    headers
   });
 };
