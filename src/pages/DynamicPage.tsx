@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import NotFound from "./NotFound";
 
 const DynamicPage = () => {
@@ -62,7 +63,7 @@ const DynamicPage = () => {
         <meta property="og:description" content={page.meta_description || `${page.title} - Expert programmatic SEO services and insights from pSEO Agency.`} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href={`https://yourdomain.com/${page.slug}`} />
+        <link rel="canonical" href={getCanonicalUrl(page.slug)} />
       </Helmet>
       
       <Header />

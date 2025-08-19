@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -172,7 +173,7 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
-        <link rel="canonical" href={`https://yourdomain.com/blog/${slug}`} />
+        <link rel="canonical" href={getCanonicalUrl(`blog/${slug}`)} />
       </Helmet>
 
       {/* Reading Progress Bar */}

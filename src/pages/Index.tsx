@@ -1,5 +1,7 @@
 
 
+import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { AutomationSection } from "@/components/AutomationSection";
@@ -25,6 +27,9 @@ const Index = () => {
 
   return (
     <div className="bg-white">
+      <Helmet>
+        <link rel="canonical" href={getCanonicalUrl()} />
+      </Helmet>
       <Header />
       <Hero />
       <AutomationSection />

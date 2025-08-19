@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import NotFound from "./NotFound";
 import { ServiceHero } from "@/components/service/ServiceHero";
 import { ServiceOverview } from "@/components/service/ServiceOverview";
@@ -71,7 +72,7 @@ const ServicePage = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${service.title} | Drive 10x Traffic Growth | pSEO Agency`} />
         <meta name="twitter:description" content={service.description || `Boost your organic traffic with our ${service.title} service. Expert pSEO strategies that deliver measurable results.`} />
-        <link rel="canonical" href={`https://yourdomain.com/services/${service.slug}`} />
+        <link rel="canonical" href={getCanonicalUrl(`services/${service.slug}`)} />
       </Helmet>
       
       <Header />

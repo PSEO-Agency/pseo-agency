@@ -1,6 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -59,7 +60,7 @@ const SoftwareCollection = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="pSEO Software & Platforms | Scale Content 10x" />
         <meta name="twitter:description" content="Discover powerful programmatic SEO software platforms and frameworks to scale your content generation 10x faster." />
-        <link rel="canonical" href="https://yourdomain.com/software" />
+        <link rel="canonical" href={getCanonicalUrl('software')} />
       </Helmet>
       
       <Header />

@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -107,7 +108,7 @@ const About = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About pSEO | 15+ Years Scaling Organic Traffic 10x" />
         <meta name="twitter:description" content="Leading pSEO agency with 15+ years expertise helping businesses scale organic traffic 10x faster. 1M+ pages generated, 100+ projects completed." />
-        <link rel="canonical" href="https://yourdomain.com/about" />
+        <link rel="canonical" href={getCanonicalUrl('about')} />
       </Helmet>
       
       <Header />

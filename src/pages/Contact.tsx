@@ -2,6 +2,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -82,7 +83,7 @@ const Contact = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Contact pSEO Agency | Get Free Strategy Call" />
         <meta name="twitter:description" content="Ready to scale your organic traffic 10x? Contact pSEO Agency for a free consultation. Expert team, 2-hour response time." />
-        <link rel="canonical" href="https://yourdomain.com/contact" />
+        <link rel="canonical" href={getCanonicalUrl('contact')} />
       </Helmet>
       
       <Header />

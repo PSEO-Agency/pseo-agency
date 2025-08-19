@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Clock, User, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 
 const Blog = () => {
   const { data: blogPosts, isLoading } = useQuery({
@@ -91,7 +92,7 @@ const Blog = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="pSEO Blog | Expert Strategies & Case Studies" />
         <meta name="twitter:description" content="Learn proven programmatic SEO strategies, real case studies, and expert insights to scale your organic traffic 10x faster." />
-        <link rel="canonical" href="https://yourdomain.com/blog" />
+        <link rel="canonical" href={getCanonicalUrl('blog')} />
       </Helmet>
       
       <Header />

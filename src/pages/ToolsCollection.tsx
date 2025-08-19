@@ -1,6 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -53,6 +54,7 @@ const ToolsCollection = () => {
       <Helmet>
         <title>SEO Tools & Utilities - Professional SEO Tool Collection</title>
         <meta name="description" content="Discover powerful SEO tools and utilities for keyword research, site auditing, competitor analysis, and programmatic SEO optimization." />
+        <link rel="canonical" href={getCanonicalUrl('tools')} />
       </Helmet>
       
       <Header />

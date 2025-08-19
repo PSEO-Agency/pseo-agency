@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import NotFound from "./NotFound";
 import { IndustryHero } from "@/components/industry/IndustryHero";
 import { IndustryOverview } from "@/components/industry/IndustryOverview";
@@ -80,7 +81,7 @@ const IndustryPage = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={industry.meta_title || `${industry.name} pSEO Services | Scale Traffic 10x`} />
         <meta name="twitter:description" content={industry.meta_description || `Specialized programmatic SEO services for ${industry.name} businesses. Scale your organic presence 10x faster.`} />
-        <link rel="canonical" href={`https://yourdomain.com/industries/${industry.slug}`} />
+        <link rel="canonical" href={getCanonicalUrl(`industries/${industry.slug}`)} />
       </Helmet>
       
       <Header />
