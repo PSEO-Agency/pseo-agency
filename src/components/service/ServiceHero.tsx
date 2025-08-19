@@ -56,13 +56,40 @@ export const ServiceHero = ({ service }: ServiceHeroProps) => {
 
   // Get process steps (dynamic for AI agents, fallback for others)
   const getProcessSteps = () => {
-    // Check if service has custom process_steps (AI agents)
+    // Check if service has custom process_steps
     if (service.process_steps && Array.isArray(service.process_steps) && service.process_steps.length > 0) {
-      return service.process_steps.map((step: any) => ({
-        title: step.title,
-        description: step.description,
-        iconName: step.icon // Store icon name instead of component
-      }));
+      return service.process_steps.map((step: any, index: number) => {
+        // Check if step is already an object with title, description, icon
+        if (typeof step === 'object' && step.title && step.description) {
+          return {
+            title: step.title,
+            description: step.description,
+            iconName: step.icon || ['Search', 'Palette', 'Database', 'TrendingUp'][index % 4]
+          };
+        }
+        
+        // Handle string format: "Title: Description"
+        if (typeof step === 'string') {
+          const colonIndex = step.indexOf(':');
+          if (colonIndex > 0) {
+            const title = step.substring(0, colonIndex).trim();
+            const description = step.substring(colonIndex + 1).trim();
+            const defaultIcons = ['Search', 'Palette', 'Database', 'TrendingUp', 'BarChart3', 'Target'];
+            return {
+              title,
+              description,
+              iconName: defaultIcons[index % defaultIcons.length]
+            };
+          }
+        }
+        
+        // Fallback
+        return {
+          title: `Step ${index + 1}`,
+          description: "Professional implementation with attention to detail and best practices.",
+          iconName: ['Search', 'Palette', 'Database', 'TrendingUp'][index % 4]
+        };
+      });
     }
 
     // Fallback to generic programmatic SEO process
