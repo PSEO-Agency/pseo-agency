@@ -38,6 +38,9 @@ export const ServiceProcess = ({ service }: ServiceProcessProps) => {
   ];
 
   // Parse process steps from database
+  console.log('ServiceProcess - service.process_steps:', service.process_steps);
+  console.log('ServiceProcess - is array:', Array.isArray(service.process_steps));
+  
   let processSteps;
   if (Array.isArray(service.process_steps) && service.process_steps.length > 0) {
     processSteps = service.process_steps.map((step: any, index: number) => {

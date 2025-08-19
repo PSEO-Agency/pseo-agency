@@ -31,7 +31,16 @@ const ServicePage = () => {
         .eq('slug', slug)
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('ServicePage - Supabase error:', error);
+        throw error;
+      }
+      
+      console.log('ServicePage - fetched service data:', data);
+      console.log('ServicePage - process_steps:', data?.process_steps);
+      console.log('ServicePage - process_steps type:', typeof data?.process_steps);
+      console.log('ServicePage - process_steps isArray:', Array.isArray(data?.process_steps));
+      
       return data;
     },
     enabled: !!slug,
