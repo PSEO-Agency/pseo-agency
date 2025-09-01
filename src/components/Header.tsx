@@ -68,7 +68,7 @@ export const Header = () => {
             <img 
               src="/lovable-uploads/26ffb7a6-9827-47ec-aaad-850dd112a2ac.png" 
               alt="Programmatic SEO Agency" 
-              className="h-8 lg:h-10 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
+              className="h-8 lg:h-12 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
               onClick={() => navigate('/')}
             />
           </div>
