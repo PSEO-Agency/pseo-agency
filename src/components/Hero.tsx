@@ -1,22 +1,17 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, TrendingUp, Target, Database, Palette, Server, CheckCircle2, Users, Award } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 export const Hero = () => {
   const [domain, setDomain] = useState("");
   const navigate = useNavigate();
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Navigate to the free strategy page with domain parameter
     navigate(`/free-strategy?domain=${encodeURIComponent(domain)}`);
   };
-
-  return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
+  return <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
       {/* Enhanced background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-64 h-64 lg:w-96 lg:h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -26,9 +21,9 @@ export const Hero = () => {
         {/* Animated grid pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="h-full w-full" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }}></div>
+          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
         </div>
       </div>
       
@@ -49,7 +44,7 @@ export const Hero = () => {
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight mb-3 sm:mb-4 lg:mb-6 text-balance">
               Drive More Revenue Through
-              <span className="block webfx-text-gradient mt-1 sm:mt-2">Programmatic SEO</span>
+              <span className="block webfx-text-gradient mt-1 sm:mt-2 px-0 py-[4px]">Programmatic SEO</span>
             </h1>
             
             <p className="text-base sm:text-lg lg:text-xl text-blue-100 mb-3 sm:mb-4 lg:mb-6 leading-relaxed max-w-2xl">
@@ -77,20 +72,9 @@ export const Hero = () => {
             <form onSubmit={handleSubmit} className="mb-3 sm:mb-4 lg:mb-6">
               <div className="flex flex-col gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-2 sm:p-3 border border-white/20 shadow-2xl">
                 <div className="flex-1">
-                  <Input
-                    type="text"
-                    placeholder="Enter your domain (e.g., example.com)"
-                    value={domain}
-                    onChange={(e) => setDomain(e.target.value)}
-                    className="bg-transparent border-none text-white placeholder:text-blue-200 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg focus:ring-0 focus-visible:ring-0"
-                    required
-                  />
+                  <Input type="text" placeholder="Enter your domain (e.g., example.com)" value={domain} onChange={e => setDomain(e.target.value)} className="bg-transparent border-none text-white placeholder:text-blue-200 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg focus:ring-0 focus-visible:ring-0" required />
                 </div>
-                <Button 
-                  type="submit"
-                  size="lg" 
-                  className="webfx-button-primary h-10 sm:h-12 lg:h-14 px-4 sm:px-6 lg:px-8 text-sm sm:text-base lg:text-lg font-bold shadow-xl w-full sm:w-auto"
-                >
+                <Button type="submit" size="lg" className="webfx-button-primary h-10 sm:h-12 lg:h-14 px-4 sm:px-6 lg:px-8 text-sm sm:text-base lg:text-lg font-bold shadow-xl w-full sm:w-auto">
                   <span className="hidden sm:inline">Get My Free SEO Strategy</span>
                   <span className="sm:hidden">Get Free Strategy</span>
                   <ArrowRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
@@ -167,6 +151,5 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
