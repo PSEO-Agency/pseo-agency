@@ -56,7 +56,7 @@ const FreeStrategy = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Get Your <span className="webfx-text-gradient">Free SEO Strategy</span>
+              Get Your <span className="webfx-text-gradient">pSEO Strategy</span>
             </h1>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
               Discover how programmatic SEO can 10X your organic traffic with a personalized strategy session
