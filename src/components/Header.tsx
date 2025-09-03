@@ -66,8 +66,8 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img 
-              src="/lovable-uploads/26ffb7a6-9827-47ec-aaad-850dd112a2ac.png" 
-              alt="Programmatic SEO Agency" 
+              src="/lovable-uploads/9b895b53-18c3-464f-9a68-5321aab2a130.png" 
+              alt="PSEO Agency - Programmatic SEO" 
               className="h-8 lg:h-12 w-auto hover:scale-105 transition-transform duration-200 cursor-pointer" 
               onClick={() => navigate('/')}
             />
