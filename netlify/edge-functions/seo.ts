@@ -4,24 +4,36 @@ import { Context } from "https://edge.netlify.com";
 // Comprehensive bot detection with optimized regex
 const botRegex = /bot|crawl|spider|slurp|googlebot|bingbot|yandexbot|baiduspider|facebookexternalhit|facebookcrawler|twitterbot|linkedinbot|pinterest|whatsapp|telegram|discord|slackbot|applebot|yahoo|msnbot|duckduckbot|semrushbot|ahrefsbot|screamingfrog|siteimprove|serpstat|dataforseo|wayback|archive\.org|embedly|quora|outbrain|vkshare|W3C_Validator|reddit|preview|nuzzel|xenu|sitesuck|ia_archiver|dotbot|blexbot|mj12bot|petalbot|sogou|360spider|exabot|nutch|rogerbot|seokicks|sistrix|spbot|turnitin|uptimerobot|wbsearchbot|yisou|seznam|jobboerse|newspaper|headless|phantom|seoanalyzer|seobility|searchmetrics|nerdy|mixrank|buzz|ltx71|megaindex|cliqz|coccoc|findx|istella|laserlike|magpie|proximic|qwant|semantic-visions|startme|wotbox|xovi|yacy|mail\.ru|sputnik|commander|cludo|clickagy|crowdtangle|datagnion|datanyze|deepcrawl|domcop|emailmarketing|feedburner|feedfetcher|genieo|gigabot|grapeshot|heritrix|httpmon|icjobs|indeed|jobsearch|keywordresearch|linguee|localsearch|mojee|muckrack|netcraft|okhttp|page2rss|paperli|prlog|pulsepoint|riddler|sbl-bot|seolytics|seozoom|spyfu|survey|tineye|trendiction|tweetmeme|twittercard|uptime|urlappend|voila|wappalyzer|webmeup|websitepolicy|yooz|zoom/i;
 
+// Prerender.io bot detection (bypass Prerender's own bots)
+const prerenderBotRegex = /prerender/i;
+
 export default async (req: Request, context: Context) => {
   const userAgent = req.headers.get("user-agent") || "";
   const accept = req.headers.get("accept") || "";
+  const xForwardedFor = req.headers.get("x-forwarded-for") || "";
   const isBot = botRegex.test(userAgent);
+  const isPrerenderBot = prerenderBotRegex.test(userAgent);
   const url = new URL(req.url);
   const urlPath = url.pathname;
   const fullUrl = req.url;
   const wantsHTML = accept.includes("text/html");
 
   console.log("Edge Function Triggered");
-  console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}, WantsHTML: ${wantsHTML}`);
+  console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}, Is Prerender Bot: ${isPrerenderBot}, WantsHTML: ${wantsHTML}`);
+  console.log(`X-Forwarded-For: ${xForwardedFor}`);
   console.log("Pathname:", urlPath);
+
+  // Skip Prerender.io for Prerender's own bots to prevent infinite loops
+  if (isPrerenderBot) {
+    console.log("Prerender bot detected, serving SPA directly");
+    return context.next();
+  }
 
   // Handle bot traffic for ALL PATHS with comprehensive rendering
   if (isBot && wantsHTML) {
     console.log(`Bot detected for path: ${urlPath}`);
     
-    // Try Prerender.io first for all paths
+    // Try Prerender.io first for all paths with proper configuration
     const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
     const prerenderToken = "iCYcttsrVusf8Vlp8emm";
 
@@ -32,34 +44,46 @@ export default async (req: Request, context: Context) => {
         headers: {
           "User-Agent": userAgent,
           "X-Prerender-Token": prerenderToken,
-          "X-Forwarded-For": req.headers.get("x-forwarded-for") || "",
+          "X-Forwarded-For": xForwardedFor,
           "Accept": accept || "text/html",
-          "Accept-Language": req.headers.get("accept-language") || "en",
+          "Accept-Language": req.headers.get("accept-language") || "en-US,en;q=0.9",
+          // Add additional headers that might help with bot detection
+          "Accept-Encoding": req.headers.get("accept-encoding") || "gzip, deflate, br",
+          "Cache-Control": "no-cache",
         },
       });
 
       console.log(`Prerender response status: ${prerendered.status}`);
+      console.log(`Prerender response headers:`, Object.fromEntries(prerendered.headers.entries()));
 
       if (prerendered.ok) {
         const html = await prerendered.text();
         console.log(`Prerender success - HTML length: ${html.length}`);
+        console.log(`Prerender HTML preview: ${html.substring(0, 500)}...`);
         
         return new Response(html, {
           status: 200,
           headers: {
             "Content-Type": "text/html; charset=utf-8",
-            "Cache-Control": "public, max-age=300, s-maxage=300", // Cache for 5 minutes
+            "Cache-Control": "public, max-age=300, s-maxage=300",
             "X-Prerendered": "true",
             "X-Bot-Served": "prerender",
+            "X-Prerender-Status": prerendered.status.toString(),
           },
         });
       } else {
         console.error(`Prerender failed with status: ${prerendered.status}`);
         const errorText = await prerendered.text();
         console.error(`Prerender error response: ${errorText}`);
+        console.error(`Prerender error headers:`, Object.fromEntries(prerendered.headers.entries()));
       }
     } catch (err) {
       console.error("Prerender fetch failed:", err);
+      console.error("Error details:", {
+        message: err.message,
+        stack: err.stack,
+        name: err.name
+      });
     }
 
     // Fallback: Try to serve the SPA version and enhance it for bots
