@@ -33,13 +33,22 @@ export default async (req: Request, context: Context) => {
   if (isBot && wantsHTML) {
     console.log(`Bot detected for path: ${urlPath}`);
     
-    // Try Prerender.io first for all paths with proper configuration
-    const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
-    const prerenderToken = "iCYcttsrVusf8Vlp8emm";
+    // Check if we're on a publicly accessible domain
+    const hostname = url.hostname;
+    const isPublicDomain = hostname === 'programmaticseo.agency' || 
+                          hostname.endsWith('.programmaticseo.agency') ||
+                          (!hostname.includes('lovable.app') && !hostname.includes('localhost'));
+    
+    console.log(`Domain check - hostname: ${hostname}, isPublicDomain: ${isPublicDomain}`);
+    
+    // Only try Prerender.io for publicly accessible domains
+    if (isPublicDomain) {
+      const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
+      const prerenderToken = "iCYcttsrVusf8Vlp8emm";
 
-    console.log(`Prerender URL: ${prerenderUrl}`);
+      console.log(`Prerender URL: ${prerenderUrl}`);
 
-    try {
+      try {
       const prerendered = await fetch(prerenderUrl, {
         headers: {
           "User-Agent": userAgent,
@@ -77,13 +86,16 @@ export default async (req: Request, context: Context) => {
         console.error(`Prerender error response: ${errorText}`);
         console.error(`Prerender error headers:`, Object.fromEntries(prerendered.headers.entries()));
       }
-    } catch (err) {
-      console.error("Prerender fetch failed:", err);
-      console.error("Error details:", {
-        message: err.message,
-        stack: err.stack,
-        name: err.name
-      });
+      } catch (err) {
+        console.error("Prerender fetch failed:", err);
+        console.error("Error details:", {
+          message: err.message,
+          stack: err.stack,
+          name: err.name
+        });
+      }
+    } else {
+      console.log("Skipping Prerender.io for non-public domain (development/staging)");
     }
 
     // Fallback: Try to serve the SPA version and enhance it for bots
