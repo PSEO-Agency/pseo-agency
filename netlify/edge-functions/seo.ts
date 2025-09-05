@@ -29,11 +29,58 @@ export default async (req: Request, context: Context) => {
     return context.next();
   }
 
-  // Handle bot traffic for ALL PATHS - serve enhanced HTML directly
+  // Handle bot traffic for ALL PATHS with Prerender.io integration
   if (isBot && wantsHTML) {
     console.log(`Bot detected for path: ${urlPath}`);
     
-    // Serve enhanced HTML directly without Prerender.io dependency
+    // Try Prerender.io with proper configuration
+    const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
+    const prerenderToken = "iCYcttsrVusf8Vlp8emm";
+    
+    console.log(`Prerender URL: ${prerenderUrl}`);
+    
+    try {
+      const prerendered = await fetch(prerenderUrl, {
+        headers: {
+          "User-Agent": userAgent,
+          "X-Prerender-Token": prerenderToken,
+          "X-Forwarded-For": xForwardedFor,
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": req.headers.get("accept-language") || "en-US,en;q=0.9",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Pragma": "no-cache",
+        },
+        timeout: 30000, // 30 second timeout
+      });
+
+      console.log(`Prerender response status: ${prerendered.status}`);
+      console.log(`Prerender response headers:`, Object.fromEntries(prerendered.headers.entries()));
+
+      if (prerendered.ok) {
+        const html = await prerendered.text();
+        console.log(`Prerender success - HTML length: ${html.length}`);
+        console.log(`Prerender HTML preview: ${html.substring(0, 500)}...`);
+        
+        return new Response(html, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=300, s-maxage=300",
+            "X-Prerendered": "true",
+            "X-Bot-Served": "prerender",
+          },
+        });
+      } else {
+        console.error(`Prerender failed with status: ${prerendered.status}`);
+        const errorText = await prerendered.text();
+        console.error(`Prerender error response: ${errorText}`);
+      }
+    } catch (err) {
+      console.error("Prerender fetch failed:", err);
+    }
+
+    // Enhanced SPA fallback when Prerender fails
     try {
       const response = await context.next();
       if (response.ok) {
@@ -63,13 +110,13 @@ export default async (req: Request, context: Context) => {
           html = html.replace('</head>', `${metaTags}</head>`);
         }
         
-        console.log(`Enhanced SPA served to bot - HTML length: ${html.length}`);
+        console.log(`Enhanced SPA fallback served - HTML length: ${html.length}`);
         
         return new Response(html, {
           status: 200,
           headers: {
             "Content-Type": "text/html; charset=utf-8",
-            "X-Bot-Served": "enhanced-spa",
+            "X-Bot-Served": "enhanced-spa-fallback",
             "Cache-Control": "public, max-age=300, s-maxage=300",
           },
         });
