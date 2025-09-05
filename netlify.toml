@@ -8,6 +8,10 @@
   function = "robots"
 
 [[edge_functions]]
+  path = "/sitemap.xml"
+  function = "sitemap"
+
+[[edge_functions]]
   path = "/*"
   function = "seo"
 
