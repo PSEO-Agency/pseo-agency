@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Additional directives for better SEO
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Crawl-delay: 1
+
 Sitemap: https://programmaticseo.agency/sitemap.xml

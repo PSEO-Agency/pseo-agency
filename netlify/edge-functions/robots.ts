@@ -22,8 +22,17 @@ export default async (req: Request, context: Context) => {
     return new Response('Method not allowed', { status: 405, headers });
   }
 
-const robots = `User-agent: *
+  const robots = `User-agent: *
 Allow: /
+
+# Additional directives for better SEO
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Crawl-delay: 1
 
 Sitemap: https://programmaticseo.agency/sitemap.xml`;
 
