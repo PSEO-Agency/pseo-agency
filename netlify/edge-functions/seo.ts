@@ -1,156 +1,13 @@
 
 import { Context } from "https://edge.netlify.com";
 
-const botUserAgents = [
-  /bot/i,
-  /crawler/i,
-  /spider/i,
-  /crawl/i,
-  /slurp/i,
-  /facebookexternalhit/i,
-  /twitterbot/i,
-  /linkedinbot/i,
-  /embedly/i,
-  /quora link preview/i,
-  /showyoubot/i,
-  /outbrain/i,
-  /pinterest/i,
-  /vkshare/i,
-  /W3C_Validator/i,
-  /redditbot/i,
-  /applebot/i,
-  /WhatsApp/i,
-  /slackbot/i,
-  /TelegramBot/i,
-  /Discordbot/i,
-  /Preview/i,
-  /nuzzel/i,
-  /Xenu/i,
-  /SiteSucker/i,
-  // Additional crawlers for better SEO coverage
-  /googlebot/i,
-  /bingbot/i,
-  /yandexbot/i,
-  /baiduspider/i,
-  /duckduckbot/i,
-  /yahoo/i,
-  /slurp/i,
-  /msnbot/i,
-  /facebookcrawler/i,
-  /ia_archiver/i,
-  /wayback/i,
-  /archive.org_bot/i,
-  /semrushbot/i,
-  /ahrefsbot/i,
-  /mj12bot/i,
-  /dotbot/i,
-  /blexbot/i,
-  /screaming frog/i,
-  /siteimprove/i,
-  /seolyzer/i,
-  /linkdexbot/i,
-  /petalbot/i,
-  /serpstatbot/i,
-  /dataforseobot/i,
-  /sogou/i,
-  /360spider/i,
-  /exabot/i,
-  /facebot/i,
-  /ia_archiver/i,
-  /nutch/i,
-  /openindexspider/i,
-  /rogerbot/i,
-  /seokicks/i,
-  /sistrix/i,
-  /spbot/i,
-  /turnitinbot/i,
-  /uptimerobot/i,
-  /wbsearchbot/i,
-  /yisoubot/i,
-  /seznambot/i,
-  /jobboersebot/i,
-  /newspaper/i,
-  /headlesschrome/i,
-  /phantomjs/i,
-  /seoanalyzer/i,
-  /seobilitybot/i,
-  /searchmetricsbot/i,
-  /nerdybot/i,
-  /mixrankbot/i,
-  /buzzbot/i,
-  /ltx71/i,
-  /megaindex/i,
-  /cliqzbot/i,
-  /coccocbot/i,
-  /findxbot/i,
-  /istellabot/i,
-  /laserlikebot/i,
-  /magpie-crawler/i,
-  /proximic/i,
-  /qwantbot/i,
-  /semantic-visions.com/i,
-  /startmebot/i,
-  /wotbox/i,
-  /xovibot/i,
-  /yacybot/i,
-  /mail\.ru/i,
-  /sputnikbot/i,
-  /commanderbot/i,
-  /cludo/i,
-  /clickagy/i,
-  /crowdtanglebot/i,
-  /datagnionbot/i,
-  /datanyze/i,
-  /deepcrawl/i,
-  /domcopbot/i,
-  /emailmarketingbot/i,
-  /feedburner/i,
-  /feedfetcher/i,
-  /genieobot/i,
-  /gigabot/i,
-  /grapeshot/i,
-  /heritrix/i,
-  /httpmon/i,
-  /icjobs/i,
-  /indeed/i,
-  /jobsearch/i,
-  /keywordresearchbot/i,
-  /linguee/i,
-  /localsearchbot/i,
-  /magpie/i,
-  /mojeekbot/i,
-  /muckrackbot/i,
-  /netcraftsurveyagent/i,
-  /okhttp/i,
-  /page2rss/i,
-  /paperlibot/i,
-  /prlog/i,
-  /pulsepoint/i,
-  /riddlerbot/i,
-  /sbl-bot/i,
-  /screamingfrogseospider/i,
-  /seolytics/i,
-  /seozoom/i,
-  /spyfu/i,
-  /surveybot/i,
-  /tineye/i,
-  /trendictionbot/i,
-  /tweetmemebot/i,
-  /twittercardbot/i,
-  /uptimebot/i,
-  /urlappendbot/i,
-  /voilabot/i,
-  /wappalyzer/i,
-  /webmeup-crawler/i,
-  /websitepolicybot/i,
-  /yoozbot/i,
-  /zoombot/i,
-];
+// Comprehensive bot detection with optimized regex
+const botRegex = /bot|crawl|spider|slurp|googlebot|bingbot|yandexbot|baiduspider|facebookexternalhit|facebookcrawler|twitterbot|linkedinbot|pinterest|whatsapp|telegram|discord|slackbot|applebot|yahoo|msnbot|duckduckbot|semrushbot|ahrefsbot|screamingfrog|siteimprove|serpstat|dataforseo|wayback|archive\.org|embedly|quora|outbrain|vkshare|W3C_Validator|reddit|preview|nuzzel|xenu|sitesuck|ia_archiver|dotbot|blexbot|mj12bot|petalbot|sogou|360spider|exabot|nutch|rogerbot|seokicks|sistrix|spbot|turnitin|uptimerobot|wbsearchbot|yisou|seznam|jobboerse|newspaper|headless|phantom|seoanalyzer|seobility|searchmetrics|nerdy|mixrank|buzz|ltx71|megaindex|cliqz|coccoc|findx|istella|laserlike|magpie|proximic|qwant|semantic-visions|startme|wotbox|xovi|yacy|mail\.ru|sputnik|commander|cludo|clickagy|crowdtangle|datagnion|datanyze|deepcrawl|domcop|emailmarketing|feedburner|feedfetcher|genieo|gigabot|grapeshot|heritrix|httpmon|icjobs|indeed|jobsearch|keywordresearch|linguee|localsearch|mojee|muckrack|netcraft|okhttp|page2rss|paperli|prlog|pulsepoint|riddler|sbl-bot|seolytics|seozoom|spyfu|survey|tineye|trendiction|tweetmeme|twittercard|uptime|urlappend|voila|wappalyzer|webmeup|websitepolicy|yooz|zoom/i;
 
 export default async (req: Request, context: Context) => {
   const userAgent = req.headers.get("user-agent") || "";
   const accept = req.headers.get("accept") || "";
-  const isBot = botUserAgents.some((regex) => regex.test(userAgent));
+  const isBot = botRegex.test(userAgent);
   const url = new URL(req.url);
   const urlPath = url.pathname;
   const fullUrl = req.url;
@@ -160,9 +17,11 @@ export default async (req: Request, context: Context) => {
   console.log(`SEO Edge Function - URL: ${fullUrl}, User-Agent: ${userAgent}, Is Bot: ${isBot}, WantsHTML: ${wantsHTML}`);
   console.log("Pathname:", urlPath);
 
-  // Handle bot traffic with Prerender.io (for HTML requests only)
+  // Handle bot traffic for ALL PATHS with comprehensive rendering
   if (isBot && wantsHTML) {
-    // Construct proper Prerender.io URL with the full site URL
+    console.log(`Bot detected for path: ${urlPath}`);
+    
+    // Try Prerender.io first for all paths
     const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
     const prerenderToken = "iCYcttsrVusf8Vlp8emm";
 
@@ -191,6 +50,7 @@ export default async (req: Request, context: Context) => {
             "Content-Type": "text/html; charset=utf-8",
             "Cache-Control": "public, max-age=300, s-maxage=300", // Cache for 5 minutes
             "X-Prerendered": "true",
+            "X-Bot-Served": "prerender",
           },
         });
       } else {
@@ -200,55 +60,104 @@ export default async (req: Request, context: Context) => {
       }
     } catch (err) {
       console.error("Prerender fetch failed:", err);
-      
-      // If Prerender.io fails, try to serve a basic version with meta tags
-      try {
-        const response = await context.next();
-        if (response.ok) {
-          let html = await response.text();
-          
-          // Inject basic SEO meta tags if missing
-          if (!html.includes('<meta property="og:')) {
-            const metaTags = `
-              <meta property="og:title" content="P SEO Agency - Professional SEO Services">
-              <meta property="og:description" content="Transform your business with data-driven SEO strategies. We help companies increase organic traffic and revenue through proven SEO techniques.">
-              <meta property="og:url" content="${fullUrl}">
-              <meta property="og:type" content="website">
-              <meta name="twitter:card" content="summary_large_image">
-              <meta name="twitter:title" content="P SEO Agency - Professional SEO Services">
-              <meta name="twitter:description" content="Transform your business with data-driven SEO strategies.">
-            `;
-            html = html.replace('</head>', `${metaTags}</head>`);
-          }
-          
-          return new Response(html, {
-            status: 200,
-            headers: {
-              "Content-Type": "text/html; charset=utf-8",
-              "X-Fallback": "true",
-            },
-          });
-        }
-      } catch (fallbackErr) {
-        console.error("Fallback also failed:", fallbackErr);
-      }
     }
 
-    // Final minimal fallback for bots: serve simple HTML for any path
+    // Fallback: Try to serve the SPA version and enhance it for bots
+    try {
+      const response = await context.next();
+      if (response.ok) {
+        let html = await response.text();
+        
+        // Enhanced meta tags injection based on path
+        const pathTitle = getPathTitle(urlPath);
+        const pathDescription = getPathDescription(urlPath);
+        
+        // Inject comprehensive SEO meta tags if missing
+        if (!html.includes('<meta property="og:')) {
+          const metaTags = `
+            <meta property="og:title" content="${pathTitle}">
+            <meta property="og:description" content="${pathDescription}">
+            <meta property="og:url" content="${fullUrl}">
+            <meta property="og:type" content="website">
+            <meta property="og:site_name" content="pSEO Agency">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="${pathTitle}">
+            <meta name="twitter:description" content="${pathDescription}">
+            <meta name="twitter:site" content="@pseoagency">
+            <meta name="robots" content="index,follow">
+            <link rel="canonical" href="${fullUrl}">
+            <meta name="description" content="${pathDescription}">
+            <title>${pathTitle}</title>
+          `;
+          html = html.replace('</head>', `${metaTags}</head>`);
+        }
+        
+        return new Response(html, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "X-Bot-Served": "enhanced-spa",
+            "Cache-Control": "public, max-age=180, s-maxage=180",
+          },
+        });
+      }
+    } catch (fallbackErr) {
+      console.error("Enhanced SPA fallback failed:", fallbackErr);
+    }
+
+    // Final minimal fallback for bots: serve structured HTML for any path
+    const pathTitle = getPathTitle(urlPath);
+    const pathDescription = getPathDescription(urlPath);
+    
     const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Bot Pre-rendered Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${pathTitle}</title>
+    <meta name="description" content="${pathDescription}" />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="${fullUrl}" />
+    <meta property="og:title" content="${pathTitle}" />
+    <meta property="og:description" content="${pathDescription}" />
+    <meta property="og:url" content="${fullUrl}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="pSEO Agency" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${pathTitle}" />
+    <meta name="twitter:description" content="${pathDescription}" />
   </head>
   <body>
-    <h1>Bot content for ${urlPath}</h1>
-    <p>This is a minimal fallback served by the edge function.</p>
+    <header>
+      <h1>pSEO Agency - Programmatic SEO Services</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/industries">Industries</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <h1>${pathTitle}</h1>
+      <p>${pathDescription}</p>
+      <p>This page is optimized for search engines. We provide comprehensive programmatic SEO services to help businesses scale their organic traffic through data-driven strategies.</p>
+      ${getPathContent(urlPath)}
+    </main>
+    <footer>
+      <p>&copy; 2024 pSEO Agency. All rights reserved.</p>
+    </footer>
   </body>
 </html>`;
-    return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+    
+    return new Response(html, { 
+      status: 200,
+      headers: { 
+        "Content-Type": "text/html; charset=utf-8",
+        "X-Bot-Served": "minimal-fallback",
+        "Cache-Control": "public, max-age=300, s-maxage=300",
+      } 
+    });
   }
 
   // Handle static assets - let them pass through normally
@@ -257,10 +166,7 @@ export default async (req: Request, context: Context) => {
   }
 
   // Handle SPA routing for human users
-  // For any route that doesn't correspond to a static file, serve index.html
-  // This allows React Router to handle client-side routing
   try {
-    // Try to get the actual file first
     const response = await context.next();
     
     // If we get a 404, serve index.html instead (SPA fallback)
@@ -299,3 +205,92 @@ export default async (req: Request, context: Context) => {
     return context.next();
   }
 };
+
+// Helper functions for path-specific content
+function getPathTitle(path: string): string {
+  const pathMap: Record<string, string> = {
+    '/': 'pSEO Agency - Programmatic SEO Services & Strategy',
+    '/services': 'SEO Services - Data-Driven Strategies | pSEO Agency',
+    '/industries': 'Industry-Specific SEO Solutions | pSEO Agency',
+    '/blog': 'SEO Blog - Latest Strategies & Tips | pSEO Agency',
+    '/contact': 'Contact Us - Get Your SEO Strategy | pSEO Agency',
+    '/about': 'About pSEO Agency - SEO Experts & Team',
+    '/free-strategy': 'Free pSEO Strategy Session | pSEO Agency',
+    '/resources': 'SEO Resources & Tools | pSEO Agency',
+    '/software': 'SEO Software & Tools Reviews | pSEO Agency',
+    '/jobs': 'SEO Careers & Jobs | pSEO Agency',
+    '/results': 'SEO Results & Case Studies | pSEO Agency',
+  };
+  
+  // Check for dynamic routes
+  if (path.startsWith('/services/')) return `${path.split('/')[2]} SEO Services | pSEO Agency`;
+  if (path.startsWith('/industries/')) return `${path.split('/')[2]} SEO Strategy | pSEO Agency`;
+  if (path.startsWith('/blog/')) return `${path.split('/')[2]} | pSEO Agency Blog`;
+  if (path.startsWith('/software/')) return `${path.split('/')[2]} SEO Tool Review | pSEO Agency`;
+  if (path.startsWith('/resources/')) return `${path.split('/')[2]} SEO Resource | pSEO Agency`;
+  
+  return pathMap[path] || `${path} | pSEO Agency - Programmatic SEO Services`;
+}
+
+function getPathDescription(path: string): string {
+  const pathMap: Record<string, string> = {
+    '/': 'Transform your business with data-driven programmatic SEO strategies. We help companies increase organic traffic and revenue through proven SEO techniques.',
+    '/services': 'Comprehensive SEO services including programmatic SEO, technical audits, content strategy, and link building to boost your organic visibility.',
+    '/industries': 'Industry-specific SEO solutions tailored to your business sector. Proven strategies for healthcare, finance, e-commerce, and more.',
+    '/blog': 'Latest SEO strategies, tips, and industry insights from our team of SEO experts. Stay updated with search algorithm changes.',
+    '/contact': 'Get in touch with our SEO experts for a free consultation. Let us help you develop a winning programmatic SEO strategy.',
+    '/about': 'Learn about our team of SEO experts and our mission to help businesses succeed through data-driven SEO strategies.',
+    '/free-strategy': 'Get a free personalized programmatic SEO strategy session. Discover how to 10X your organic traffic.',
+    '/resources': 'Free SEO resources, tools, and guides to help you improve your search engine optimization efforts.',
+    '/software': 'Reviews and comparisons of the best SEO software and tools to help you optimize your website and content.',
+    '/jobs': 'Join our team of SEO experts. Current openings in SEO strategy, content creation, and technical SEO.',
+    '/results': 'See our proven SEO results and case studies. Real businesses, real growth, real ROI.',
+  };
+  
+  return pathMap[path] || `Expert SEO services and strategies for ${path}. Boost your organic traffic with proven programmatic SEO techniques.`;
+}
+
+function getPathContent(path: string): string {
+  if (path.startsWith('/services')) {
+    return `
+      <section>
+        <h2>Our SEO Services</h2>
+        <ul>
+          <li>Programmatic SEO Strategy</li>
+          <li>Technical SEO Audits</li>
+          <li>Content Optimization</li>
+          <li>Link Building</li>
+          <li>Local SEO</li>
+        </ul>
+      </section>
+    `;
+  }
+  
+  if (path.startsWith('/industries')) {
+    return `
+      <section>
+        <h2>Industry Expertise</h2>
+        <ul>
+          <li>Healthcare SEO</li>
+          <li>E-commerce SEO</li>
+          <li>Financial Services SEO</li>
+          <li>Technology SEO</li>
+          <li>Professional Services SEO</li>
+        </ul>
+      </section>
+    `;
+  }
+  
+  return `
+    <section>
+      <h2>Why Choose pSEO Agency?</h2>
+      <ul>
+        <li>Data-driven programmatic SEO strategies</li>
+        <li>Proven track record of success</li>
+        <li>Industry-specific expertise</li>
+        <li>Transparent reporting and analytics</li>
+        <li>Dedicated account management</li>
+      </ul>
+    </section>
+  `;
+}
