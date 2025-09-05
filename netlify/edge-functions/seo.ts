@@ -29,76 +29,11 @@ export default async (req: Request, context: Context) => {
     return context.next();
   }
 
-  // Handle bot traffic for ALL PATHS with comprehensive rendering
+  // Handle bot traffic for ALL PATHS - serve enhanced HTML directly
   if (isBot && wantsHTML) {
     console.log(`Bot detected for path: ${urlPath}`);
     
-    // Check if we're on a publicly accessible domain
-    const hostname = url.hostname;
-    const isPublicDomain = hostname === 'programmaticseo.agency' || 
-                          hostname.endsWith('.programmaticseo.agency') ||
-                          (!hostname.includes('lovable.app') && !hostname.includes('localhost'));
-    
-    console.log(`Domain check - hostname: ${hostname}, isPublicDomain: ${isPublicDomain}`);
-    
-    // Only try Prerender.io for publicly accessible domains
-    if (isPublicDomain) {
-      const prerenderUrl = `https://service.prerender.io/${fullUrl}`;
-      const prerenderToken = "iCYcttsrVusf8Vlp8emm";
-
-      console.log(`Prerender URL: ${prerenderUrl}`);
-
-      try {
-      const prerendered = await fetch(prerenderUrl, {
-        headers: {
-          "User-Agent": userAgent,
-          "X-Prerender-Token": prerenderToken,
-          "X-Forwarded-For": xForwardedFor,
-          "Accept": accept || "text/html",
-          "Accept-Language": req.headers.get("accept-language") || "en-US,en;q=0.9",
-          // Add additional headers that might help with bot detection
-          "Accept-Encoding": req.headers.get("accept-encoding") || "gzip, deflate, br",
-          "Cache-Control": "no-cache",
-        },
-      });
-
-      console.log(`Prerender response status: ${prerendered.status}`);
-      console.log(`Prerender response headers:`, Object.fromEntries(prerendered.headers.entries()));
-
-      if (prerendered.ok) {
-        const html = await prerendered.text();
-        console.log(`Prerender success - HTML length: ${html.length}`);
-        console.log(`Prerender HTML preview: ${html.substring(0, 500)}...`);
-        
-        return new Response(html, {
-          status: 200,
-          headers: {
-            "Content-Type": "text/html; charset=utf-8",
-            "Cache-Control": "public, max-age=300, s-maxage=300",
-            "X-Prerendered": "true",
-            "X-Bot-Served": "prerender",
-            "X-Prerender-Status": prerendered.status.toString(),
-          },
-        });
-      } else {
-        console.error(`Prerender failed with status: ${prerendered.status}`);
-        const errorText = await prerendered.text();
-        console.error(`Prerender error response: ${errorText}`);
-        console.error(`Prerender error headers:`, Object.fromEntries(prerendered.headers.entries()));
-      }
-      } catch (err) {
-        console.error("Prerender fetch failed:", err);
-        console.error("Error details:", {
-          message: err.message,
-          stack: err.stack,
-          name: err.name
-        });
-      }
-    } else {
-      console.log("Skipping Prerender.io for non-public domain (development/staging)");
-    }
-
-    // Fallback: Try to serve the SPA version and enhance it for bots
+    // Serve enhanced HTML directly without Prerender.io dependency
     try {
       const response = await context.next();
       if (response.ok) {
@@ -128,17 +63,19 @@ export default async (req: Request, context: Context) => {
           html = html.replace('</head>', `${metaTags}</head>`);
         }
         
+        console.log(`Enhanced SPA served to bot - HTML length: ${html.length}`);
+        
         return new Response(html, {
           status: 200,
           headers: {
             "Content-Type": "text/html; charset=utf-8",
             "X-Bot-Served": "enhanced-spa",
-            "Cache-Control": "public, max-age=180, s-maxage=180",
+            "Cache-Control": "public, max-age=300, s-maxage=300",
           },
         });
       }
-    } catch (fallbackErr) {
-      console.error("Enhanced SPA fallback failed:", fallbackErr);
+    } catch (enhanceErr) {
+      console.error("Enhanced SPA serving failed:", enhanceErr);
     }
 
     // Final minimal fallback for bots: serve structured HTML for any path
