@@ -99,8 +99,8 @@ export const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-400" />
                   <div className="text-blue-200">
-                    <div>Euregioweg 235</div>
-                    <div>7532 SM Enschede, Netherlands</div>
+                    <div>Brouwerijstraat 1</div>
+                    <div>7523 XC Enschede, Netherlands</div>
                   </div>
                 </div>
               </div>

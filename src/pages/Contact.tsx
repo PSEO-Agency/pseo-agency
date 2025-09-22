@@ -206,8 +206,8 @@ const Contact = () => {
                           <h3 className="font-semibold text-gray-900 mb-1">Office Address</h3>
                           <div className="text-gray-900 font-medium mb-1">
                             <div>Programmatic SEO B.V.</div>
-                            <div>Euregioweg 235</div>
-                            <div>7532 SM Enschede</div>
+                            <div>Brouwerijstraat 1</div>
+                            <div>7523 XC Enschede</div>
                             <div>Netherlands</div>
                           </div>
                           <p className="text-sm text-gray-600">Headquarters</p>
