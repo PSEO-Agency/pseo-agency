@@ -15,6 +15,12 @@
   path = "/*"
   function = "seo"
 
+# SPA redirect rule - must come after edge functions
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 # Sitemap plugin
 [[plugins]]
 package = "@netlify/plugin-sitemap"
