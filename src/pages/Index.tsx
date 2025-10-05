@@ -1,5 +1,4 @@
 
-
 import { Helmet } from "react-helmet";
 import { getCanonicalUrl } from "@/lib/canonical";
 import { Header } from "@/components/Header";
@@ -17,6 +16,7 @@ import { SEOCastSection } from "@/components/SEOCastSection";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { ServiceSocialProof } from "@/components/service/ServiceSocialProof";
 import { Footer } from "@/components/Footer";
+import { useEffect } from "react";
 
 const Index = () => {
   // Create a service object for the social proof section
@@ -24,6 +24,11 @@ const Index = () => {
     title: "Programmatic SEO",
     case_study_ids: null
   };
+
+  // Tell Prerender.io the page is ready (static page loads immediately)
+  useEffect(() => {
+    window.prerenderReady = true;
+  }, []);
 
   return (
     <div className="bg-white">

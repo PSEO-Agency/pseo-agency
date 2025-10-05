@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { MapPin, Clock, Building, DollarSign, Star, Users, Zap, Globe, Heart, Award, Rocket } from "lucide-react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface Job {
   id: string;
@@ -93,6 +94,13 @@ const Jobs = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && jobs) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, jobs]);
 
   if (isLoading) {
     return (

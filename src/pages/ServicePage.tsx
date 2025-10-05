@@ -16,6 +16,7 @@ import { ServiceProcess } from "@/components/service/ServiceProcess";
 import { ServiceSocialProof } from "@/components/service/ServiceSocialProof";
 import { ServiceFAQ } from "@/components/service/ServiceFAQ";
 import { ServiceCTA } from "@/components/service/ServiceCTA";
+import { useEffect } from "react";
 
 const ServicePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -36,6 +37,13 @@ const ServicePage = () => {
     },
     enabled: !!slug,
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && service) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, service]);
 
   if (isLoading) {
     return (

@@ -19,6 +19,7 @@ import { IndustryImpact } from "@/components/industry/IndustryImpact";
 import { IndustrySocialProof } from "@/components/industry/IndustrySocialProof";
 import { IndustryFAQ } from "@/components/industry/IndustryFAQ";
 import { ServiceCTA } from "@/components/service/ServiceCTA";
+import { useEffect } from "react";
 
 const IndustryPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -40,6 +41,13 @@ const IndustryPage = () => {
     },
     enabled: !!slug,
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && industry) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, industry]);
 
   if (isLoading) {
     return (

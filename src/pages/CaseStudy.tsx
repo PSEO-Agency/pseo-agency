@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
 import NotFound from "./NotFound";
+import { useEffect } from "react";
 
 const CaseStudy = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -28,6 +29,13 @@ const CaseStudy = () => {
     },
     enabled: !!slug,
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && caseStudy) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, caseStudy]);
 
   if (isLoading) {
     return (

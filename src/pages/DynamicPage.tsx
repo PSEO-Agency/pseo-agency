@@ -9,6 +9,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
 import { getCanonicalUrl } from "@/lib/canonical";
 import NotFound from "./NotFound";
+import { useEffect } from "react";
 
 const DynamicPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -30,6 +31,13 @@ const DynamicPage = () => {
     },
     enabled: !!slug,
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && page) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, page]);
 
   if (isLoading) {
     return (

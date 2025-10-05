@@ -85,6 +85,13 @@ const BlogPostPage = ({ slug: propSlug }: BlogPostPageProps) => {
     enabled: !!post?.category,
   });
 
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && post) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, post]);
+
   // Reading progress tracker
   useEffect(() => {
     const updateReadingProgress = () => {
