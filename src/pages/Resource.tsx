@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import NotFound from "./NotFound";
+import { useEffect } from "react";
 
 const Resource = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -30,6 +31,13 @@ const Resource = () => {
     },
     enabled: !!slug,
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && resource) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, resource]);
 
   if (isLoading) {
     return (

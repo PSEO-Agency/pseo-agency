@@ -11,6 +11,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star } from "lucide-react";
+import { useEffect } from "react";
 
 const ServicesCollection = () => {
   const { data: services, isLoading } = useQuery({
@@ -25,6 +26,13 @@ const ServicesCollection = () => {
       return data;
     },
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && services) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, services]);
 
   if (isLoading) {
     return (

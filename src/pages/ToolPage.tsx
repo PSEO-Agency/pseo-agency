@@ -14,6 +14,7 @@ import { RelatedSoftware } from "@/components/software/RelatedSoftware";
 import { Badge } from "@/components/ui/badge";
 import { useToolBySlug, useRelatedTools } from "@/hooks/useTools";
 import { useRelatedSoftware } from "@/hooks/useSoftware";
+import { useEffect } from "react";
 
 const ToolPage = () => {
   const { slug } = useParams();
@@ -21,6 +22,13 @@ const ToolPage = () => {
   const { data: tool, isLoading, error } = useToolBySlug(slug!);
   const { data: relatedTools } = useRelatedTools(slug!, tool?.category);
   const { data: relatedSoftware } = useRelatedSoftware(slug!, tool?.category);
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && tool) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, tool]);
 
   if (isLoading) {
     return (

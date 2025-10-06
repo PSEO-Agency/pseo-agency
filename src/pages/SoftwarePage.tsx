@@ -16,6 +16,7 @@ import { SoftwareScreenshots } from "@/components/software/SoftwareScreenshots";
 import { SoftwareImplementation } from "@/components/software/SoftwareImplementation";
 import { useSoftwareBySlug, useRelatedSoftware } from "@/hooks/useSoftware";
 import { useRelatedTools } from "@/hooks/useTools";
+import { useEffect } from "react";
 
 const SoftwarePage = () => {
   const { slug } = useParams();
@@ -23,6 +24,13 @@ const SoftwarePage = () => {
   const { data: software, isLoading, error } = useSoftwareBySlug(slug!);
   const { data: relatedSoftware } = useRelatedSoftware(slug!, software?.category);
   const { data: relatedTools } = useRelatedTools(slug!, software?.category);
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && software) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, software]);
 
   if (isLoading) {
     return (

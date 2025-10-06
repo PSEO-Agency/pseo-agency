@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Download, Clock, BarChart } from "lucide-react";
+import { useEffect } from "react";
 
 const ResourcesCollection = () => {
   const { data: resources, isLoading } = useQuery({
@@ -24,6 +25,13 @@ const ResourcesCollection = () => {
       return data;
     },
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && resources) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, resources]);
 
   if (isLoading) {
     return (

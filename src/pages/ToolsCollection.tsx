@@ -10,6 +10,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Badge } from "@/components/ui/badge";
 import { Wrench, Target, BarChart3, Search } from "lucide-react";
 import { SoftwareCard } from "@/components/software/SoftwareCard";
+import { useEffect } from "react";
 
 const ToolsCollection = () => {
   const { data: tools, isLoading } = useQuery({
@@ -26,6 +27,13 @@ const ToolsCollection = () => {
       return data;
     },
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && tools) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, tools]);
 
   if (isLoading) {
     return (

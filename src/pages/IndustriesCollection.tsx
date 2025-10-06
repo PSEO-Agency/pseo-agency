@@ -10,6 +10,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star } from "lucide-react";
+import { useEffect } from "react";
 
 const IndustriesCollection = () => {
   const { data: industries, isLoading } = useQuery({
@@ -25,6 +26,13 @@ const IndustriesCollection = () => {
       return data;
     },
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && industries) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, industries]);
 
   if (isLoading) {
     return (

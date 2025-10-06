@@ -8,6 +8,7 @@ import { ArrowRight, Calendar, Clock, User, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet";
 import { getCanonicalUrl } from "@/lib/canonical";
+import { useEffect } from "react";
 
 const Blog = () => {
   const { data: blogPosts, isLoading } = useQuery({
@@ -60,6 +61,13 @@ const Blog = () => {
 
   // Combine manual guide with database posts for featured section
   const allFeaturedPosts = [programmaticSeoGuide, ...(featuredPosts || [])].slice(0, 3);
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && blogPosts) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, blogPosts]);
 
   if (isLoading) {
     return (

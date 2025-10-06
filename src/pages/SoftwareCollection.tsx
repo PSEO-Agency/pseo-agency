@@ -10,6 +10,7 @@ import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Badge } from "@/components/ui/badge";
 import { Zap, Target, Code, Globe } from "lucide-react";
 import { SoftwareCard } from "@/components/software/SoftwareCard";
+import { useEffect } from "react";
 
 const SoftwareCollection = () => {
   const { data: software, isLoading } = useQuery({
@@ -26,6 +27,13 @@ const SoftwareCollection = () => {
       return data;
     },
   });
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && software) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, software]);
 
   if (isLoading) {
     return (
