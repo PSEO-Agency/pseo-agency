@@ -22,6 +22,7 @@ const BOT_USER_AGENTS = [
   /w3c_validator/i,
   /ahrefsbot/i,
   /semrushbot/i,
+  /seobilitybot/i,
   /screaming frog/i,
   /crawler/i,
   /spider/i,
