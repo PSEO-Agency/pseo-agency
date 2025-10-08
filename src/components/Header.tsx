@@ -61,6 +61,57 @@ export const Header = () => {
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      {/* Hidden SEO-friendly navigation for crawlers */}
+      <nav aria-label="Site Navigation" className="sr-only">
+        <ul>
+          {/* Services */}
+          <li>
+            <h2>Services</h2>
+            <ul>
+              {services?.map((service) => (
+                <li key={service.id}>
+                  <a href={`/services/${service.slug}`}>{service.title}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {/* Industries */}
+          <li>
+            <h2>Industries</h2>
+            <ul>
+              {industries?.map((industry) => (
+                <li key={industry.id}>
+                  <a href={`/industries/${industry.slug}`}>{industry.name}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {/* Resources */}
+          <li>
+            <h2>Resources</h2>
+            <ul>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/programmatic-seo-guide">The Complete Programmatic SEO Guide</a></li>
+              <li><a href="/software">Software Platforms</a></li>
+              <li><a href="/tools">SEO Tools</a></li>
+            </ul>
+          </li>
+
+          {/* Company */}
+          <li>
+            <h2>Company</h2>
+            <ul>
+              <li><a href="/results">Results</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/jobs">Jobs</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
