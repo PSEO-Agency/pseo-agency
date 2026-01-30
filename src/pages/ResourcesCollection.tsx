@@ -1,6 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -52,6 +53,7 @@ const ResourcesCollection = () => {
       <Helmet>
         <title>Resources - Programmatic SEO Agency</title>
         <meta name="description" content="Access our comprehensive library of SEO resources, guides, templates, and tools to boost your digital marketing efforts." />
+        <link rel="canonical" href={getCanonicalUrl('resources')} />
       </Helmet>
       
       <Header />

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Clock, Building, DollarSign, Star, Users, Zap, Globe, Heart, Award, Rocket } from "lucide-react";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -121,6 +122,7 @@ const Jobs = () => {
       <Helmet>
         <title>SEO Careers & Jobs | Join Our Programmatic SEO Team | pSEO</title>
         <meta name="description" content="Join the future of programmatic SEO. Explore exciting remote-first career opportunities in automated content, enterprise SEO, AI-powered strategies, and scalable optimization." />
+        <link rel="canonical" href={getCanonicalUrl('jobs')} />
       </Helmet>
       
       <Header />

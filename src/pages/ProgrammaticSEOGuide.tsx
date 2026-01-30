@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -221,6 +222,7 @@ const ProgrammaticSEOGuide = () => {
       <Helmet>
         <title>Programmatic SEO Guide 2025: Scale Your Traffic with 10,000+ Pages</title>
         <meta name="description" content="Complete guide to Programmatic SEO in 2025. Learn how to create thousands of SEO-optimized pages automatically and scale your organic traffic by 800%." />
+        <link rel="canonical" href={getCanonicalUrl('programmatic-seo-guide')} />
       </Helmet>
 
       <Header />
