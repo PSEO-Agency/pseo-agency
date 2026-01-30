@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import NotFound from "./NotFound";
@@ -63,6 +64,7 @@ const Resource = () => {
       <Helmet>
         <title>{resource.title} | Resources</title>
         <meta name="description" content={resource.description || `Download ${resource.title}`} />
+        <link rel="canonical" href={getCanonicalUrl(`resources/${slug}`)} />
       </Helmet>
       
       <Header />

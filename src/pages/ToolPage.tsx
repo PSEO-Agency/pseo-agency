@@ -1,6 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -93,6 +94,7 @@ const ToolPage = () => {
       <Helmet>
         <title>{tool.meta_title || `${tool.title} - Professional SEO Tool`}</title>
         <meta name="description" content={tool.meta_description || tool.description || `Learn about ${tool.title} - professional SEO tool for optimization and analysis.`} />
+        <link rel="canonical" href={getCanonicalUrl(`tools/${slug}`)} />
       </Helmet>
       
       <Header />

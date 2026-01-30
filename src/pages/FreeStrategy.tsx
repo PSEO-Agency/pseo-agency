@@ -1,8 +1,10 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,6 +51,11 @@ const FreeStrategy = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Free pSEO Strategy Session | Programmatic SEO Agency</title>
+        <meta name="description" content="Get your free programmatic SEO strategy session. Discover how to 10X your organic traffic with personalized keyword analysis and traffic growth projections." />
+        <link rel="canonical" href={getCanonicalUrl('free-strategy')} />
+      </Helmet>
       <Header />
       
       {/* Hero Section */}

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getCanonicalUrl } from "@/lib/canonical";
 
 export const StrategyCall = () => {
   // Load the external script for the calendar
@@ -21,6 +23,11 @@ export const StrategyCall = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>Schedule Your Free Strategy Call | Programmatic SEO Agency</title>
+        <meta name="description" content="Book a personalized SEO strategy session with our experts. Get actionable insights to grow your organic traffic." />
+        <link rel="canonical" href={getCanonicalUrl('strategy-call')} />
+      </Helmet>
       <Header />
       
       <main className="flex-1 pt-20">

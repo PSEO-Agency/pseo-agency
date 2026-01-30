@@ -1,6 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -135,6 +136,7 @@ const SoftwarePage = () => {
       <Helmet>
         <title>{software.meta_title || `${software.title} - Programmatic SEO Software`}</title>
         <meta name="description" content={software.meta_description || software.description || `Learn about ${software.title} - powerful programmatic SEO software solution.`} />
+        <link rel="canonical" href={getCanonicalUrl(`software/${slug}`)} />
       </Helmet>
       
       <Header />

@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,6 +60,7 @@ const Results = () => {
       <Helmet>
         <title>Proven Results & Case Studies - pSEO | 500%+ Growth Guaranteed</title>
         <meta name="description" content="See real results from our programmatic SEO strategies. 500%+ traffic growth, $50M+ revenue generated, 200+ happy clients. View case studies." />
+        <link rel="canonical" href={getCanonicalUrl('results')} />
       </Helmet>
       
       <Header />
