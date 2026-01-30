@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { getCanonicalUrl } from "@/lib/canonical";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Clock, ArrowRight, Star, MessageSquare, Calendar } from "lucide-react";
@@ -51,6 +52,7 @@ const ThankYou = () => {
         <title>Thank You - Your Request Has Been Received | Programmatic SEO</title>
         <meta name="description" content="Thank you for reaching out! Our team will review your submission and get back to you within 2 hours with personalized SEO insights." />
         <meta name="robots" content="noindex" />
+        <link rel="canonical" href={getCanonicalUrl('thank-you')} />
       </Helmet>
       
       <Header />
