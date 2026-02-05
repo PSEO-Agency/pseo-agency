@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Download, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { CarouselSlide, CarouselSlideData } from './CarouselSlide';
 import { generateCarouselPDF } from '@/lib/generateCarouselPDF';
+import seoWorkflowImage from '@/assets/images/seo-automation-workflow.jpeg';
 
 interface CarouselPreviewProps {
   slides: CarouselSlideData[];
@@ -14,12 +15,24 @@ export const CarouselPreview: React.FC<CarouselPreviewProps> = ({ slides, postSl
   const [isGenerating, setIsGenerating] = useState(false);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Enhance slides with background image for the hook slide
+  const enhancedSlides = slides.map((slide, index) => {
+    if (slide.type === 'hook' && index === 0) {
+      return {
+        ...slide,
+        backgroundImage: seoWorkflowImage,
+        imageOpacity: 0.35,
+      };
+    }
+    return slide;
+  });
+
   const handlePrevSlide = () => {
-    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : slides.length - 1));
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : enhancedSlides.length - 1));
   };
 
   const handleNextSlide = () => {
-    setCurrentSlide((prev) => (prev < slides.length - 1 ? prev + 1 : 0));
+    setCurrentSlide((prev) => (prev < enhancedSlides.length - 1 ? prev + 1 : 0));
   };
 
   const handleDownloadPDF = async () => {
@@ -75,13 +88,13 @@ export const CarouselPreview: React.FC<CarouselPreviewProps> = ({ slides, postSl
         {/* Slide preview (scaled down) */}
         <div className="flex justify-center">
           <div className="transform scale-[0.35] origin-top">
-            <CarouselSlide slide={slides[currentSlide]} />
+            <CarouselSlide slide={enhancedSlides[currentSlide]} />
           </div>
         </div>
 
         {/* Slide indicator */}
         <div className="flex justify-center gap-2 mt-4">
-          {slides.map((_, index) => (
+          {enhancedSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
@@ -95,7 +108,7 @@ export const CarouselPreview: React.FC<CarouselPreviewProps> = ({ slides, postSl
 
       {/* Hidden full-size slides for PDF generation */}
       <div className="fixed left-[-9999px] top-0">
-        {slides.map((slide, index) => (
+        {enhancedSlides.map((slide, index) => (
           <div
             key={index}
             ref={(el) => { slideRefs.current[index] = el; }}
