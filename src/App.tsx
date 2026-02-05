@@ -29,6 +29,8 @@ import { StrategyCall } from "./pages/StrategyCall";
 import ProgrammaticSEOGuide from "./pages/ProgrammaticSEOGuide";
 import DynamicPage from "./pages/DynamicPage";
 import NotFound from "./pages/NotFound";
+import LinkedContent from "./pages/LinkedContent";
+import LinkedContentPost from "./pages/LinkedContentPost";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { ServicesManager } from "./pages/admin/ServicesManager";
@@ -80,6 +82,8 @@ function App() {
               <Route path="/free-strategy" element={<FreeStrategy />} />
               <Route path="/strategy-call" element={<StrategyCall />} />
               <Route path="/programmatic-seo-guide" element={<ProgrammaticSEOGuide />} />
+              <Route path="/linked-content" element={<LinkedContent />} />
+              <Route path="/linked-content/:slug" element={<LinkedContentPost />} />
               
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

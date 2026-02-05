@@ -404,6 +404,51 @@ export type Database = {
         }
         Relationships: []
       }
+      linkedin_posts: {
+        Row: {
+          body: string | null
+          carousel_slides: Json | null
+          created_at: string
+          hashtags: string[] | null
+          hook: string | null
+          id: string
+          images: Json | null
+          is_published: boolean | null
+          slug: string
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          carousel_slides?: Json | null
+          created_at?: string
+          hashtags?: string[] | null
+          hook?: string | null
+          id?: string
+          images?: Json | null
+          is_published?: boolean | null
+          slug: string
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          carousel_slides?: Json | null
+          created_at?: string
+          hashtags?: string[] | null
+          hook?: string | null
+          id?: string
+          images?: Json | null
+          is_published?: boolean | null
+          slug?: string
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       navigation_items: {
         Row: {
           created_at: string | null
