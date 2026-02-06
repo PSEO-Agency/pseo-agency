@@ -138,7 +138,7 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
               <ChevronDown className={`h-4 w-4 transition-transform ${countriesOpen ? 'rotate-180' : ''}`} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              {countries?.map((country) => (
+              {countries?.filter(c => c.is_featured).map((country) => (
                 <Link 
                   key={country.id}
                   to={`/countries/${country.slug}`} 
@@ -148,6 +148,18 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   <span>{country.flag_emoji}</span>
                   {country.name}
                 </Link>
+              ))}
+              {countries?.some(c => !c.is_featured) && (
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-2">Coming Soon</p>
+              )}
+              {countries?.filter(c => !c.is_featured).map((country) => (
+                <span 
+                  key={country.id}
+                  className="flex items-center gap-2 text-gray-400 py-2 text-sm cursor-default"
+                >
+                  <span>{country.flag_emoji}</span>
+                  {country.name}
+                </span>
               ))}
               <Link 
                 to="/countries" 
