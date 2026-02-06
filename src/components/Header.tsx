@@ -90,6 +90,19 @@ export const Header = () => {
             </ul>
           </li>
 
+          {/* Countries */}
+          <li>
+            <h2>Countries</h2>
+            <ul>
+              <li><a href="/countries">All Countries</a></li>
+              {countries?.map((country) => (
+                <li key={country.id}>
+                  <a href={`/countries/${country.slug}`}>{country.name}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+
           {/* Resources */}
           <li>
             <h2>Resources</h2>
