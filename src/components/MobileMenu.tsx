@@ -20,7 +20,14 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [countriesOpen, setCountriesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+  
+  const { data: services } = useServices();
+  const { data: industries } = useIndustries();
+  const { data: software } = useSoftware();
+  const { data: tools } = useTools();
+  const { data: countries } = useCountries();
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
