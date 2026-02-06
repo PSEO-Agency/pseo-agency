@@ -1,0 +1,1 @@
+UPDATE partners SET logo_url = '/lovable-uploads/mediadoctors-logo.png' WHERE slug = 'mediadoctors';
