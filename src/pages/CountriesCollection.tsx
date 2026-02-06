@@ -154,6 +154,7 @@ const CountriesCollection = () => {
         
         {/* Partner Network CTA */}
         <PartnerCTA />
+        <TrustedToolsSection />
       </main>
       
       <Footer />
