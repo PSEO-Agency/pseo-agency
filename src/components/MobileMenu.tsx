@@ -130,30 +130,7 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
 
           {/* Countries Section - Hidden for now */}
 
-          {/* Partners Section */}
-          <Collapsible>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
-              Partners
-              <ChevronDown className="h-4 w-4 transition-transform" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <Link to="/partners" className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" onClick={() => setIsOpen(false)}>
-                All Partners
-              </Link>
-              <Link to="/partners/tech" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Tech Partners
-              </Link>
-              <Link to="/partners/agencies" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Agency Partners
-              </Link>
-              <Link to="/partners/countries" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Country Partners
-              </Link>
-              <Link to="/partners/apply" className="block text-green-700 py-2 text-sm hover:text-green-800 font-semibold" onClick={() => setIsOpen(false)}>
-                Become a Partner →
-              </Link>
-            </CollapsibleContent>
-          </Collapsible>
+          {/* Partners Section - Hidden for now */}
 
           {/* Direct Links */}
           <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
