@@ -45,8 +45,7 @@ const CountriesCollection = () => {
           
           <div className="container mx-auto px-4 relative z-10">
             <Breadcrumbs 
-              items={[{ label: "Countries", href: "/countries" }]} 
-              className="mb-8 text-blue-200/70"
+              items={[{ label: "Countries", href: "/countries" }]}
             />
             
             <div className="max-w-4xl mx-auto text-center">
