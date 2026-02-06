@@ -1,15 +1,25 @@
 import { Country } from "@/hooks/useCountries";
-import * as LucideIcons from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { 
+  Target, Database, Zap, Settings, BarChart3, Globe, TrendingUp, 
+  MapPin, Languages, Users, Briefcase, Scale, Home, DollarSign,
+  ShoppingCart, GraduationCap, Rocket, Building, Plane, Heart,
+  LucideIcon
+} from "lucide-react";
 
 interface CountryUseCasesProps {
   country: Country;
 }
 
+// Map of icon names to components
+const iconMap: Record<string, LucideIcon> = {
+  Target, Database, Zap, Settings, BarChart3, Globe, TrendingUp,
+  MapPin, Languages, Users, Briefcase, Scale, Home, DollarSign,
+  ShoppingCart, GraduationCap, Rocket, Building, Plane, Heart,
+};
+
 // Helper to get icon component from string name
 const getIconComponent = (iconName: string): LucideIcon => {
-  const icons = LucideIcons as Record<string, LucideIcon>;
-  return icons[iconName] || LucideIcons.Target;
+  return iconMap[iconName] || Target;
 };
 
 export const CountryUseCases = ({ country }: CountryUseCasesProps) => {

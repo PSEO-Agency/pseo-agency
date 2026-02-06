@@ -17,6 +17,7 @@ export const Header = () => {
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
+  const { data: countries } = useCountries();
 
   // Fetch featured blog posts for Resources dropdown
   const { data: featuredBlogPosts } = useQuery({
