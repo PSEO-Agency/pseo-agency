@@ -37,7 +37,13 @@ const CountriesCollection = () => {
           name="description" 
           content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." 
         />
-        <link rel="canonical" href={getCanonicalUrl('/countries')} />
+        <meta property="og:title" content="International Programmatic SEO Partners | Programmatic SEO B.V." />
+        <meta property="og:description" content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="International Programmatic SEO Partners | Programmatic SEO B.V." />
+        <meta name="twitter:description" content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." />
+        <link rel="canonical" href={getCanonicalUrl('countries')} />
       </Helmet>
       
       <Header />
