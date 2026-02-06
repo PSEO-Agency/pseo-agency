@@ -72,6 +72,8 @@ function App() {
               <Route path="/services/:slug" element={<ServicePage />} />
               <Route path="/industries" element={<IndustriesCollection />} />
               <Route path="/industries/:slug" element={<IndustryPage />} />
+              <Route path="/countries" element={<CountriesCollection />} />
+              <Route path="/countries/:slug" element={<CountryPage />} />
               <Route path="/software" element={<SoftwareCollection />} />
               <Route path="/software/:slug" element={<SoftwarePage />} />
               <Route path="/tools" element={<ToolsCollection />} />
