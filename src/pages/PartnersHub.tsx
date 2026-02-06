@@ -74,7 +74,7 @@ const PartnersHub = () => {
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
               Our Trusted
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
-                Programmatic SEO Partner
+                Programmatic SEO Partners
               </span>
             </h1>
             <p className="text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
