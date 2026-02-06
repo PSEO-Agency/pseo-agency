@@ -15,6 +15,8 @@ import ServicesCollection from "./pages/ServicesCollection";
 import ServicePage from "./pages/ServicePage";
 import IndustriesCollection from "./pages/IndustriesCollection";
 import IndustryPage from "./pages/IndustryPage";
+import CountriesCollection from "./pages/CountriesCollection";
+import CountryPage from "./pages/CountryPage";
 import SoftwareCollection from "./pages/SoftwareCollection";
 import SoftwarePage from "./pages/SoftwarePage";
 import ToolsCollection from "./pages/ToolsCollection";
