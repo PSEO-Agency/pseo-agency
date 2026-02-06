@@ -145,6 +145,18 @@ export default async (req: Request, context: Context) => {
   </url>`;
     });
 
+    // Add countries
+    countries?.forEach(country => {
+      const lastmod = country.updated_at || currentDate;
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/countries/${country.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+    });
+
     // Add jobs
     jobs?.forEach(job => {
       const lastmod = job.updated_at || currentDate;
