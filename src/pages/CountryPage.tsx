@@ -49,7 +49,7 @@ const CountryPage = () => {
 
   const breadcrumbItems = [
     { label: "Countries", href: "/countries" },
-    { label: country.name }
+    { label: `${country.flag_emoji || ''} ${country.name}`.trim() }
   ];
   
   // LocalBusiness schema for SEO
