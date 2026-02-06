@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { InteractiveGlobe } from "@/components/countries/InteractiveGlobe";
 import { CountryCard } from "@/components/countries/CountryCard";
 import { CountriesBenefits } from "@/components/countries/CountriesBenefits";
 import { PartnerCTA } from "@/components/countries/PartnerCTA";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
 import { useCountries } from "@/hooks/useCountries";
 import { getCanonicalUrl } from "@/lib/canonical";
 import { Globe, ArrowRight, Handshake } from "lucide-react";
@@ -15,6 +17,13 @@ import { useNavigate } from "react-router-dom";
 const CountriesCollection = () => {
   const navigate = useNavigate();
   const { data: countries, isLoading } = useCountries();
+
+  // Tell Prerender.io the page is ready once data is loaded
+  useEffect(() => {
+    if (!isLoading && countries) {
+      window.prerenderReady = true;
+    }
+  }, [isLoading, countries]);
   
   const scrollToGlobe = () => {
     document.getElementById('globe-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -28,7 +37,13 @@ const CountriesCollection = () => {
           name="description" 
           content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." 
         />
-        <link rel="canonical" href={getCanonicalUrl('/countries')} />
+        <meta property="og:title" content="International Programmatic SEO Partners | Programmatic SEO B.V." />
+        <meta property="og:description" content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="International Programmatic SEO Partners | Programmatic SEO B.V." />
+        <meta name="twitter:description" content="Find trusted Programmatic SEO partners around the world. Explore our regional experts and scale organic growth internationally." />
+        <link rel="canonical" href={getCanonicalUrl('countries')} />
       </Helmet>
       
       <Header />
@@ -139,6 +154,7 @@ const CountriesCollection = () => {
         
         {/* Partner Network CTA */}
         <PartnerCTA />
+        <TrustedToolsSection />
       </main>
       
       <Footer />

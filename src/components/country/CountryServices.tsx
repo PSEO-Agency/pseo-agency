@@ -26,10 +26,15 @@ export const CountryServices = ({ country }: CountryServicesProps) => {
   if (!country.services || country.services.length === 0) return null;
   
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-500 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Programmatic SEO Services in {country.name.split('(')[0].trim()}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -44,7 +49,7 @@ export const CountryServices = ({ country }: CountryServicesProps) => {
             return (
               <div 
                 key={index}
-                className="group bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-blue-300 transition-all duration-300"
+                className="group webfx-card p-6"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6 text-white" />

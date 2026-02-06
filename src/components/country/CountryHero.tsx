@@ -1,7 +1,6 @@
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Phone, Star, Users } from "lucide-react";
+import { ArrowRight, Phone, Users } from "lucide-react";
 import { Country } from "@/hooks/useCountries";
 import { useNavigate } from "react-router-dom";
 
@@ -21,13 +20,6 @@ export const CountryHero = ({ country }: CountryHeroProps) => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <Breadcrumbs 
-          items={[
-            { label: "Countries", href: "/countries" },
-            { label: country.name, href: `/countries/${country.slug}` }
-          ]}
-        />
-        
         <div className="max-w-4xl mt-8">
           {/* Partner badge */}
           {country.partner_name && (
