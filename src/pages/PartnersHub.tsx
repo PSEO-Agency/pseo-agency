@@ -72,7 +72,7 @@ const PartnersHub = () => {
               <Users className="w-4 h-4 mr-1 inline" /> Partner Marketplace
             </Badge>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Find a Certified
+              Our Trusted
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
                 Programmatic SEO Partner
               </span>
