@@ -202,6 +202,24 @@ export default async (req: Request, context: Context) => {
       }
     });
 
+    // Add partners
+    const typeRouteMap: Record<string, string> = {
+      tech: 'tech',
+      agency: 'agencies',
+      country: 'countries',
+    };
+    partners?.forEach((partner: any) => {
+      const typeRoute = typeRouteMap[partner.partner_type] || partner.partner_type;
+      const lastmod = partner.updated_at || currentDate;
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/partners/${typeRoute}/${partner.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+    });
+
     sitemap += `
 </urlset>`;
 
