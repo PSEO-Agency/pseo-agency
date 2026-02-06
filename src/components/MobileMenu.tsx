@@ -28,11 +28,6 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const { data: software } = useSoftware();
   const { data: tools } = useTools();
   const { data: countries } = useCountries();
-  
-  const { data: services } = useServices();
-  const { data: industries } = useIndustries();
-  const { data: software } = useSoftware();
-  const { data: tools } = useTools();
 
   // Fetch featured blog posts for Resources section
   const { data: featuredBlogPosts } = useQuery({
