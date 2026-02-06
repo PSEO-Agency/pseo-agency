@@ -4,7 +4,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { InteractiveGlobe } from "@/components/countries/InteractiveGlobe";
 import { CountryCard } from "@/components/countries/CountryCard";
 import { CountriesBenefits } from "@/components/countries/CountriesBenefits";
 import { PartnerCTA } from "@/components/countries/PartnerCTA";
@@ -24,9 +23,12 @@ const CountriesCollection = () => {
       window.prerenderReady = true;
     }
   }, [isLoading, countries]);
+
+  const activeCountries = countries?.filter(c => c.is_featured) || [];
+  const comingSoonCountries = countries?.filter(c => !c.is_featured) || [];
   
-  const scrollToGlobe = () => {
-    document.getElementById('globe-section')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToRegions = () => {
+    document.getElementById('regions-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -84,7 +86,7 @@ const CountriesCollection = () => {
               {/* CTAs */}
               <div className="flex flex-wrap justify-center gap-4">
                 <Button 
-                  onClick={scrollToGlobe}
+                  onClick={scrollToRegions}
                   className="webfx-button-primary px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
                 >
                   Find Your Region
@@ -103,33 +105,15 @@ const CountriesCollection = () => {
           </div>
         </section>
         
-        {/* Interactive Globe Section */}
-        <section id="globe-section" className="py-20 bg-gradient-to-b from-slate-900 to-gray-900">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Select Your Region
-              </h2>
-              <p className="text-blue-200/70 text-lg max-w-2xl mx-auto">
-                Discover local Programmatic SEO experts and tailored growth strategies for your market
-              </p>
-            </div>
-            
-            {!isLoading && countries && (
-              <InteractiveGlobe countries={countries} />
-            )}
-          </div>
-        </section>
-        
-        {/* Available Regions Grid */}
-        <section className="py-20 bg-white">
+        {/* Active Partners Grid */}
+        <section id="regions-section" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Available Regions
+                Active Partners
               </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                Explore our partner network and find the right team for your market
+                Explore our established partner network and find the right team for your market
               </p>
             </div>
             
@@ -141,13 +125,35 @@ const CountriesCollection = () => {
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {countries?.map((country) => (
+                {activeCountries.map((country) => (
                   <CountryCard key={country.id} country={country} />
                 ))}
               </div>
             )}
           </div>
         </section>
+
+        {/* Coming Soon Grid */}
+        {comingSoonCountries.length > 0 && (
+          <section className="py-20 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  Coming Soon
+                </h2>
+                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                  We're expanding! These regions are launching soon — stay tuned.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {comingSoonCountries.map((country) => (
+                  <CountryCard key={country.id} country={country} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
         
         {/* Why International pSEO Works */}
         <CountriesBenefits />

@@ -217,7 +217,7 @@ export const Header = () => {
                       <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">International Partners</h4>
                     </div>
                     <div className="space-y-3">
-                      {countries?.slice(0, Math.ceil((countries?.length || 0) / 2)).map((country) => (
+                      {countries?.filter(c => c.is_featured).map((country) => (
                         <Link 
                           key={country.id}
                           to={`/countries/${country.slug}`} 
@@ -229,15 +229,15 @@ export const Header = () => {
                       ))}
                     </div>
                     <div className="space-y-3">
-                      {countries?.slice(Math.ceil((countries?.length || 0) / 2)).map((country) => (
-                        <Link 
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2">Coming Soon</p>
+                      {countries?.filter(c => !c.is_featured).map((country) => (
+                        <span 
                           key={country.id}
-                          to={`/countries/${country.slug}`} 
-                          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                          className="flex items-center gap-2 text-gray-400 p-2 rounded-lg font-medium cursor-default"
                         >
                           <span>{country.flag_emoji}</span>
                           {country.name}
-                        </Link>
+                        </span>
                       ))}
                     </div>
                     <div className="col-span-full mt-2 pt-3 border-t border-gray-100">
