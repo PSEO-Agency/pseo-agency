@@ -22,7 +22,8 @@ export default async (req: Request, context: Context) => {
       { data: countries },
       { data: jobs },
       { data: pages },
-      { data: teamMembers }
+      { data: teamMembers },
+      { data: partners }
     ] = await Promise.all([
       supabase.from('blog_posts').select('slug, updated_at').eq('is_published', true),
       supabase.from('case_studies').select('slug, updated_at').eq('is_published', true),
@@ -33,7 +34,8 @@ export default async (req: Request, context: Context) => {
       supabase.from('countries').select('slug, updated_at').eq('is_published', true),
       supabase.from('jobs').select('slug, updated_at').eq('is_published', true),
       supabase.from('pages').select('slug, updated_at').eq('is_published', true),
-      supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null)
+      supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null),
+      supabase.from('partners').select('slug, partner_type, updated_at').eq('is_published', true)
     ]);
 
     // Static pages
@@ -50,7 +52,12 @@ export default async (req: Request, context: Context) => {
       { url: '/software', priority: '0.7', changefreq: 'weekly' },
       { url: '/jobs', priority: '0.6', changefreq: 'weekly' },
       { url: '/results', priority: '0.8', changefreq: 'monthly' },
-      { url: '/programmatic-seo-guide', priority: '0.9', changefreq: 'monthly' }
+      { url: '/programmatic-seo-guide', priority: '0.9', changefreq: 'monthly' },
+      { url: '/partners', priority: '0.8', changefreq: 'weekly' },
+      { url: '/partners/tech', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/agencies', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/countries', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/apply', priority: '0.6', changefreq: 'monthly' }
     ];
 
     // Build sitemap XML
@@ -193,6 +200,24 @@ export default async (req: Request, context: Context) => {
     <priority>0.5</priority>
   </url>`;
       }
+    });
+
+    // Add partners
+    const typeRouteMap: Record<string, string> = {
+      tech: 'tech',
+      agency: 'agencies',
+      country: 'countries',
+    };
+    partners?.forEach((partner: any) => {
+      const typeRoute = typeRouteMap[partner.partner_type] || partner.partner_type;
+      const lastmod = partner.updated_at || currentDate;
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/partners/${typeRoute}/${partner.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
     });
 
     sitemap += `

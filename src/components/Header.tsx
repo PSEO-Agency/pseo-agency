@@ -114,6 +114,18 @@ export const Header = () => {
             </ul>
           </li>
 
+          {/* Partners */}
+          <li>
+            <h2>Partners</h2>
+            <ul>
+              <li><a href="/partners">All Partners</a></li>
+              <li><a href="/partners/tech">Tech Partners</a></li>
+              <li><a href="/partners/agencies">Agency Partners</a></li>
+              <li><a href="/partners/countries">Country Partners</a></li>
+              <li><a href="/partners/apply">Become a Partner</a></li>
+            </ul>
+          </li>
+
           {/* Company */}
           <li>
             <h2>Company</h2>
@@ -247,6 +259,54 @@ export const Header = () => {
                       >
                         <Globe className="w-4 h-4" />
                         View All Countries
+                      </Link>
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              {/* Partners Dropdown */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
+                  Partners
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid gap-4 p-6 w-[480px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
+                    <div className="col-span-full mb-2">
+                      <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">Partner Marketplace</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <Link 
+                        to="/partners" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        All Partners
+                      </Link>
+                      <Link 
+                        to="/partners/tech" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        Tech Partners
+                      </Link>
+                      <Link 
+                        to="/partners/agencies" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        Agency Partners
+                      </Link>
+                    </div>
+                    <div className="space-y-3">
+                      <Link 
+                        to="/partners/countries" 
+                        className="block text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                      >
+                        Country Partners
+                      </Link>
+                      <Link 
+                        to="/partners/apply" 
+                        className="block text-green-700 hover:text-green-800 hover:bg-green-50 p-2 rounded-lg transition-all duration-200 font-semibold"
+                      >
+                        Become a Partner →
                       </Link>
                     </div>
                   </div>

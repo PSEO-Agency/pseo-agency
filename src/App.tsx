@@ -33,6 +33,10 @@ import DynamicPage from "./pages/DynamicPage";
 import NotFound from "./pages/NotFound";
 import LinkedContent from "./pages/LinkedContent";
 import LinkedContentPost from "./pages/LinkedContentPost";
+import PartnersHub from "./pages/PartnersHub";
+import PartnerProfile from "./pages/PartnerProfile";
+import PartnerTypePage from "./pages/PartnerTypePage";
+import PartnerApply from "./pages/PartnerApply";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { ServicesManager } from "./pages/admin/ServicesManager";
@@ -88,6 +92,14 @@ function App() {
               <Route path="/programmatic-seo-guide" element={<ProgrammaticSEOGuide />} />
               <Route path="/linked-content" element={<LinkedContent />} />
               <Route path="/linked-content/:slug" element={<LinkedContentPost />} />
+              
+              {/* Partner Routes */}
+              <Route path="/partners" element={<PartnersHub />} />
+              <Route path="/partners/apply" element={<PartnerApply />} />
+              <Route path="/partners/tech" element={<PartnerTypePage />} />
+              <Route path="/partners/agencies" element={<PartnerTypePage />} />
+              <Route path="/partners/countries" element={<PartnerTypePage />} />
+              <Route path="/partners/:type/:slug" element={<PartnerProfile />} />
               
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

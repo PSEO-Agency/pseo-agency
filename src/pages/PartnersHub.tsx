@@ -1,0 +1,149 @@
+import { useState, useMemo, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TrustedToolsSection } from "@/components/TrustedToolsSection";
+import { PartnerCard } from "@/components/partners/PartnerCard";
+import { PartnerFiltersSidebar, type PartnerFilters } from "@/components/partners/PartnerFilters";
+import { usePartners } from "@/hooks/usePartners";
+import { getCanonicalUrl } from "@/lib/canonical";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Users } from "lucide-react";
+
+const defaultFilters: PartnerFilters = { search: '', types: [], regions: [], expertise: [], integrations: [] };
+
+const PartnersHub = () => {
+  const { data: partners, isLoading } = usePartners();
+  const [filters, setFilters] = useState<PartnerFilters>(defaultFilters);
+
+  useEffect(() => {
+    if (!isLoading && partners) {
+      (window as any).prerenderReady = true;
+    }
+  }, [isLoading, partners]);
+
+  const filtered = useMemo(() => {
+    if (!partners) return [];
+    return partners.filter(p => {
+      const search = filters.search.toLowerCase();
+      if (search && ![p.name, p.region, p.short_description, ...(Array.isArray(p.expertise_tags) ? p.expertise_tags : [])]
+        .filter(Boolean).some(v => String(v).toLowerCase().includes(search))) return false;
+      if (filters.types.length && !filters.types.includes(p.partner_type)) return false;
+      if (filters.regions.length && !filters.regions.includes(p.region || '')) return false;
+      if (filters.expertise.length) {
+        const tags = Array.isArray(p.expertise_tags) ? p.expertise_tags : [];
+        if (!filters.expertise.some(e => tags.includes(e))) return false;
+      }
+      if (filters.integrations.length) {
+        const ints = Array.isArray(p.integrations) ? p.integrations : [];
+        if (!filters.integrations.some(i => ints.includes(i))) return false;
+      }
+      return true;
+    });
+  }, [partners, filters]);
+
+  const breadcrumbItems = [{ label: 'Partners', href: '/partners' }];
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Programmatic SEO Partner Marketplace | Programmatic SEO B.V.</title>
+        <meta name="description" content="Explore certified Programmatic SEO partners worldwide. Filter by region, expertise, integrations, and partner type." />
+        <meta property="og:title" content="Programmatic SEO Partner Marketplace | Programmatic SEO B.V." />
+        <meta property="og:description" content="Explore certified Programmatic SEO partners worldwide. Filter by region, expertise, integrations, and partner type." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={getCanonicalUrl('partners')} />
+      </Helmet>
+
+      <Header />
+      <Breadcrumbs items={breadcrumbItems} />
+
+      {/* Hero */}
+      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-10" />
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="bg-blue-100 text-blue-800 mb-6 px-4 py-2 text-sm font-semibold">
+              <Users className="w-4 h-4 mr-1 inline" /> Partner Marketplace
+            </Badge>
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+              Find a Certified
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
+                Programmatic SEO Partner
+              </span>
+            </h1>
+            <p className="text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
+              Our global network of trusted partners helps companies scale SEO growth through automation, AI content, integrations, and local execution.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button
+                className="webfx-button-primary text-lg px-8 py-4 h-auto"
+                onClick={() => document.getElementById('partner-grid')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Browse Partners <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Link to="/partners/apply">
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-4 h-auto">
+                  Apply as Partner
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Search + Filter + Grid */}
+      <section id="partner-grid" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Sidebar */}
+            <aside className="lg:w-72 flex-shrink-0">
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 sticky top-24 shadow-sm">
+                <h3 className="font-bold text-gray-900 mb-4">Filters</h3>
+                <PartnerFiltersSidebar filters={filters} onFiltersChange={setFilters} />
+              </div>
+            </aside>
+
+            {/* Grid */}
+            <div className="flex-grow">
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-gray-600">
+                  <span className="font-semibold text-gray-900">{filtered.length}</span> partner{filtered.length !== 1 ? 's' : ''} found
+                </p>
+              </div>
+
+              {isLoading ? (
+                <div className="flex items-center justify-center py-20">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+                </div>
+              ) : filtered.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-gray-500 text-lg mb-4">No partners match your filters.</p>
+                  <Button variant="outline" onClick={() => setFilters(defaultFilters)}>
+                    Clear Filters
+                  </Button>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filtered.map(p => (
+                    <PartnerCard key={p.id} partner={p} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TrustedToolsSection />
+      <Footer />
+    </div>
+  );
+};
+
+export default PartnersHub;
