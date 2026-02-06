@@ -1,12 +1,13 @@
 
 import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
+import { Phone, Globe } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { MobileMenu } from "./MobileMenu";
 import { useNavigate, Link } from "react-router-dom";
 import { useServices, useIndustries } from "@/hooks/useNavigation";
+import { useCountries } from "@/hooks/useCountries";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -16,6 +17,7 @@ export const Header = () => {
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
+  const { data: countries } = useCountries();
 
   // Fetch featured blog posts for Resources dropdown
   const { data: featuredBlogPosts } = useQuery({
@@ -83,6 +85,19 @@ export const Header = () => {
               {industries?.map((industry) => (
                 <li key={industry.id}>
                   <a href={`/industries/${industry.slug}`}>{industry.name}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {/* Countries */}
+          <li>
+            <h2>Countries</h2>
+            <ul>
+              <li><a href="/countries">All Countries</a></li>
+              {countries?.map((country) => (
+                <li key={country.id}>
+                  <a href={`/countries/${country.slug}`}>{country.name}</a>
                 </li>
               ))}
             </ul>
@@ -185,6 +200,54 @@ export const Header = () => {
                           {industry.name}
                         </Link>
                       ))}
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              {/* Countries Dropdown */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
+                  <Globe className="w-4 h-4 mr-1" />
+                  Countries
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid gap-4 p-6 w-[500px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
+                    <div className="col-span-full mb-2">
+                      <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">International Partners</h4>
+                    </div>
+                    <div className="space-y-3">
+                      {countries?.slice(0, Math.ceil((countries?.length || 0) / 2)).map((country) => (
+                        <Link 
+                          key={country.id}
+                          to={`/countries/${country.slug}`} 
+                          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                        >
+                          <span>{country.flag_emoji}</span>
+                          {country.name}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="space-y-3">
+                      {countries?.slice(Math.ceil((countries?.length || 0) / 2)).map((country) => (
+                        <Link 
+                          key={country.id}
+                          to={`/countries/${country.slug}`} 
+                          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
+                        >
+                          <span>{country.flag_emoji}</span>
+                          {country.name}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="col-span-full mt-2 pt-3 border-t border-gray-100">
+                      <Link 
+                        to="/countries" 
+                        className="flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
+                      >
+                        <Globe className="w-4 h-4" />
+                        View All Countries
+                      </Link>
                     </div>
                   </div>
                 </NavigationMenuContent>

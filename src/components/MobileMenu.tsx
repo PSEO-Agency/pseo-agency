@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Globe } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Link } from "react-router-dom";
 import { useServices, useIndustries } from "@/hooks/useNavigation";
 import { useSoftware } from "@/hooks/useSoftware";
 import { useTools } from "@/hooks/useTools";
+import { useCountries } from "@/hooks/useCountries";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -19,12 +20,14 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [countriesOpen, setCountriesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   
   const { data: services } = useServices();
   const { data: industries } = useIndustries();
   const { data: software } = useSoftware();
   const { data: tools } = useTools();
+  const { data: countries } = useCountries();
 
   // Fetch featured blog posts for Resources section
   const { data: featuredBlogPosts } = useQuery({
@@ -122,6 +125,37 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
                   {industry.name}
                 </Link>
               ))}
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Countries Section */}
+          <Collapsible open={countriesOpen} onOpenChange={setCountriesOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+              <span className="flex items-center gap-2">
+                <Globe className="w-4 h-4" />
+                Countries
+              </span>
+              <ChevronDown className={`h-4 w-4 transition-transform ${countriesOpen ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-4 space-y-2 pt-2">
+              {countries?.map((country) => (
+                <Link 
+                  key={country.id}
+                  to={`/countries/${country.slug}`} 
+                  className="flex items-center gap-2 text-gray-600 py-2 text-sm hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span>{country.flag_emoji}</span>
+                  {country.name}
+                </Link>
+              ))}
+              <Link 
+                to="/countries" 
+                className="block text-blue-600 py-2 text-sm font-medium hover:text-blue-700"
+                onClick={() => setIsOpen(false)}
+              >
+                View All Countries →
+              </Link>
             </CollapsibleContent>
           </Collapsible>
 

@@ -245,6 +245,87 @@ export type Database = {
           },
         ]
       }
+      countries: {
+        Row: {
+          created_at: string | null
+          faqs: Json | null
+          flag_emoji: string | null
+          hero_description: string | null
+          hero_headline: string | null
+          id: string
+          industries: Json | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          keywords: Json | null
+          meta_description: string | null
+          meta_title: string | null
+          name: string
+          partner_contact_url: string | null
+          partner_description: string | null
+          partner_logo_url: string | null
+          partner_name: string | null
+          process_steps: Json | null
+          region: string | null
+          services: Json | null
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+          use_cases: Json | null
+        }
+        Insert: {
+          created_at?: string | null
+          faqs?: Json | null
+          flag_emoji?: string | null
+          hero_description?: string | null
+          hero_headline?: string | null
+          id?: string
+          industries?: Json | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          keywords?: Json | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name: string
+          partner_contact_url?: string | null
+          partner_description?: string | null
+          partner_logo_url?: string | null
+          partner_name?: string | null
+          process_steps?: Json | null
+          region?: string | null
+          services?: Json | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+          use_cases?: Json | null
+        }
+        Update: {
+          created_at?: string | null
+          faqs?: Json | null
+          flag_emoji?: string | null
+          hero_description?: string | null
+          hero_headline?: string | null
+          id?: string
+          industries?: Json | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          keywords?: Json | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name?: string
+          partner_contact_url?: string | null
+          partner_description?: string | null
+          partner_logo_url?: string | null
+          partner_name?: string | null
+          process_steps?: Json | null
+          region?: string | null
+          services?: Json | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+          use_cases?: Json | null
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string

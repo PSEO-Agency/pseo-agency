@@ -19,6 +19,7 @@ export default async (req: Request, context: Context) => {
       { data: resources },
       { data: software },
       { data: industries },
+      { data: countries },
       { data: jobs },
       { data: pages },
       { data: teamMembers }
@@ -29,6 +30,7 @@ export default async (req: Request, context: Context) => {
       supabase.from('resources').select('slug, updated_at').eq('is_published', true),
       supabase.from('software').select('slug, updated_at').eq('is_published', true),
       supabase.from('industries').select('slug, updated_at').eq('is_published', true),
+      supabase.from('countries').select('slug, updated_at').eq('is_published', true),
       supabase.from('jobs').select('slug, updated_at').eq('is_published', true),
       supabase.from('pages').select('slug, updated_at').eq('is_published', true),
       supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null)
@@ -43,6 +45,7 @@ export default async (req: Request, context: Context) => {
       { url: '/blog', priority: '0.8', changefreq: 'daily' },
       { url: '/services', priority: '0.9', changefreq: 'weekly' },
       { url: '/industries', priority: '0.8', changefreq: 'weekly' },
+      { url: '/countries', priority: '0.8', changefreq: 'weekly' },
       { url: '/resources', priority: '0.7', changefreq: 'weekly' },
       { url: '/software', priority: '0.7', changefreq: 'weekly' },
       { url: '/jobs', priority: '0.6', changefreq: 'weekly' },
@@ -136,6 +139,18 @@ export default async (req: Request, context: Context) => {
       sitemap += `
   <url>
     <loc>${baseUrl}/industries/${industry.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+    });
+
+    // Add countries
+    countries?.forEach(country => {
+      const lastmod = country.updated_at || currentDate;
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/countries/${country.slug}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
