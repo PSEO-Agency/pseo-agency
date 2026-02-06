@@ -45,6 +45,7 @@ export default async (req: Request, context: Context) => {
       { url: '/blog', priority: '0.8', changefreq: 'daily' },
       { url: '/services', priority: '0.9', changefreq: 'weekly' },
       { url: '/industries', priority: '0.8', changefreq: 'weekly' },
+      { url: '/countries', priority: '0.8', changefreq: 'weekly' },
       { url: '/resources', priority: '0.7', changefreq: 'weekly' },
       { url: '/software', priority: '0.7', changefreq: 'weekly' },
       { url: '/jobs', priority: '0.6', changefreq: 'weekly' },
