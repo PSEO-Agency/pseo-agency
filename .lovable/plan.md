@@ -1,114 +1,107 @@
 
 
-## Review: Dubai Country Page vs Other Templates -- Issues and Improvements
+## Plan: Add Regions, Remove Globe, Show Active vs Coming Soon
 
-After thorough comparison of the Country page (`/countries/dubai`) against the Industry, Service, and Software page templates, here is a complete list of issues and improvements grouped by priority.
-
----
-
-### Critical Issues
-
-#### 1. Breadcrumb Placement is Inconsistent
-**Problem:** On Industry, Service, and Software pages, the `<Breadcrumbs>` component is rendered **between the Header and the Hero section** at the page level (e.g., `IndustryPage.tsx` line 96: `<Breadcrumbs items={breadcrumbItems} />`). This renders the breadcrumbs on a **light gray background (`bg-gray-50`)** strip.
-
-On the Country page, the breadcrumbs are embedded **inside** the `CountryHero` component, rendered **on top of the dark hero gradient**. This means:
-- The breadcrumb text (dark colors) is nearly invisible against the dark blue hero gradient
-- The breadcrumb styling (`bg-gray-50 py-4` wrapper) clashes visually with the dark hero section
-- It breaks the consistent pattern used across all other templates
-
-**Fix:** Move `<Breadcrumbs>` out of `CountryHero.tsx` and into `CountryPage.tsx`, placing it between `<Header />` and the `<main>` block, matching the Industry/Service/Software pattern.
-
-#### 2. Missing `prerenderReady` Signal
-**Problem:** All other dynamic pages (Industry, Service, Software, Blog, Tools, etc.) include a `useEffect` that sets `window.prerenderReady = true` once data has loaded. This is critical for SEO pre-rendering services.
-
-Both `CountryPage.tsx` and `CountriesCollection.tsx` are missing this entirely.
-
-**Fix:** Add the standard `prerenderReady` useEffect to both pages.
-
-#### 3. Missing Open Graph and Twitter Meta Tags
-**Problem:** The Industry and Service pages include `og:title`, `og:description`, `og:type`, `twitter:card`, `twitter:title`, and `twitter:description` meta tags. The Country page only has `title`, `description`, and `canonical` -- no social sharing tags at all.
-
-**Fix:** Add the complete Open Graph and Twitter meta tag set to `CountryPage.tsx` and `CountriesCollection.tsx`.
+### Overview
+Add new country regions to the database, reorder Netherlands as #1 with a "Headquarters" label, split the grid into "Active Partners" and "Coming Soon" sections, and remove the Interactive Globe section entirely.
 
 ---
 
-### Structural Inconsistencies
+### Step 1: Database Migration
 
-#### 4. Page Wrapper is Different
-**Problem:** Industry, Service, and Software pages use a `<div className="min-h-screen bg-white">` wrapper around the entire page. The Country page uses a bare `<>` fragment.
+Insert new countries and update existing ones. Repurpose `is_featured` to mean "active" (has a live partner page) vs "coming soon".
 
-**Fix:** Wrap `CountryPage.tsx` content in `<div className="min-h-screen bg-white">` for consistency.
+**Active Partners (is_featured = true):**
 
-#### 5. Error State Uses Custom Layout Instead of `NotFound`
-**Problem:** Industry, Service, and Software pages use the shared `<NotFound />` component for error/missing states. The Country page has its own custom 404 layout with a "Back to Countries" button.
+| # | Country | Slug | Flag | Region | Sort Order |
+|---|---------|------|------|--------|------------|
+| 1 | Netherlands | netherlands | NL flag | Europe | 0 |
+| 2 | Dubai (UAE) | dubai | UAE flag | Middle East | 1 |
+| 3 | Belgium | belgium | BE flag | Europe | 2 |
+| 4 | United States | united-states | US flag | North America | 3 |
+| 5 | South Africa | south-africa | ZA flag | Africa | 4 |
+| 6 | Singapore | singapore | SG flag | Asia Pacific | 5 |
 
-**Fix:** Import and use the standard `<NotFound />` component from `src/pages/NotFound.tsx`.
+**Coming Soon (is_featured = false):**
 
-#### 6. Loading State is Inconsistent
-**Problem:** Other pages show a spinning loader (`animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600`) centered on a white/gray background. The Country page uses a pulse animation with rectangles. Also, other pages still render `<TrustedToolsSection />` and `<Footer />` during loading.
+| # | Country | Slug | Flag | Region | Sort Order |
+|---|---------|------|------|--------|------------|
+| 7 | Germany | germany | DE flag | Europe | 10 |
+| 8 | Spain | spain | ES flag | Europe | 11 |
+| 9 | Brazil | brazil | BR flag | South America | 12 |
+| 10 | Romania | romania | RO flag | Europe | 13 |
+| 11 | United Kingdom | united-kingdom | GB flag | Europe | 14 |
+| 12 | Canada | canada | CA flag | North America | 15 |
 
-**Fix:** Match the loading spinner pattern used by Industry/Service pages, and include the `TrustedToolsSection` in the loading state.
-
----
-
-### SEO Improvements
-
-#### 7. FAQ Schema Rendered Incorrectly
-**Problem:** In `CountryFAQ.tsx`, the FAQ schema is injected via a raw `<script>` tag inside the JSX body. This is not rendered in the `<head>` where search engines expect it. Other pages use `react-helmet` for structured data (as seen in `CountryPage.tsx` for the LocalBusiness schema).
-
-**Fix:** Move the FAQ schema into the `<Helmet>` component in `CountryPage.tsx`, or at minimum ensure it is injected via `react-helmet`.
-
-#### 8. Canonical URL Missing Leading Slash Consistency
-**Problem:** Country page uses `getCanonicalUrl('/countries/${country.slug}')` (with leading slash), while the Industry page uses `getCanonicalUrl('industries/${industry.slug}')` (without leading slash). Need to verify `getCanonicalUrl` handles both consistently.
-
-**Fix:** Audit `src/lib/canonical.ts` and standardize the format.
-
----
-
-### Design and UX Improvements
-
-#### 9. Country FAQ Styling Doesn't Match Service/Industry FAQ
-**Problem:** The Service and Industry FAQ sections use:
-- `webfx-card` class for accordion items
-- Background gradient with decorative blurred orbs
-- A pill badge above the heading ("FREQUENTLY ASKED")
-- Larger heading text (`text-4xl lg:text-5xl font-black`)
-
-The Country FAQ uses a simpler design: plain gray-50 backgrounds, smaller headings (`text-2xl md:text-3xl font-bold`), no background effects, no pill badge.
-
-**Fix:** Align the Country FAQ styling to match the established Service/Industry FAQ pattern.
-
-#### 10. Section Heading Sizes Are Smaller
-**Problem:** Industry and Service subpage section headings use `text-4xl lg:text-5xl font-black`. Country subpage headings use `text-2xl md:text-3xl font-bold` -- noticeably smaller and less impactful.
-
-**Fix:** Increase Country section headings to `text-3xl md:text-4xl font-bold` or match the Industry pattern.
-
-#### 11. No Background Decorative Effects on Content Sections
-**Problem:** Industry and Service pages have subtle background orbs and gradient effects on their FAQ, overview, and strategy sections. Country page sections (WhyItWorks, Services, UseCases, Process) have plain white or gray backgrounds without these effects.
-
-**Fix:** Add subtle background decoration to at least the FAQ and Services sections for visual consistency.
-
-#### 12. CountriesCollection Missing `TrustedToolsSection`
-**Problem:** All other collection and subpages include the `<TrustedToolsSection />` before the footer. `CountriesCollection.tsx` does not include it.
-
-**Fix:** Add `<TrustedToolsSection />` before `<Footer />` in the countries collection page.
+**SQL operations:**
+- UPDATE Netherlands: sort_order = 0, is_featured = true
+- UPDATE Dubai: sort_order = 1, is_featured = true (no change)
+- INSERT Belgium: sort_order = 2, is_featured = true, placeholder partner data
+- UPDATE United States: sort_order = 3, is_featured = true
+- INSERT South Africa: sort_order = 4, is_featured = true, placeholder partner data
+- UPDATE Singapore: sort_order = 5, is_featured = true
+- UPDATE Germany: sort_order = 10, is_featured = false
+- INSERT Spain: sort_order = 11, is_featured = false, placeholder data
+- INSERT Brazil: sort_order = 12, is_featured = false, placeholder data
+- INSERT Romania: sort_order = 13, is_featured = false, placeholder data
+- UPDATE United Kingdom: sort_order = 14, is_featured = false
+- INSERT Canada: sort_order = 15, is_featured = false, placeholder data
 
 ---
 
-### Implementation Summary
+### Step 2: Update CountryCard Component
 
-| # | Issue | Severity | Files to Change |
-|---|-------|----------|-----------------|
-| 1 | Breadcrumb placement | Critical | `CountryPage.tsx`, `CountryHero.tsx` |
-| 2 | Missing prerenderReady | Critical | `CountryPage.tsx`, `CountriesCollection.tsx` |
-| 3 | Missing OG/Twitter tags | High | `CountryPage.tsx`, `CountriesCollection.tsx` |
-| 4 | Page wrapper fragment | Medium | `CountryPage.tsx` |
-| 5 | Custom 404 instead of NotFound | Medium | `CountryPage.tsx` |
-| 6 | Loading state inconsistency | Medium | `CountryPage.tsx`, `CountriesCollection.tsx` |
-| 7 | FAQ schema placement | Medium | `CountryFAQ.tsx`, `CountryPage.tsx` |
-| 8 | Canonical URL format | Low | Verify `canonical.ts` |
-| 9 | FAQ styling mismatch | Medium | `CountryFAQ.tsx` |
-| 10 | Section heading sizes | Low | All country subcomponents |
-| 11 | Missing background effects | Low | Country subcomponents |
-| 12 | Missing TrustedTools on collection | Low | `CountriesCollection.tsx` |
+**File:** `src/components/countries/CountryCard.tsx`
+
+Changes:
+- Replace "Featured" star badge with a **"Headquarters"** badge (blue/indigo gradient) when `country.slug === 'netherlands'`
+- For coming soon countries (`is_featured === false`): show a "Coming Soon" badge, grey out the card slightly, and replace the "Explore" CTA button with a disabled "Coming Soon" button
+- For active countries (`is_featured === true`): keep the current design with the "Explore" button
+
+---
+
+### Step 3: Update Countries Collection Page
+
+**File:** `src/pages/CountriesCollection.tsx`
+
+Changes:
+- **Remove** the entire Interactive Globe section (lines 106-122)
+- **Remove** the `InteractiveGlobe` import
+- **Remove** the `scrollToGlobe` function
+- Update the "Find Your Region" primary CTA to scroll to the regions grid instead
+- Split the "Available Regions" grid into two sub-sections:
+  1. **"Active Partners"** -- countries where `is_featured === true`, shown in full color cards
+  2. **"Coming Soon"** -- countries where `is_featured === false`, shown in a slightly muted style
+- Each sub-section gets its own heading
+
+---
+
+### Step 4: Update Navigation Dropdown
+
+**File:** `src/components/Header.tsx`
+
+- In the Countries dropdown, visually distinguish "Coming Soon" countries (add muted text + a small "soon" label next to the name)
+- Keep them clickable only if they have a published page; otherwise show them as non-interactive text
+
+**File:** `src/components/MobileMenu.tsx`
+
+- Same treatment: show all countries with "Coming Soon" label for inactive ones
+
+---
+
+### Step 5: Clean Up Globe Component
+
+Since the globe is no longer used on any page, the `InteractiveGlobe.tsx` file can be kept for now (no active references after import removal) or removed entirely. Will remove the import from `CountriesCollection.tsx` to prevent it from being bundled.
+
+---
+
+### Files Changed
+
+| File | Action | Description |
+|------|--------|-------------|
+| `supabase/migrations/[timestamp].sql` | New | Add/update country records |
+| `src/components/countries/CountryCard.tsx` | Update | HQ badge, coming soon state |
+| `src/pages/CountriesCollection.tsx` | Update | Remove globe, split grid |
+| `src/components/Header.tsx` | Update | Coming soon labels in dropdown |
+| `src/components/MobileMenu.tsx` | Update | Coming soon labels in mobile nav |
 
