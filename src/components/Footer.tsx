@@ -163,6 +163,7 @@ export const Footer = () => {
             <div>
               <h4 className="text-xl font-bold mb-6 text-white">Company</h4>
               <ul className="space-y-3">
+                <li><Link to="/partners" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Partner Marketplace</Link></li>
                 <li><Link to="/about" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">About Us</Link></li>
                 <li><Link to="/jobs" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Careers</Link></li>
                 <li><Link to="/contact" className="text-blue-200 hover:text-white transition-colors duration-200 text-lg">Contact</Link></li>

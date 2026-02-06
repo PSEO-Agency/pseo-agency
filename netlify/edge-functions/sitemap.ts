@@ -52,7 +52,12 @@ export default async (req: Request, context: Context) => {
       { url: '/software', priority: '0.7', changefreq: 'weekly' },
       { url: '/jobs', priority: '0.6', changefreq: 'weekly' },
       { url: '/results', priority: '0.8', changefreq: 'monthly' },
-      { url: '/programmatic-seo-guide', priority: '0.9', changefreq: 'monthly' }
+      { url: '/programmatic-seo-guide', priority: '0.9', changefreq: 'monthly' },
+      { url: '/partners', priority: '0.8', changefreq: 'weekly' },
+      { url: '/partners/tech', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/agencies', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/countries', priority: '0.7', changefreq: 'weekly' },
+      { url: '/partners/apply', priority: '0.6', changefreq: 'monthly' }
     ];
 
     // Build sitemap XML

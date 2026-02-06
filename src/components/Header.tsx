@@ -114,6 +114,18 @@ export const Header = () => {
             </ul>
           </li>
 
+          {/* Partners */}
+          <li>
+            <h2>Partners</h2>
+            <ul>
+              <li><a href="/partners">All Partners</a></li>
+              <li><a href="/partners/tech">Tech Partners</a></li>
+              <li><a href="/partners/agencies">Agency Partners</a></li>
+              <li><a href="/partners/countries">Country Partners</a></li>
+              <li><a href="/partners/apply">Become a Partner</a></li>
+            </ul>
+          </li>
+
           {/* Company */}
           <li>
             <h2>Company</h2>

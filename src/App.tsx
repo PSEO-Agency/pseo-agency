@@ -93,6 +93,14 @@ function App() {
               <Route path="/linked-content" element={<LinkedContent />} />
               <Route path="/linked-content/:slug" element={<LinkedContentPost />} />
               
+              {/* Partner Routes */}
+              <Route path="/partners" element={<PartnersHub />} />
+              <Route path="/partners/apply" element={<PartnerApply />} />
+              <Route path="/partners/tech" element={<PartnerTypePage />} />
+              <Route path="/partners/agencies" element={<PartnerTypePage />} />
+              <Route path="/partners/countries" element={<PartnerTypePage />} />
+              <Route path="/partners/:type/:slug" element={<PartnerProfile />} />
+              
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={
