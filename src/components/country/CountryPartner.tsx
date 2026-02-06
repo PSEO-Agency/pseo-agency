@@ -20,14 +20,19 @@ export const CountryPartner = ({ country }: CountryPartnerProps) => {
   ];
   
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 left-10 w-80 h-80 bg-green-500 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
           Your Trusted Programmatic SEO Partner in {country.name.split('(')[0].trim()}
         </h2>
         
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div className="webfx-card p-8">
             <div className="flex flex-col md:flex-row gap-8 items-start">
               {/* Partner logo/icon */}
               <div className="flex-shrink-0">
