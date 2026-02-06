@@ -128,73 +128,9 @@ export const MobileMenu = ({ onAuditModalOpen }: MobileMenuProps) => {
             </CollapsibleContent>
           </Collapsible>
 
-          {/* Countries Section */}
-          <Collapsible open={countriesOpen} onOpenChange={setCountriesOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
-              <span className="flex items-center gap-2">
-                <Globe className="w-4 h-4" />
-                Countries
-              </span>
-              <ChevronDown className={`h-4 w-4 transition-transform ${countriesOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              {countries?.filter(c => c.is_featured).map((country) => (
-                <Link 
-                  key={country.id}
-                  to={`/countries/${country.slug}`} 
-                  className="flex items-center gap-2 text-gray-600 py-2 text-sm hover:text-blue-600"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span>{country.flag_emoji}</span>
-                  {country.name}
-                </Link>
-              ))}
-              {countries?.some(c => !c.is_featured) && (
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-2">Coming Soon</p>
-              )}
-              {countries?.filter(c => !c.is_featured).map((country) => (
-                <span 
-                  key={country.id}
-                  className="flex items-center gap-2 text-gray-400 py-2 text-sm cursor-default"
-                >
-                  <span>{country.flag_emoji}</span>
-                  {country.name}
-                </span>
-              ))}
-              <Link 
-                to="/countries" 
-                className="block text-blue-600 py-2 text-sm font-medium hover:text-blue-700"
-                onClick={() => setIsOpen(false)}
-              >
-                View All Countries →
-              </Link>
-            </CollapsibleContent>
-          </Collapsible>
+          {/* Countries Section - Hidden for now */}
 
-          {/* Partners Section */}
-          <Collapsible>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-left font-semibold text-gray-800 hover:text-blue-600 transition-colors">
-              Partners
-              <ChevronDown className="h-4 w-4 transition-transform" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pl-4 space-y-2 pt-2">
-              <Link to="/partners" className="block text-gray-600 py-2 text-sm hover:text-blue-600 font-medium" onClick={() => setIsOpen(false)}>
-                All Partners
-              </Link>
-              <Link to="/partners/tech" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Tech Partners
-              </Link>
-              <Link to="/partners/agencies" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Agency Partners
-              </Link>
-              <Link to="/partners/countries" className="block text-gray-600 py-2 text-sm hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                Country Partners
-              </Link>
-              <Link to="/partners/apply" className="block text-green-700 py-2 text-sm hover:text-green-800 font-semibold" onClick={() => setIsOpen(false)}>
-                Become a Partner →
-              </Link>
-            </CollapsibleContent>
-          </Collapsible>
+          {/* Partners Section - Hidden for now */}
 
           {/* Direct Links */}
           <Link to="/results" className="block py-3 font-semibold text-gray-800 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
