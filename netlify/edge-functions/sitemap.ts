@@ -22,7 +22,8 @@ export default async (req: Request, context: Context) => {
       { data: countries },
       { data: jobs },
       { data: pages },
-      { data: teamMembers }
+      { data: teamMembers },
+      { data: partners }
     ] = await Promise.all([
       supabase.from('blog_posts').select('slug, updated_at').eq('is_published', true),
       supabase.from('case_studies').select('slug, updated_at').eq('is_published', true),
@@ -33,7 +34,8 @@ export default async (req: Request, context: Context) => {
       supabase.from('countries').select('slug, updated_at').eq('is_published', true),
       supabase.from('jobs').select('slug, updated_at').eq('is_published', true),
       supabase.from('pages').select('slug, updated_at').eq('is_published', true),
-      supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null)
+      supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null),
+      supabase.from('partners').select('slug, partner_type, updated_at').eq('is_published', true)
     ]);
 
     // Static pages
