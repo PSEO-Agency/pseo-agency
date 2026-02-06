@@ -19,6 +19,7 @@ export default async (req: Request, context: Context) => {
       { data: resources },
       { data: software },
       { data: industries },
+      { data: countries },
       { data: jobs },
       { data: pages },
       { data: teamMembers }
@@ -29,6 +30,7 @@ export default async (req: Request, context: Context) => {
       supabase.from('resources').select('slug, updated_at').eq('is_published', true),
       supabase.from('software').select('slug, updated_at').eq('is_published', true),
       supabase.from('industries').select('slug, updated_at').eq('is_published', true),
+      supabase.from('countries').select('slug, updated_at').eq('is_published', true),
       supabase.from('jobs').select('slug, updated_at').eq('is_published', true),
       supabase.from('pages').select('slug, updated_at').eq('is_published', true),
       supabase.from('team_members').select('slug, updated_at').eq('is_visible', true).not('slug', 'is', null)
