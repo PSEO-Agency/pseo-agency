@@ -49,6 +49,7 @@ const CountriesCollection = () => {
       </Helmet>
       
       <Header />
+      <Breadcrumbs items={[{ label: "Countries" }]} />
       
       <main>
         {/* Hero Section */}
@@ -61,10 +62,6 @@ const CountriesCollection = () => {
           </div>
           
           <div className="container mx-auto px-4 relative z-10">
-            <Breadcrumbs 
-              items={[{ label: "Countries", href: "/countries" }]}
-            />
-            
             <div className="max-w-4xl mx-auto text-center">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-2 mb-6">

@@ -97,7 +97,7 @@ export const Header = () => {
               <li><a href="/countries">All Countries</a></li>
               {countries?.map((country) => (
                 <li key={country.id}>
-                  <a href={`/countries/${country.slug}`}>{country.name}</a>
+                  <a href={`/countries/${country.slug}`}>{country.flag_emoji} {country.name}</a>
                 </li>
               ))}
             </ul>
