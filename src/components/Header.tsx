@@ -1,12 +1,13 @@
 
 import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
+import { Phone, Globe } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { AuditModal } from "./AuditModal";
 import { MobileMenu } from "./MobileMenu";
 import { useNavigate, Link } from "react-router-dom";
 import { useServices, useIndustries } from "@/hooks/useNavigation";
+import { useCountries } from "@/hooks/useCountries";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
