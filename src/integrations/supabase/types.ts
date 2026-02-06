@@ -604,6 +604,84 @@ export type Database = {
         }
         Relationships: []
       }
+      partners: {
+        Row: {
+          case_study_metrics: Json | null
+          contact_url: string | null
+          country_slug: string | null
+          created_at: string | null
+          expertise_tags: Json | null
+          full_description: string | null
+          id: string
+          industries: Json | null
+          integrations: Json | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          logo_url: string | null
+          meta_description: string | null
+          meta_title: string | null
+          name: string
+          partner_type: string
+          region: string | null
+          services_offered: Json | null
+          short_description: string | null
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+          website_url: string | null
+        }
+        Insert: {
+          case_study_metrics?: Json | null
+          contact_url?: string | null
+          country_slug?: string | null
+          created_at?: string | null
+          expertise_tags?: Json | null
+          full_description?: string | null
+          id?: string
+          industries?: Json | null
+          integrations?: Json | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          logo_url?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name: string
+          partner_type?: string
+          region?: string | null
+          services_offered?: Json | null
+          short_description?: string | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          case_study_metrics?: Json | null
+          contact_url?: string | null
+          country_slug?: string | null
+          created_at?: string | null
+          expertise_tags?: Json | null
+          full_description?: string | null
+          id?: string
+          industries?: Json | null
+          integrations?: Json | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          logo_url?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          name?: string
+          partner_type?: string
+          region?: string | null
+          services_offered?: Json | null
+          short_description?: string | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       resources: {
         Row: {
           content: string | null
