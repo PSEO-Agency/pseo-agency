@@ -217,53 +217,7 @@ export const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Countries Dropdown */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
-                  <Globe className="w-4 h-4 mr-1" />
-                  Countries
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid gap-4 p-6 w-[500px] grid-cols-2 bg-white shadow-2xl rounded-2xl border border-gray-100">
-                    <div className="col-span-full mb-2">
-                      <h4 className="font-bold text-gray-900 text-base border-b border-gray-100 pb-2">International Partners</h4>
-                    </div>
-                    <div className="space-y-3">
-                      {countries?.filter(c => c.is_featured).map((country) => (
-                        <Link 
-                          key={country.id}
-                          to={`/countries/${country.slug}`} 
-                          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 font-medium"
-                        >
-                          <span>{country.flag_emoji}</span>
-                          {country.name}
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="space-y-3">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2">Coming Soon</p>
-                      {countries?.filter(c => !c.is_featured).map((country) => (
-                        <span 
-                          key={country.id}
-                          className="flex items-center gap-2 text-gray-400 p-2 rounded-lg font-medium cursor-default"
-                        >
-                          <span>{country.flag_emoji}</span>
-                          {country.name}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="col-span-full mt-2 pt-3 border-t border-gray-100">
-                      <Link 
-                        to="/countries" 
-                        className="flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
-                      >
-                        <Globe className="w-4 h-4" />
-                        View All Countries
-                      </Link>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+              {/* Countries Dropdown - Hidden for now */}
 
               {/* Partners Dropdown */}
               <NavigationMenuItem>
