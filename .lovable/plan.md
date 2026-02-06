@@ -1,107 +1,292 @@
 
 
-## Plan: Add Regions, Remove Globe, Show Active vs Coming Soon
+## Plan: Partner Marketplace System
 
 ### Overview
-Add new country regions to the database, reorder Netherlands as #1 with a "Headquarters" label, split the grid into "Active Partners" and "Coming Soon" sections, and remove the Interactive Globe section entirely.
+Build a complete Partner Marketplace at `/partners/` with search, filtering, partner profiles, category pages, and an application page. This is a new CMS-driven section using the established site patterns (database-backed, React Query hooks, consistent templates).
+
+### Important Design Decision: Relationship with Countries
+
+The existing `/countries/` section already has partner data (partner_name, partner_description, etc.) on a per-country basis. The new Partners system will be a **separate, standalone `partners` table** with richer fields (logo, type, expertise tags, integrations, industries). Country partners can link back to their country page. This avoids breaking the existing countries section.
 
 ---
 
-### Step 1: Database Migration
+### Step 1: Database -- Create `partners` Table
 
-Insert new countries and update existing ones. Repurpose `is_featured` to mean "active" (has a live partner page) vs "coming soon".
+Create a new `partners` table with full marketplace fields:
 
-**Active Partners (is_featured = true):**
+| Column | Type | Purpose |
+|--------|------|---------|
+| id | uuid | Primary key |
+| name | text | Partner display name |
+| slug | text (unique) | URL slug |
+| partner_type | text | "tech", "agency", or "country" |
+| region | text | Geographic region |
+| country_slug | text (nullable) | Links to countries table for country partners |
+| logo_url | text | Partner logo |
+| short_description | text | Card-level description |
+| full_description | text | Full profile description |
+| expertise_tags | jsonb | Array of expertise strings |
+| integrations | jsonb | Array of integration names |
+| industries | jsonb | Array of industry focus areas |
+| services_offered | jsonb | Array of service objects |
+| case_study_metrics | jsonb | Array of proof/metric items |
+| contact_url | text | Partner contact link |
+| website_url | text | Partner website |
+| is_featured | boolean | Highlighted in results |
+| is_published | boolean | Visibility control |
+| sort_order | integer | Display ordering |
+| meta_title | text | SEO title |
+| meta_description | text | SEO description |
+| created_at / updated_at | timestamptz | Timestamps |
 
-| # | Country | Slug | Flag | Region | Sort Order |
-|---|---------|------|------|--------|------------|
-| 1 | Netherlands | netherlands | NL flag | Europe | 0 |
-| 2 | Dubai (UAE) | dubai | UAE flag | Middle East | 1 |
-| 3 | Belgium | belgium | BE flag | Europe | 2 |
-| 4 | United States | united-states | US flag | North America | 3 |
-| 5 | South Africa | south-africa | ZA flag | Africa | 4 |
-| 6 | Singapore | singapore | SG flag | Asia Pacific | 5 |
+RLS policies:
+- Everyone can read published partners
+- Admins can manage all partners
 
-**Coming Soon (is_featured = false):**
-
-| # | Country | Slug | Flag | Region | Sort Order |
-|---|---------|------|------|--------|------------|
-| 7 | Germany | germany | DE flag | Europe | 10 |
-| 8 | Spain | spain | ES flag | Europe | 11 |
-| 9 | Brazil | brazil | BR flag | South America | 12 |
-| 10 | Romania | romania | RO flag | Europe | 13 |
-| 11 | United Kingdom | united-kingdom | GB flag | Europe | 14 |
-| 12 | Canada | canada | CA flag | North America | 15 |
-
-**SQL operations:**
-- UPDATE Netherlands: sort_order = 0, is_featured = true
-- UPDATE Dubai: sort_order = 1, is_featured = true (no change)
-- INSERT Belgium: sort_order = 2, is_featured = true, placeholder partner data
-- UPDATE United States: sort_order = 3, is_featured = true
-- INSERT South Africa: sort_order = 4, is_featured = true, placeholder partner data
-- UPDATE Singapore: sort_order = 5, is_featured = true
-- UPDATE Germany: sort_order = 10, is_featured = false
-- INSERT Spain: sort_order = 11, is_featured = false, placeholder data
-- INSERT Brazil: sort_order = 12, is_featured = false, placeholder data
-- INSERT Romania: sort_order = 13, is_featured = false, placeholder data
-- UPDATE United Kingdom: sort_order = 14, is_featured = false
-- INSERT Canada: sort_order = 15, is_featured = false, placeholder data
+Seed data will include existing country partners (GrowthLab Dubai, etc.) plus tech partner placeholders (Webflow, WordPress, Airtable).
 
 ---
 
-### Step 2: Update CountryCard Component
+### Step 2: React Query Hook
 
-**File:** `src/components/countries/CountryCard.tsx`
+**New file:** `src/hooks/usePartners.tsx`
 
-Changes:
-- Replace "Featured" star badge with a **"Headquarters"** badge (blue/indigo gradient) when `country.slug === 'netherlands'`
-- For coming soon countries (`is_featured === false`): show a "Coming Soon" badge, grey out the card slightly, and replace the "Explore" CTA button with a disabled "Coming Soon" button
-- For active countries (`is_featured === true`): keep the current design with the "Explore" button
-
----
-
-### Step 3: Update Countries Collection Page
-
-**File:** `src/pages/CountriesCollection.tsx`
-
-Changes:
-- **Remove** the entire Interactive Globe section (lines 106-122)
-- **Remove** the `InteractiveGlobe` import
-- **Remove** the `scrollToGlobe` function
-- Update the "Find Your Region" primary CTA to scroll to the regions grid instead
-- Split the "Available Regions" grid into two sub-sections:
-  1. **"Active Partners"** -- countries where `is_featured === true`, shown in full color cards
-  2. **"Coming Soon"** -- countries where `is_featured === false`, shown in a slightly muted style
-- Each sub-section gets its own heading
+```text
+- usePartners(filters?): Fetch all published partners with optional filtering
+- usePartner(slug): Fetch single partner by slug
+- usePartnersByType(type): Fetch partners filtered by type
+- Cache with React Query
+```
 
 ---
 
-### Step 4: Update Navigation Dropdown
+### Step 3: Navigation Updates
 
-**File:** `src/components/Header.tsx`
+**Update:** `src/components/Header.tsx`
 
-- In the Countries dropdown, visually distinguish "Coming Soon" countries (add muted text + a small "soon" label next to the name)
-- Keep them clickable only if they have a published page; otherwise show them as non-interactive text
+Add a "Partners" NavigationMenuItem between "Countries" and "Results" with dropdown:
 
-**File:** `src/components/MobileMenu.tsx`
+```text
+Partners (dropdown)
++---------------------------------+
+| Partner Marketplace             |
++---------------------------------+
+| All Partners    -> /partners/   |
+| Tech Partners   -> /partners/tech/     |
+| Agency Partners -> /partners/agencies/ |
+| Country Partners-> /partners/countries/|
++---------------------------------+
+| Become a Partner -> /partners/apply/   |
++---------------------------------+
+```
 
-- Same treatment: show all countries with "Coming Soon" label for inactive ones
+**Update:** `src/components/MobileMenu.tsx`
+- Add "Partners" collapsible section with the same links
+
+**Update:** `src/components/Footer.tsx`
+- Add "Partners" link in the Company or Resources column
 
 ---
 
-### Step 5: Clean Up Globe Component
+### Step 4: Partner Marketplace Hub Page
 
-Since the globe is no longer used on any page, the `InteractiveGlobe.tsx` file can be kept for now (no active references after import removal) or removed entirely. Will remove the import from `CountriesCollection.tsx` to prevent it from being bundled.
+**New file:** `src/pages/PartnersHub.tsx`
+**URL:** `/partners/`
+
+Page structure:
+1. **Breadcrumbs** (light bg strip, matching all other templates)
+2. **Hero Section** -- Dark gradient with H1: "Find a Certified Programmatic SEO Partner", subtext, two CTAs (Browse Partners, Apply as Partner)
+3. **Search + Filter Section** -- Search bar + filter sidebar (left) with partner grid (right)
+   - Search bar: text input filtering by name, region, expertise
+   - Filter groups: Partner Type (checkboxes), Region (checkboxes), Expertise (checkboxes), Integrations (checkboxes)
+   - All filtering happens client-side with instant updates (no reload)
+4. **Partner Results Grid** -- 3-column responsive grid of partner cards
+5. **TrustedToolsSection + Footer**
 
 ---
 
-### Files Changed
+### Step 5: Partner Card Component
 
-| File | Action | Description |
-|------|--------|-------------|
-| `supabase/migrations/[timestamp].sql` | New | Add/update country records |
-| `src/components/countries/CountryCard.tsx` | Update | HQ badge, coming soon state |
-| `src/pages/CountriesCollection.tsx` | Update | Remove globe, split grid |
-| `src/components/Header.tsx` | Update | Coming soon labels in dropdown |
-| `src/components/MobileMenu.tsx` | Update | Coming soon labels in mobile nav |
+**New file:** `src/components/partners/PartnerCard.tsx`
+
+Card displays:
+- Partner logo (or initials fallback)
+- Partner name
+- Partner type badge (color-coded: blue for Tech, green for Agency, purple for Country)
+- Region badge
+- Short description (2-line clamp)
+- Up to 3 expertise tags
+- "View Partner" button linking to profile
+
+Design: `webfx-card` styling with hover effects, matching CountryCard/SoftwareCard patterns.
+
+---
+
+### Step 6: Partner Profile Page
+
+**New file:** `src/pages/PartnerProfile.tsx`
+**URL:** `/partners/:type/:slug` (e.g., `/partners/countries/dubai`, `/partners/tech/webflow`)
+
+Page structure (following CountryPage/ServicePage template):
+1. **Helmet** with full SEO meta tags, OG tags, Twitter tags, canonical URL, structured data
+2. **Header + Breadcrumbs** (Home > Partners > [Type] > [Partner Name])
+3. **Hero** -- Partner name, type badge, region, CTAs (Contact Partner, Book Joint Call)
+4. **About Partner** -- Full description section
+5. **Partner Specialties** -- Tag grid of expertise
+6. **Supported Integrations** -- Icon/logo grid
+7. **Services Offered** -- Structured service list
+8. **Case Studies / Proof** -- Metric blocks (e.g., "+320% organic growth")
+9. **Region Coverage** -- Text or badge showing areas served
+10. **Final CTA** -- "Work With [Partner] + Programmatic SEO B.V." with dual buttons
+11. **TrustedToolsSection + Footer**
+
+Includes `prerenderReady` signal for SEO crawlers.
+
+---
+
+### Step 7: Partner Type Landing Pages
+
+**New file:** `src/pages/PartnerTypePage.tsx`
+**URLs:** `/partners/tech/`, `/partners/agencies/`, `/partners/countries/`
+
+A reusable template that:
+- Receives the type from the URL parameter
+- Shows a filtered hero (headline/intro varies by type)
+- Renders the same search + filter UI but pre-filtered to that type
+- Uses the same PartnerCard grid
+
+Type-specific content:
+
+| Type | Headline | Intro |
+|------|----------|-------|
+| tech | Technology Partners and Integrations | Explore tools and platforms we integrate with to power scalable Programmatic SEO. |
+| agencies | Agency Delivery Partners | Work with certified agencies delivering Programmatic SEO builds worldwide. |
+| countries | Regional Programmatic SEO Experts | Find trusted local partners in your market. |
+
+---
+
+### Step 8: Partner Application Page
+
+**New file:** `src/pages/PartnerApply.tsx`
+**URL:** `/partners/apply/`
+
+Page structure:
+1. **Hero** -- "Become a Certified Programmatic SEO Partner"
+2. **Benefits Section** -- 3-4 blocks (access methodology, join network, grow agency, co-branded materials)
+3. **Requirements Section** -- What we look for in partners
+4. **Application Form** -- Embedded form (matching the existing wellplan.io form pattern used on Contact and FreeStrategy pages, or a native form with fields: name, company, email, website, type, region, message)
+5. **Footer**
+
+---
+
+### Step 9: Component Library
+
+New components in `src/components/partners/`:
+
+| Component | Purpose |
+|-----------|---------|
+| `PartnerCard.tsx` | Grid card for marketplace listing |
+| `PartnerHero.tsx` | Profile page hero section |
+| `PartnerAbout.tsx` | Full description section |
+| `PartnerSpecialties.tsx` | Expertise tags grid |
+| `PartnerIntegrations.tsx` | Integration logos/icons |
+| `PartnerServices.tsx` | Services offered list |
+| `PartnerProof.tsx` | Case study metrics blocks |
+| `PartnerCTASection.tsx` | Final dual-CTA section |
+| `PartnerFilters.tsx` | Sidebar filter checkboxes |
+| `PartnerSearch.tsx` | Search bar component |
+
+---
+
+### Step 10: App Router Updates
+
+**Update:** `src/App.tsx`
+
+Add routes:
+```text
+/partners/                  -> PartnersHub
+/partners/apply/            -> PartnerApply
+/partners/tech/             -> PartnerTypePage (type="tech")
+/partners/agencies/         -> PartnerTypePage (type="agency")
+/partners/countries/        -> PartnerTypePage (type="country")
+/partners/:type/:slug       -> PartnerProfile
+```
+
+Route ordering matters -- static routes (`apply`, `tech`, `agencies`, `countries`) must come before the dynamic `:type/:slug` catch.
+
+---
+
+### Step 11: SEO Updates
+
+**Update:** `netlify/edge-functions/sitemap.ts`
+- Add `/partners/`, `/partners/tech/`, `/partners/agencies/`, `/partners/countries/`, `/partners/apply/`
+- Dynamically include all published partner profile URLs
+
+**Update:** Header sr-only nav
+- Add Partners section for crawler accessibility
+
+---
+
+### Step 12: Seed Data
+
+Insert initial partners including:
+
+**Country Partners** (linked from existing countries data):
+- Programmatic SEO B.V. (Netherlands, HQ)
+- GrowthLab Dubai (UAE)
+- Scale SEO Partners (USA)
+- Growth Engine SG (Singapore)
+
+**Tech Partners:**
+- Webflow
+- WordPress
+- Airtable
+- n8n
+
+**Agency Partners:**
+- 1-2 placeholder agency entries
+
+---
+
+### File Creation Summary
+
+| File | Type | Description |
+|------|------|-------------|
+| `supabase/migrations/[timestamp].sql` | New | Partners table + RLS + seed data |
+| `src/hooks/usePartners.tsx` | New | React Query hooks |
+| `src/pages/PartnersHub.tsx` | New | Main marketplace page |
+| `src/pages/PartnerProfile.tsx` | New | Individual partner page |
+| `src/pages/PartnerTypePage.tsx` | New | Category landing pages |
+| `src/pages/PartnerApply.tsx` | New | Application page |
+| `src/components/partners/PartnerCard.tsx` | New | Card component |
+| `src/components/partners/PartnerHero.tsx` | New | Profile hero |
+| `src/components/partners/PartnerAbout.tsx` | New | About section |
+| `src/components/partners/PartnerSpecialties.tsx` | New | Expertise tags |
+| `src/components/partners/PartnerIntegrations.tsx` | New | Integration grid |
+| `src/components/partners/PartnerServices.tsx` | New | Services list |
+| `src/components/partners/PartnerProof.tsx` | New | Metrics/proof |
+| `src/components/partners/PartnerCTASection.tsx` | New | Final CTA |
+| `src/components/partners/PartnerFilters.tsx` | New | Filter sidebar |
+| `src/components/partners/PartnerSearch.tsx` | New | Search bar |
+| `src/components/Header.tsx` | Update | Partners dropdown |
+| `src/components/MobileMenu.tsx` | Update | Partners mobile menu |
+| `src/components/Footer.tsx` | Update | Partners link |
+| `src/App.tsx` | Update | Partner routes |
+| `netlify/edge-functions/sitemap.ts` | Update | Partner URLs |
+
+---
+
+### Design Consistency
+
+All components follow established patterns:
+- **Gradients:** `from-slate-900 via-blue-900 to-indigo-900` for heroes
+- **Cards:** `rounded-2xl border hover:shadow-xl` pattern
+- **Badges:** Color-coded by partner type (blue=tech, green=agency, purple=country)
+- **CTAs:** `webfx-button-primary` gradient buttons
+- **Typography:** `text-3xl md:text-4xl font-bold` for section headings
+- **Breadcrumbs:** Placed between Header and Hero on `bg-gray-50` strip
+- **SEO:** Full Helmet with OG/Twitter tags, canonical URLs, prerenderReady signal
+- **Loading:** Standard spinning loader with TrustedToolsSection visible
+- **Error:** Standard NotFound component
 
